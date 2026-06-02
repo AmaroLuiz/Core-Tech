@@ -29,7 +29,6 @@ public class Usuario {
     @Column(name = "senha")
     private String senha;
 
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private List<Endereco> enderecos;
