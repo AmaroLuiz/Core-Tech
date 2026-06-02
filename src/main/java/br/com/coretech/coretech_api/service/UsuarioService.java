@@ -3,6 +3,7 @@ package br.com.coretech.coretech_api.service;
 
 import br.com.coretech.coretech_api.infraestructure.entity.Usuario;
 import br.com.coretech.coretech_api.infraestructure.exceptions.ConflictExceptions;
+import br.com.coretech.coretech_api.infraestructure.exceptions.ResourceNotFoundException;
 import br.com.coretech.coretech_api.infraestructure.repository.UsuarioRepository;
 import br.com.coretech.coretech_api.service.dto.UsuarioDTO;
 import br.com.coretech.coretech_api.service.mapper.UsuarioConverter;
@@ -44,5 +45,17 @@ public class UsuarioService {
     public boolean verificarEmail(String email){
         return usuarioRepository.existsByEmail(email);
     }
-
+    
+    
+    public UsuarioDTO buscarUsuarioPorEmail(String email){
+        try {
+            return usuarioConverter.paraUsuarioDTO(
+                    usuarioRepository.findByEmail(email)
+                        .orElseThrow(
+                    () ->  new ResourceNotFoundException("Email não encontrado" +  email))
+        );
+        } catch (ResourceNotFoundException e){
+            throw new ResourceNotFoundException("Email não encontrado"+ email);
+        }
+    }
 }
