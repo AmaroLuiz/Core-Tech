@@ -17,10 +17,10 @@ public class Telefone {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "telefone")
+    @Column(name = "telefone", length = 10, nullable = false)
     private String telefone;
 
-    @Column(name = "ddd")
+    @Column(name = "ddd", length = 3, nullable = false)
     private String ddd;
 
     @JoinColumn(name = "usuario_id")

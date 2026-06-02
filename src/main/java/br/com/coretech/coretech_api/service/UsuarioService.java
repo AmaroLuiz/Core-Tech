@@ -2,8 +2,10 @@ package br.com.coretech.coretech_api.service;
 
 
 import br.com.coretech.coretech_api.infraestructure.entity.Usuario;
+import br.com.coretech.coretech_api.infraestructure.exceptions.ConflictExceptions;
 import br.com.coretech.coretech_api.infraestructure.repository.UsuarioRepository;
 import br.com.coretech.coretech_api.service.dto.UsuarioDTO;
+import br.com.coretech.coretech_api.service.mapper.UsuarioConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,17 +15,34 @@ import org.springframework.stereotype.Service;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
-
-    public Usuario salvar(UsuarioDTO usuarioDTO) {
-
-        try{
+    private final UsuarioConverter usuarioConverter;
 
 
+    public UsuarioDTO salvaUsuario(UsuarioDTO usuarioDTO) {
+        emailExiste(usuarioDTO.getEmail());
 
+        Usuario usuario = usuarioConverter.paraUsuarioEntity(usuarioDTO);
 
-        } catch (RuntimeException ex) {
-
-        }
+        return usuarioConverter.paraUsuarioDTO(
+              usuarioRepository.save(usuario)
+        );
 
     }
+
+    public void emailExiste(String email){
+        try{
+            boolean existe =  verificarEmail(email);
+            if(existe){
+                throw new ConflictExceptions("Email já casdastrado" + email);
+            } else{
+
+            }
+        } catch (ConflictExceptions e){
+            throw new RuntimeException("Email já cadastrado", e.getCause());
+        }
+    }
+    public boolean verificarEmail(String email){
+        return usuarioRepository.existsByEmail(email);
+    }
+
 }
