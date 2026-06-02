@@ -37,4 +37,10 @@ public class UsuarioControlller {
         );
         return "Bearer " + jwtUtil.generateToken(authentication.getName());
     }
+
+    @DeleteMapping("/{email}")
+    public ResponseEntity<Void> deletarUsuarioPorEmail(@PathVariable String email) {
+        usuarioService.deletaUsuarioPorEmail(email);
+        return ResponseEntity.ok().build();
+    }
 }
