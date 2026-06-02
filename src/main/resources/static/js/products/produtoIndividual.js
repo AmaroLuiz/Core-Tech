@@ -1,4 +1,4 @@
-import { produtos, categorias } from "../js/allproducts.js";
+import { produtos, categorias } from "./allproducts.js";
 
 
 const divElements = document.getElementById("product-page");
