@@ -91,8 +91,6 @@ nav ul li a:hover {
     overflow: hidden;
 }
 
-/* glow laranja */
-
 .footer-glow {
     position: absolute;
 
@@ -111,8 +109,6 @@ nav ul li a:hover {
     pointer-events: none;
 }
 
-/* conteúdo */
-
 .footer-content {
     position: relative;
 
@@ -123,8 +119,6 @@ nav ul li a:hover {
 
     gap: 60px;
 }
-
-/* marca */
 
 .footer-brand h2 {
     font-size: 2.5rem;
@@ -138,8 +132,6 @@ nav ul li a:hover {
 
     max-width: 400px;
 }
-
-/* links */
 
 .footer-links,
 .footer-contact {
@@ -172,15 +164,11 @@ nav ul li a:hover {
     transform: translateX(4px);
 }
 
-/* contato */
-
 .footer-contact p {
     color: rgba(255,255,255,0.7);
 
     margin-bottom: 14px;
 }
-
-/* social */
 
 .footer-social {
     display: flex;
@@ -216,8 +204,6 @@ nav ul li a:hover {
     transform: translateY(-4px) scale(1.05);
 }
 
-/* linha */
-
 .footer-line {
     margin-top: 70px;
 
@@ -226,8 +212,6 @@ nav ul li a:hover {
 
     background: rgba(255,255,255,0.1);
 }
-
-/* bottom */
 
 .footer-bottom {
     margin-top: 30px;
