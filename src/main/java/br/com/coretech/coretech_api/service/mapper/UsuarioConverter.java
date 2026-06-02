@@ -7,12 +7,14 @@ import br.com.coretech.coretech_api.service.dto.EnderecoDTO;
 import br.com.coretech.coretech_api.service.dto.TelefoneDTO;
 import br.com.coretech.coretech_api.service.dto.UsuarioDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UsuarioConverter {
 
+    @Mapping(source = "id", target = "id")
     Usuario paraUsuarioEntity(UsuarioDTO usuarioDTO);
 
     UsuarioDTO paraUsuarioDTO(Usuario usuario);

@@ -3,7 +3,11 @@ package br.com.coretech.coretech_api.infraestructure.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.jspecify.annotations.Nullable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -14,7 +18,7 @@ import java.util.List;
 @Table( name = "usuario")
 @Entity
 
-public class Usuario {
+public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +30,7 @@ public class Usuario {
     @Column(name = "nome", length = 150, nullable = false)
     private String nome;
 
-    @Column(name = "senha", length = 12, nullable = false)
+    @Column(name = "senha", nullable = false)
     private String senha;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -38,4 +42,18 @@ public class Usuario {
     private List<Telefone> telefones;
 
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public @Nullable String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
 }
