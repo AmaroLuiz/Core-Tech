@@ -38,7 +38,7 @@ public class Endereco {
     private String complemento;
 
     @Column(name = "usuario_id")
-    private Long usuario_id;
+    private Long usuario;
 
 
     @OneToMany(cascade = CascadeType.ALL)

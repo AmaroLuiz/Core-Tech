@@ -1,8 +1,13 @@
 package br.com.coretech.coretech_api.controller;
 
+import br.com.coretech.coretech_api.infraestructure.entity.Endereco;
+import br.com.coretech.coretech_api.infraestructure.entity.Telefone;
 import br.com.coretech.coretech_api.infraestructure.security.JwtUtil;
 import br.com.coretech.coretech_api.service.UsuarioService;
+import br.com.coretech.coretech_api.service.dto.EnderecoDTO;
+import br.com.coretech.coretech_api.service.dto.TelefoneDTO;
 import br.com.coretech.coretech_api.service.dto.UsuarioDTO;
+import br.com.coretech.coretech_api.service.mapper.UsuarioConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +23,7 @@ public class UsuarioControlller {
     private final UsuarioService usuarioService;
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
+    private final UsuarioConverter usuarioConverter;
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvaUsuario(@RequestBody UsuarioDTO usuarioDTO) {
@@ -43,4 +49,28 @@ public class UsuarioControlller {
         usuarioService.deletaUsuarioPorEmail(email);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping
+    public ResponseEntity<UsuarioDTO> atualizarUsuario(@RequestBody UsuarioDTO usuarioDTO,
+                                                       @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(usuarioService.atualizarUsuario(usuarioDTO, token));
+    }
+
+
+    @PutMapping("/endereco")
+    public ResponseEntity<Endereco> atualizarEndereco(@RequestBody EnderecoDTO enderecoDTO,
+                                                       @RequestParam("id") Long id,
+                                                       @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(usuarioService.atualizarEndereco(enderecoDTO, id, token));
+    }
+
+    @PutMapping("/telefone")
+    public ResponseEntity<Telefone> atualizarTelefone(@RequestBody TelefoneDTO telefoneDTO,
+                                                      @RequestParam("id") Long id,
+                                                      @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(usuarioService.atualizarTelefone(telefoneDTO, id, token));
+    }
+
+
+
 }

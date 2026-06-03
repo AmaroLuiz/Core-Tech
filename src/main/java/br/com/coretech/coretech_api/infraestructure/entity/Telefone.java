@@ -23,7 +23,7 @@ public class Telefone {
     @Column(name = "ddd", length = 3, nullable = false)
     private String ddd;
 
-    @JoinColumn(name = "usuario_id")
-    private Long usuario_id;
+    @Column(name = "usuario_id")
+    private Long usuario;
 
 }
