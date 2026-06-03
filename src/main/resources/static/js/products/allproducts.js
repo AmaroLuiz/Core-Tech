@@ -40,7 +40,7 @@ const produtos = [
         nome: "Chaveiro Cachorro",
         preco: 19.99,
         descricao: "Chaveiro impresso em 3D com formato de cachorro.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -49,7 +49,7 @@ const produtos = [
         nome: "Chaveiro Gato",
         preco: 19.99,
         descricao: "Chaveiro impresso em 3D com formato de gato.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -58,7 +58,7 @@ const produtos = [
         nome: "Chaveiro Capivara",
         preco: 24.99,
         descricao: "Chaveiro personalizado com formato de capivara.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -67,7 +67,7 @@ const produtos = [
         nome: "Dragão Articulado",
         preco: 49.99,
         descricao: "Dragão flexível com múltiplas articulações.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -76,7 +76,7 @@ const produtos = [
         nome: "Tubarão Articulado",
         preco: 39.99,
         descricao: "Tubarão articulado impresso em 3D.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -85,7 +85,7 @@ const produtos = [
         nome: "Axolote Articulado",
         preco: 34.99,
         descricao: "Axolote articulado colorido e flexível.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -94,7 +94,7 @@ const produtos = [
         nome: "Vaso Geométrico",
         preco: 29.99,
         descricao: "Vaso decorativo com design geométrico minimalista.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -103,7 +103,7 @@ const produtos = [
         nome: "Suporte para Celular",
         preco: 24.99,
         descricao: "Suporte minimalista para smartphones.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -112,7 +112,7 @@ const produtos = [
         nome: "Porta-Lápis Moderno",
         preco: 34.99,
         descricao: "Organizador de mesa moderno e funcional.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -121,7 +121,7 @@ const produtos = [
         nome: "Funko Robô",
         preco: 49.99,
         descricao: "Miniatura inspirada em robótica no estilo Funko.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -130,7 +130,7 @@ const produtos = [
         nome: "Funko Astronauta",
         preco: 54.99,
         descricao: "Astronauta colecionável produzido em impressora 3D.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -139,7 +139,7 @@ const produtos = [
         nome: "Funko Programador",
         preco: 59.99,
         descricao: "Boneco inspirado no universo da programação.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -148,7 +148,7 @@ const produtos = [
         nome: "Trator Agrícola",
         preco: 79.99,
         descricao: "Miniatura detalhada de trator agrícola.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -157,7 +157,7 @@ const produtos = [
         nome: "Colheitadeira",
         preco: 89.99,
         descricao: "Modelo colecionável de colheitadeira agrícola.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -166,7 +166,7 @@ const produtos = [
         nome: "Pulverizador Agrícola",
         preco: 74.99,
         descricao: "Miniatura agrícola produzida em impressora 3D.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -175,7 +175,7 @@ const produtos = [
         nome: "Suporte para ESP32",
         preco: 14.99,
         descricao: "Base impressa em 3D para fixação e organização de placas ESP32.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -184,7 +184,7 @@ const produtos = [
         nome: "Caixa para Arduino Uno",
         preco: 24.99,
         descricao: "Case protetora para Arduino Uno com acesso às portas e conexões.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     },
 
     {
@@ -193,7 +193,7 @@ const produtos = [
         nome: "Suporte para Sensor",
         preco: 12.99,
         descricao: "Suporte para montagem de sensores ultrassônicos em projetos de robótica.",
-        imagem: "../imagens/gato.webp"
+        imagem: "../static/imagens/gato.webp"
     }
 
 ];

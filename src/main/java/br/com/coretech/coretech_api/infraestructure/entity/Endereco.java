@@ -1,0 +1,48 @@
+package br.com.coretech.coretech_api.infraestructure.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Table( name = "endereco")
+@Entity
+
+public class Endereco {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "estado", length = 2,  nullable = false)
+    private String estado;
+
+    @Column(name = "cidade", length = 100,  nullable = false)
+    private String cidade;
+
+    @Column(name = "cep", length = 8,   nullable = false)
+    private String cep;
+
+    @Column(name = "rua", length = 100,  nullable = false)
+    private String rua;
+
+    @Column(name = "numero",  length = 10,    nullable = false)
+    private String numero;
+
+    @Column(name = "complemento",  length = 50,   nullable = false)
+    private String complemento;
+
+    @Column(name = "usuario_id")
+    private Long usuario;
+
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private List<Telefone> telefones;
+
+}
