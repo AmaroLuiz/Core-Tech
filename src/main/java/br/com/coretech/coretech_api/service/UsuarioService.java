@@ -84,7 +84,7 @@ public class UsuarioService {
             usuarioRepository.deleteByEmail(email);
     }
 
-    public UsuarioDTO atualizarUsuario(UsuarioDTO usuarioDTO, String token) {
+    public UsuarioDTO atualizarUsuario(UsuarioDTO usuarioDTO) {
 
         String email = getUsuarioAutenticadoEmail();
 
@@ -121,7 +121,7 @@ public class UsuarioService {
         return usuarioConverter.paraEnderecoDTO(enderecoRepository.save(endereco));
     }
 
-    public TelefoneDTO atualizarTelefone(TelefoneDTO telefoneDTO, Long id, String token) {
+    public TelefoneDTO atualizarTelefone(TelefoneDTO telefoneDTO, Long id) {
 
         String email = getUsuarioAutenticadoEmail();
 
@@ -152,5 +152,7 @@ public class UsuarioService {
         String email = authentication.getName();
         return email;
     }
+
+
 
 }

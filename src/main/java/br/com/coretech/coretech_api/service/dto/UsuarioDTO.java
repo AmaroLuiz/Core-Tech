@@ -24,7 +24,7 @@ public class UsuarioDTO {
     @NotNull
     private String nome;
 
-    @NotBlank(message = "Nome é obrigatório")
+    @NotBlank(message = "Email é obrigatório")
     @Email(message = "Email inválido")
     @NotNull
     private String email;
@@ -33,9 +33,8 @@ public class UsuarioDTO {
     @NotBlank(message = "Senha é obrigatório")
     @NotNull
     @Size(min = 6, max = 100,
-            message = "Senha deve ter entre 6 e 16 caracteres")
+            message = "Senha deve ter entre 6 e 100 caracteres")
     private String senha;
-
 
     private List<EnderecoDTO> enderecos;
     private List<TelefoneDTO> telefones;
