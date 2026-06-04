@@ -3,6 +3,8 @@ package br.com.coretech.coretech_api.infraestructure.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,4 +22,8 @@ public class Categoria {
 
     @Column(name = "slug", nullable = false)
     private String slug;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private List<Categoria> categoria;
 }
