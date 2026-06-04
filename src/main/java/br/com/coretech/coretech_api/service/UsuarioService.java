@@ -5,7 +5,9 @@ import br.com.coretech.coretech_api.infraestructure.entity.Endereco;
 import br.com.coretech.coretech_api.infraestructure.entity.Telefone;
 import br.com.coretech.coretech_api.infraestructure.entity.Usuario;
 import br.com.coretech.coretech_api.infraestructure.exceptions.ConflictExceptions;
+import br.com.coretech.coretech_api.infraestructure.exceptions.EmailAlreadyExistsException;
 import br.com.coretech.coretech_api.infraestructure.exceptions.ResourceNotFoundException;
+import br.com.coretech.coretech_api.infraestructure.exceptions.UserOwnershipException;
 import br.com.coretech.coretech_api.infraestructure.repository.EnderecoRepository;
 import br.com.coretech.coretech_api.infraestructure.repository.TelefoneRepository;
 import br.com.coretech.coretech_api.infraestructure.repository.UsuarioRepository;
@@ -53,12 +55,12 @@ public class UsuarioService {
         try{
             boolean existe =  verificarEmail(email);
             if(existe){
-                throw new ConflictExceptions("Email já casdastrado" + email);
+                throw new EmailAlreadyExistsException("Email já casdastrado" + email);
             } else{
 
             }
-        } catch (ConflictExceptions e){
-            throw new RuntimeException("Email já cadastrado", e.getCause());
+        } catch (EmailAlreadyExistsException e){
+            throw new EmailAlreadyExistsException("Email já cadastrado", e.getCause());
         }
     }
     public boolean verificarEmail(String email){
@@ -113,7 +115,7 @@ public class UsuarioService {
         );
 
         if (!enderecoEntity.getUsuario().getId().equals(usuario.getId()) ) {
-            throw new ConflictExceptions("Id não pertence ao usuario" + id);
+            throw new UserOwnershipException("Id não pertence ao usuario" + id);
         }
 
         Endereco endereco = usuarioConverter.updateEndereco(enderecoDTO, enderecoEntity);
@@ -134,7 +136,7 @@ public class UsuarioService {
         );
 
         if (!telefoneEntity.getUsuario().getId().equals(usuario.getId()) ) {
-            throw new ConflictExceptions("Id não pertence ao usuario" + id);
+            throw new UserOwnershipException("Id não pertence ao usuario" + id);
         }
 
         Telefone telefone = usuarioConverter.updateTelefone(telefoneDTO, telefoneEntity);
