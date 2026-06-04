@@ -1,7 +1,5 @@
 package br.com.coretech.coretech_api.service.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -13,7 +11,7 @@ import org.hibernate.validator.constraints.UniqueElements;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Categoria {
+public class CategoriaDTO {
 
     private Long id;
 

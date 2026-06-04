@@ -25,5 +25,5 @@ public class Categoria {
 
     @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "categoria_id", nullable = false)
-    private List<Categoria> categoria;
+    private List<Produto> produtos;
 }
