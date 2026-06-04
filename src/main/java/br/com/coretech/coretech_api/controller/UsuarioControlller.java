@@ -8,6 +8,7 @@ import br.com.coretech.coretech_api.service.dto.EnderecoDTO;
 import br.com.coretech.coretech_api.service.dto.TelefoneDTO;
 import br.com.coretech.coretech_api.service.dto.UsuarioDTO;
 import br.com.coretech.coretech_api.service.mapper.UsuarioConverter;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,7 +27,7 @@ public class UsuarioControlller {
     private final UsuarioConverter usuarioConverter;
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> salvaUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<UsuarioDTO> salvaUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.ok(usuarioService.salvaUsuario(usuarioDTO));
     }
 
@@ -51,21 +52,21 @@ public class UsuarioControlller {
     }
 
     @PutMapping
-    public ResponseEntity<UsuarioDTO> atualizarUsuario(@RequestBody UsuarioDTO usuarioDTO,
+    public ResponseEntity<UsuarioDTO> atualizarUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO,
                                                        @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(usuarioService.atualizarUsuario(usuarioDTO, token));
     }
 
 
     @PutMapping("/endereco")
-    public ResponseEntity<EnderecoDTO> atualizarEndereco(@RequestBody EnderecoDTO enderecoDTO,
+    public ResponseEntity<EnderecoDTO> atualizarEndereco(@Valid @RequestBody EnderecoDTO enderecoDTO,
                                                        @RequestParam("id") Long id,
                                                        @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(usuarioService.atualizarEndereco(enderecoDTO, id, token));
     }
 
     @PutMapping("/telefone")
-    public ResponseEntity<TelefoneDTO> atualizarTelefone(@RequestBody TelefoneDTO telefoneDTO,
+    public ResponseEntity<TelefoneDTO> atualizarTelefone(@Valid @RequestBody TelefoneDTO telefoneDTO,
                                                       @RequestParam("id") Long id,
                                                       @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(usuarioService.atualizarTelefone(telefoneDTO, id, token));
