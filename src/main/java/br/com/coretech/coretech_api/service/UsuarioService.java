@@ -15,8 +15,11 @@ import br.com.coretech.coretech_api.service.dto.TelefoneDTO;
 import br.com.coretech.coretech_api.service.dto.UsuarioDTO;
 import br.com.coretech.coretech_api.service.mapper.UsuarioConverter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.access.AccessDeniedException;
 
 
 
@@ -27,7 +30,6 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final UsuarioConverter usuarioConverter;
-    private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
     private final EnderecoRepository enderecoRepository;
     private final TelefoneRepository telefoneRepository;
@@ -84,7 +86,7 @@ public class UsuarioService {
 
     public UsuarioDTO atualizarUsuario(UsuarioDTO usuarioDTO, String token) {
 
-        String email = jwtUtil.extrairEmailToken(token.substring(7));
+        String email = getUsuarioAutenticadoEmail();
 
         usuarioDTO.setSenha(usuarioDTO.getSenha() != null ? passwordEncoder.encode(usuarioDTO.getSenha()) : null);
 
@@ -98,9 +100,9 @@ public class UsuarioService {
 
     }
 
-    public EnderecoDTO atualizarEndereco(EnderecoDTO enderecoDTO, Long id, String token) {
+    public EnderecoDTO atualizarEndereco(EnderecoDTO enderecoDTO, Long id) {
 
-        String email = jwtUtil.extrairEmailToken(token.substring(7));
+        String email = getUsuarioAutenticadoEmail();
 
         Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(
                 () -> new ResourceNotFoundException("Email não encontrado" + email)
@@ -121,7 +123,7 @@ public class UsuarioService {
 
     public TelefoneDTO atualizarTelefone(TelefoneDTO telefoneDTO, Long id, String token) {
 
-        String email = jwtUtil.extrairEmailToken(token.substring(7));
+        String email = getUsuarioAutenticadoEmail();
 
         Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(
                 () -> new ResourceNotFoundException("Email não encontrado" + email)
@@ -138,6 +140,17 @@ public class UsuarioService {
         Telefone telefone = usuarioConverter.updateTelefone(telefoneDTO, telefoneEntity);
 
         return usuarioConverter.paraTelfoneDTO(telefoneRepository.save(telefone));
+    }
+
+    public String getUsuarioAutenticadoEmail(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null) {
+            throw new AccessDeniedException("Usuario não autenticado");
+        }
+
+        String email = authentication.getName();
+        return email;
     }
 
 }
