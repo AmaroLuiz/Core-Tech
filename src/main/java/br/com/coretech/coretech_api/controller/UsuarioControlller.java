@@ -1,21 +1,15 @@
 package br.com.coretech.coretech_api.controller;
 
-import br.com.coretech.coretech_api.infraestructure.entity.Endereco;
-import br.com.coretech.coretech_api.infraestructure.entity.Telefone;
-import br.com.coretech.coretech_api.infraestructure.security.JwtUtil;
+
 import br.com.coretech.coretech_api.service.AuthService;
 import br.com.coretech.coretech_api.service.UsuarioService;
 import br.com.coretech.coretech_api.service.dto.EnderecoDTO;
+import br.com.coretech.coretech_api.service.dto.LoginDTO;
 import br.com.coretech.coretech_api.service.dto.TelefoneDTO;
 import br.com.coretech.coretech_api.service.dto.UsuarioDTO;
-import br.com.coretech.coretech_api.service.mapper.UsuarioConverter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -38,8 +32,8 @@ public class UsuarioControlller {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody UsuarioDTO usuarioDTO) {
-        String token = authService.login(usuarioDTO);
+    public ResponseEntity<String> login(@Valid @RequestBody LoginDTO loginDTO) {
+        String token = authService.login(loginDTO);
         return ResponseEntity.ok(token);
     }
 
