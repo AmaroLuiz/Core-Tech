@@ -38,6 +38,9 @@ public class Produto {
     @Column(name = "CriadoEm")
     private LocalDateTime criadoEm;
 
+    @Column(name = "AtualizadoEm")
+    private LocalDateTime atualizadoEm;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "produto_id", referencedColumnName = "id")
     private List<Categoria> categorias;
@@ -46,5 +49,10 @@ public class Produto {
     private void prePersist() {
         this.criadoEm = LocalDateTime.now();
         this.ativo = true;
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        this.atualizadoEm = LocalDateTime.now();
     }
 }
