@@ -16,5 +16,4 @@ public class EnderecoDTO {
     private String rua;
     private String numero;
     private String complemento;
-    private String usuario;
 }

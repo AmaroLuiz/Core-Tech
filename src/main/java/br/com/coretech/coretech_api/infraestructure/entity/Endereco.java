@@ -1,5 +1,6 @@
 package br.com.coretech.coretech_api.infraestructure.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,12 +38,12 @@ public class Endereco {
     @Column(name = "complemento",  length = 50,   nullable = false)
     private String complemento;
 
-    @Column(name = "usuario_id")
-    private Long usuario;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id",  nullable = false)
+    private Usuario usuario;
 
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private List<Telefone> telefones;
+
+
 
 }

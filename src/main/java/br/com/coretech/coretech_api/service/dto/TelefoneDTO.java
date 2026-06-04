@@ -12,5 +12,4 @@ public class TelefoneDTO {
     private Long id;
     private String ddd;
     private String telefone;
-    private String usuario;
 }

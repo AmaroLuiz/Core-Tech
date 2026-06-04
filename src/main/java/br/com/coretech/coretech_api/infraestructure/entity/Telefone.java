@@ -1,5 +1,6 @@
 package br.com.coretech.coretech_api.infraestructure.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,7 +24,8 @@ public class Telefone {
     @Column(name = "ddd", length = 3, nullable = false)
     private String ddd;
 
-    @Column(name = "usuario_id")
-    private Long usuario;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 
 }

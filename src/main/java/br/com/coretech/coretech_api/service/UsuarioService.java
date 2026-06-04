@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+
 @Service
 @RequiredArgsConstructor
 
@@ -37,6 +38,9 @@ public class UsuarioService {
         emailExiste(usuarioDTO.getEmail());
         usuarioDTO.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
         Usuario usuario = usuarioConverter.paraUsuarioEntity(usuarioDTO);
+
+        usuario.getEnderecos().forEach(endereco -> endereco.setUsuario(usuario));
+        usuario.getTelefones().forEach(telefone -> telefone.setUsuario(usuario));
         return usuarioConverter.paraUsuarioDTO(
               usuarioRepository.save(usuario)
         );
@@ -94,7 +98,7 @@ public class UsuarioService {
 
     }
 
-    public Endereco atualizarEndereco(EnderecoDTO enderecoDTO, Long id, String token) {
+    public EnderecoDTO atualizarEndereco(EnderecoDTO enderecoDTO, Long id, String token) {
 
         String email = jwtUtil.extrairEmailToken(token.substring(7));
 
@@ -106,15 +110,16 @@ public class UsuarioService {
                 () -> new ResourceNotFoundException("Id não encontrado" + id)
         );
 
-        if (!enderecoEntity.getUsuario().equals(usuario.getId()) ) {
+        if (!enderecoEntity.getUsuario().getId().equals(usuario.getId()) ) {
             throw new ConflictExceptions("Id não pertence ao usuario" + id);
         }
 
-            Endereco endereco = usuarioConverter.updateEndereco(enderecoDTO, enderecoEntity);
-            return enderecoRepository.save(endereco);
+        Endereco endereco = usuarioConverter.updateEndereco(enderecoDTO, enderecoEntity);
+
+        return usuarioConverter.paraEnderecoDTO(enderecoRepository.save(endereco));
     }
 
-    public Telefone atualizarTelefone(TelefoneDTO telefoneDTO, Long id, String token) {
+    public TelefoneDTO atualizarTelefone(TelefoneDTO telefoneDTO, Long id, String token) {
 
         String email = jwtUtil.extrairEmailToken(token.substring(7));
 
@@ -126,12 +131,13 @@ public class UsuarioService {
                 () -> new ResourceNotFoundException("Id não encontrado" + id)
         );
 
-        if (!telefoneEntity.getUsuario().equals(usuario.getId()) ) {
+        if (!telefoneEntity.getUsuario().getId().equals(usuario.getId()) ) {
             throw new ConflictExceptions("Id não pertence ao usuario" + id);
         }
 
         Telefone telefone = usuarioConverter.updateTelefone(telefoneDTO, telefoneEntity);
-        return telefoneRepository.save(telefone);
+
+        return usuarioConverter.paraTelfoneDTO(telefoneRepository.save(telefone));
     }
 
 }

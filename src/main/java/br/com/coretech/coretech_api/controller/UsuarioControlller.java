@@ -58,14 +58,14 @@ public class UsuarioControlller {
 
 
     @PutMapping("/endereco")
-    public ResponseEntity<Endereco> atualizarEndereco(@RequestBody EnderecoDTO enderecoDTO,
+    public ResponseEntity<EnderecoDTO> atualizarEndereco(@RequestBody EnderecoDTO enderecoDTO,
                                                        @RequestParam("id") Long id,
                                                        @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(usuarioService.atualizarEndereco(enderecoDTO, id, token));
     }
 
     @PutMapping("/telefone")
-    public ResponseEntity<Telefone> atualizarTelefone(@RequestBody TelefoneDTO telefoneDTO,
+    public ResponseEntity<TelefoneDTO> atualizarTelefone(@RequestBody TelefoneDTO telefoneDTO,
                                                       @RequestParam("id") Long id,
                                                       @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(usuarioService.atualizarTelefone(telefoneDTO, id, token));

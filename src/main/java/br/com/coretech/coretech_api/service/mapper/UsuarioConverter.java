@@ -17,20 +17,35 @@ public interface UsuarioConverter {
     Usuario paraUsuarioEntity(UsuarioDTO usuarioDTO);
 
     UsuarioDTO paraUsuarioDTO(Usuario usuario);
+    
+    @Mapping(target = "usuario", ignore = true)
+    Endereco paraEnderecoEntity(EnderecoDTO enderecoDTO);
+
+    @Mapping(target = "usuario", ignore = true)
+    Telefone paraTelefoneEntity(TelefoneDTO telefoneDTO);
 
     List<EnderecoDTO> paraEnderecoDTO(List<Endereco> endereco);
-    List<Endereco> paraEnderecoEntity(List<EnderecoDTO> enderecoDTO);
 
-    List<TelefoneDTO> paraTelefoneEntity(List<Telefone> telefone);
-    List<Telefone> paraTelefoneDTO(List<TelefoneDTO> telefoneDTO);
+    EnderecoDTO paraEnderecoDTO(Endereco endereco);
 
+    List<TelefoneDTO> paraTelefoneDTO(List<Telefone> telefone);
+
+    TelefoneDTO paraTelfoneDTO(Telefone telefone);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "enderecos", ignore = true)
+    @Mapping(target = "telefones", ignore = true)
+    @Mapping(target = "authorities", ignore = true)
     Usuario updateUsuario(UsuarioDTO dto, @MappingTarget Usuario entity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "usuario", ignore = true)
+    @Mapping(target = "id", ignore = true)
     Endereco updateEndereco(EnderecoDTO dto, @MappingTarget Endereco entity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "usuario", ignore = true)
+    @Mapping(target = "id", ignore = true)
     Telefone updateTelefone(TelefoneDTO dto, @MappingTarget Telefone entity);
 }
