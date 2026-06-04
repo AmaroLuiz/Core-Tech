@@ -27,13 +27,14 @@ public class Endereco {
     private String cidade;
 
     @Column(name = "cep", length = 8,   nullable = false)
+
     private String cep;
 
     @Column(name = "rua", length = 100,  nullable = false)
     private String rua;
 
     @Column(name = "numero",  length = 10,    nullable = false)
-    private String numero;
+    private Integer numero;
 
     @Column(name = "complemento",  length = 50,   nullable = false)
     private String complemento;
