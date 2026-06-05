@@ -35,6 +35,7 @@ public class UsuarioService {
     private final PasswordEncoder passwordEncoder;
     private final EnderecoRepository enderecoRepository;
     private final TelefoneRepository telefoneRepository;
+    private final AuthService authService;
 
 
 
@@ -45,6 +46,7 @@ public class UsuarioService {
 
         usuario.getEnderecos().forEach(endereco -> endereco.setUsuario(usuario));
         usuario.getTelefones().forEach(telefone -> telefone.setUsuario(usuario));
+
         return usuarioConverter.paraUsuarioDTO(
               usuarioRepository.save(usuario)
         );
@@ -88,7 +90,7 @@ public class UsuarioService {
 
     public UsuarioDTO atualizarUsuario(UsuarioDTO usuarioDTO) {
 
-        String email = getUsuarioAutenticadoEmail();
+        String email = authService.getUsuarioAutenticadoEmail();
 
         usuarioDTO.setSenha(usuarioDTO.getSenha() != null ? passwordEncoder.encode(usuarioDTO.getSenha()) : null);
 
@@ -104,7 +106,7 @@ public class UsuarioService {
 
     public EnderecoDTO atualizarEndereco(EnderecoDTO enderecoDTO, Long id) {
 
-        String email = getUsuarioAutenticadoEmail();
+        String email = authService.getUsuarioAutenticadoEmail();
 
         Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(
                 () -> new ResourceNotFoundException("Email não encontrado" + email)
@@ -125,7 +127,7 @@ public class UsuarioService {
 
     public TelefoneDTO atualizarTelefone(TelefoneDTO telefoneDTO, Long id) {
 
-        String email = getUsuarioAutenticadoEmail();
+        String email = authService.getUsuarioAutenticadoEmail();
 
         Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(
                 () -> new ResourceNotFoundException("Email não encontrado" + email)
@@ -144,16 +146,7 @@ public class UsuarioService {
         return usuarioConverter.paraTelfoneDTO(telefoneRepository.save(telefone));
     }
 
-    public String getUsuarioAutenticadoEmail(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication == null) {
-            throw new AccessDeniedException("Usuario não autenticado");
-        }
-
-        String email = authentication.getName();
-        return email;
-    }
 
 
 

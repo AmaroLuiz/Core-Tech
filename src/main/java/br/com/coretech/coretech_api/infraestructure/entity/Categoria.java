@@ -1,5 +1,6 @@
 package br.com.coretech.coretech_api.infraestructure.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
 @Table(name = "categoria")
 public class Categoria {
 
@@ -23,7 +25,9 @@ public class Categoria {
     @Column(name = "slug", nullable = false)
     private String slug;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "categoria_id", nullable = false)
-    private List<Produto> produtos;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            orphanRemoval = true,
+            mappedBy = "categoria", cascade = CascadeType.ALL)
+    private List<Produto> produto;
 }

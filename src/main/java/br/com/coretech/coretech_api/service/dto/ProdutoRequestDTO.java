@@ -1,7 +1,7 @@
 package br.com.coretech.coretech_api.service.dto;
 
 import br.com.coretech.coretech_api.infraestructure.entity.Categoria;
-import jakarta.annotation.Nullable;
+import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -10,14 +10,13 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProdutoDTO {
+public class ProdutoRequestDTO {
 
     private Long id;
 
@@ -51,7 +50,7 @@ public class ProdutoDTO {
     private LocalDateTime atualizadoEm;
 
     @NotNull(message = "Categoria de produto é obrigatório")
-    private Categoria categoria;
+    private Long categoriaId;
 
 
 }
