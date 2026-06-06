@@ -3,6 +3,7 @@ package br.com.coretech.coretech_api.service;
 
 import br.com.coretech.coretech_api.infraestructure.entity.Categoria;
 import br.com.coretech.coretech_api.infraestructure.entity.Produto;
+import br.com.coretech.coretech_api.infraestructure.exceptions.ConflictExceptions;
 import br.com.coretech.coretech_api.infraestructure.exceptions.ResourceNotFoundException;
 import br.com.coretech.coretech_api.infraestructure.repository.CategoriaRepository;
 import br.com.coretech.coretech_api.infraestructure.repository.ProdutoRepository;
@@ -38,6 +39,7 @@ public class ProdutoService {
                     .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
             produto.setCategoria(categoria);
         }
+
         produtoRepository.save(produto);
 
 
@@ -66,11 +68,16 @@ public class ProdutoService {
         //colocar proteção contra lista vazia
         List<ProdutoResponseDTO> response = new ArrayList<>();
 
+
         for (Produto produto : produtos) {
             response.add(produtoConverter.paraProdutoResponseDTO(produto));
         }
 
-        return response;
+        if(produtos.isEmpty()){
+            throw new ResourceNotFoundException("Não existe produtos cadastrados nesta categoria");
+        }else{
+            return response;
+        }
 
         //isso abaixo é o mesmo que o codigo acima. tem que testar dps pra confirmar
 
@@ -88,11 +95,18 @@ public class ProdutoService {
     public ProdutoResumoDTO pegarProduto(Long id) {
 
         Produto produto = produtoRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Produto não encontrado" + id)
+                () -> new ResourceNotFoundException("Produto não encontrado " + id)
         );
 
-        ProdutoResumoDTO produtoResumoDTO = produtoConverter.paraProdutoResumoDTO(produto);
-        return produtoResumoDTO;
+        return produtoConverter.paraProdutoResumoDTO(produto);
+    }
+
+    public void apagarCategoria(Long id){
+        categoriaRepository.deleteById(id);
+    }
+
+    public void apagarProduto(Long id){
+        produtoRepository.deleteById(id);
     }
 
     public boolean verificaCategriaExistente(Long id){

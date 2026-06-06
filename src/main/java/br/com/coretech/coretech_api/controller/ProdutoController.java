@@ -43,4 +43,16 @@ public class ProdutoController {
 
         return ResponseEntity.ok(produtoService.pegarProduto(id));
     }
+    @DeleteMapping("/deletar-categoria-{id}")
+    public ResponseEntity<Void> deletarCategoria(@RequestParam("id") Long id){
+        produtoService.apagarCategoria(id);
+        return ResponseEntity.ok().build();
+    }
+    @DeleteMapping("/deletar-produto-{id}")
+    public ResponseEntity<Void> deletarProduto(@RequestParam("id") Long id){
+        produtoService.apagarProduto(id);
+        return ResponseEntity.ok().build();
+    }
+
+
 }
