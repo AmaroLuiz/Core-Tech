@@ -1,6 +1,7 @@
 package br.com.coretech.coretech_api.service.dto;
 
 
+import br.com.coretech.coretech_api.infraestructure.Enums.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -35,6 +36,8 @@ public class UsuarioDTO {
     @Size(min = 6, max = 100,
             message = "Senha deve ter entre 6 e 100 caracteres")
     private String senha;
+
+    private Role role;
 
     private List<EnderecoDTO> enderecos;
     private List<TelefoneDTO> telefones;

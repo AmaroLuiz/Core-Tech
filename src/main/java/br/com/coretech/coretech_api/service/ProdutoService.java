@@ -112,7 +112,7 @@ public class ProdutoService {
 
         Produto produtoAtualizado = produtoConverter.updateProduto(produtoDTO, produto );
 
-        if(produtoDTO.getSku().equals(produtoAtualizado.getSku())){
+        if(produtoDTO.getSku() == produtoAtualizado.getSku()){
             verificaProdutoExistente(produtoAtualizado.getSku());
         }
 
@@ -129,15 +129,13 @@ public class ProdutoService {
 
         Categoria categoriaAtualizada = produtoConverter.updateCategoria(categoriaDTO, categoria);
 
-        if(categoriaDTO.getSlug().equals(categoriaAtualizada.getSlug())){
+        if(categoriaDTO.getSlug() == categoriaAtualizada.getSlug()){
             validarDuplicidadeCategoria(categoriaAtualizada.getSlug());
         }
 
         return produtoConverter.paraCategoriaDTO(categoriaRepository.save(categoriaAtualizada));
 
     }
-
-
 
     public boolean verificaCategriaExistenteId(Long id){
         if(categoriaRepository.existsById(id)){
@@ -146,8 +144,6 @@ public class ProdutoService {
         return false;
 
     }
-
-
 
     public boolean validarDuplicidadeCategoria(String slug){
         if (categoriaRepository.existsBySlug(slug)){

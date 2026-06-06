@@ -21,7 +21,7 @@ public class UsuarioControlller {
     private final AuthService authService;
 
 
-    @PostMapping
+    @PostMapping("/criar")
     public ResponseEntity<UsuarioDTO> salvaUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.ok(usuarioService.salvaUsuario(usuarioDTO));
     }
@@ -32,7 +32,7 @@ public class UsuarioControlller {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<String> login( @Valid @RequestBody LoginDTO loginDTO) {
         String token = authService.login(loginDTO);
         return ResponseEntity.ok(token);
     }
@@ -44,23 +44,22 @@ public class UsuarioControlller {
     }
 
     @PutMapping
-    public ResponseEntity<UsuarioDTO> atualizarUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<UsuarioDTO> atualizarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
         return ResponseEntity.ok(usuarioService.atualizarUsuario(usuarioDTO));
     }
 
 
     @PutMapping("/endereco")
-    public ResponseEntity<EnderecoDTO> atualizarEndereco(@Valid @RequestBody EnderecoDTO enderecoDTO,
+    public ResponseEntity<EnderecoDTO> atualizarEndereco(@RequestBody EnderecoDTO enderecoDTO,
                                                        @RequestParam("id") Long id) {
         return ResponseEntity.ok(usuarioService.atualizarEndereco(enderecoDTO, id));
     }
 
     @PutMapping("/telefone")
-    public ResponseEntity<TelefoneDTO> atualizarTelefone(@Valid @RequestBody TelefoneDTO telefoneDTO,
+    public ResponseEntity<TelefoneDTO> atualizarTelefone(@RequestBody TelefoneDTO telefoneDTO,
                                                       @RequestParam("id") Long id) {
         return ResponseEntity.ok(usuarioService.atualizarTelefone(telefoneDTO, id));
     }
-
 
 
 }
