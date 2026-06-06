@@ -24,8 +24,8 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoService.salvaProduto(produtoDTO));
     }
 
-    @GetMapping("/categoria-{categoria}")
-    public ResponseEntity<List<ProdutoResponseDTO>> listaProduto(@PathParam("categoria")
+    @GetMapping("/categoria/{categoria}")
+    public ResponseEntity<List<ProdutoResponseDTO>> listaProduto(@PathVariable("categoria")
                                                                  Long categoria) {
         return ResponseEntity.ok(produtoService.listaProdutoPorCategoria(categoria));
     }
@@ -35,29 +35,29 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoService.listarTodosOsProdutos());
     }
 
-    @GetMapping("/produto-{id}")
-    public ResponseEntity<ProdutoResumoDTO> pegarProduto(@PathParam("id") Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<ProdutoResumoDTO> pegarProduto(@PathVariable("id") Long id){
 
         return ResponseEntity.ok(produtoService.pegarProduto(id));
     }
-    @DeleteMapping("/deletar-categoria-{id}")
+    @DeleteMapping("/deletar/categoria")
     public ResponseEntity<Void> deletarCategoria(@RequestParam("id") Long id){
         produtoService.apagarCategoria(id);
         return ResponseEntity.ok().build();
     }
-    @DeleteMapping("/deletar-produto-{id}")
+    @DeleteMapping
     public ResponseEntity<Void> deletarProduto(@RequestParam("id") Long id){
         produtoService.apagarProduto(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/atualizar-produto-{id}")
-    public ResponseEntity<ProdutoDTO> atualizaProduto(@PathParam("id") Long id,
+    @PutMapping("/{id}")
+    public ResponseEntity<ProdutoDTO> atualizaProduto(@PathVariable("id") Long id,
                                                       @RequestBody ProdutoDTO produtoDTO){
         return ResponseEntity.ok(produtoService.atualizaProduto(id, produtoDTO));
     }
-    @PutMapping("/atualizar-categoria-{id}")
-    public ResponseEntity<CategoriaDTO> atualizaCategoria(@PathParam("id") Long id,
+    @PutMapping("/atualizar/categoria/{id}")
+    public ResponseEntity<CategoriaDTO> atualizaCategoria(@PathVariable("id") Long id,
                                                           @RequestBody CategoriaDTO categoriaDTO
     ){
         return ResponseEntity.ok(produtoService.atualizaCategoria(id, categoriaDTO));
