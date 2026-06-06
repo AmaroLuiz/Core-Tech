@@ -1,0 +1,61 @@
+package br.com.coretech.coretech_api.infraestructure.entity;
+
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity
+@Table(name = "produto")
+public class Produto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "nome", nullable = false, length = 100)
+    private String nome;
+
+    @Column(name = "sku", unique = true, nullable = false)
+    private String sku;
+
+    @Column(name = "descricao", nullable = false, length = 300)
+    private String descricao;
+
+    @Column(name = "preco", nullable = false)
+    private BigDecimal preco;
+
+    @Column(name = "imagem_url")
+    private String imagemUrl;
+
+    @Column(name = "ativo")
+    private Boolean ativo;
+
+    @Column(name = "CriadoEm")
+    private LocalDateTime criadoEm;
+
+    @Column(name = "AtualizadoEm")
+    private LocalDateTime atualizadoEm;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+    @PrePersist
+    private void prePersist() {
+        this.criadoEm = LocalDateTime.now();
+        this.ativo = true;
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        this.atualizadoEm = LocalDateTime.now();
+    }
+}
