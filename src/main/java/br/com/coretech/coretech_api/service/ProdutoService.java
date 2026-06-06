@@ -3,6 +3,7 @@ package br.com.coretech.coretech_api.service;
 
 import br.com.coretech.coretech_api.infraestructure.entity.Categoria;
 import br.com.coretech.coretech_api.infraestructure.entity.Produto;
+import br.com.coretech.coretech_api.infraestructure.exceptions.ConflictExceptions;
 import br.com.coretech.coretech_api.infraestructure.exceptions.ResourceNotFoundException;
 import br.com.coretech.coretech_api.infraestructure.repository.CategoriaRepository;
 import br.com.coretech.coretech_api.infraestructure.repository.ProdutoRepository;
@@ -38,18 +39,29 @@ public class ProdutoService {
 
         produtoRepository.save(produto);
 
-
         return produtoConverter.paraProdutoRequestDTO(produto);
+    }
+
+    public CategoriaDTO salvaCategoria(CategoriaDTO categoriaDTO){
+
+        validarDuplicidadeCategoria(categoriaDTO.getSlug());
+
+        Categoria categoria = produtoConverter.paraCategoriaEntity(categoriaDTO);
+
+        categoriaRepository.save(categoria);
+
+        return produtoConverter.paraCategoriaDTO(categoria);
     }
 
 
 
     public List<ProdutoResponseDTO> listaProdutoPorCategoria(Long categoria){
 
-        verificaCategriaExistente(categoria);
+        if (!categoriaRepository.existsById(categoria)) {
+            throw new ResourceNotFoundException("Categoria não encontrada com o ID: " + categoria);
+        }
 
         List<Produto> produtos = produtoRepository.findAllByCategoria_Id(categoria);
-        //colocar proteção contra lista vazia
         List<ProdutoResponseDTO> response = new ArrayList<>();
 
 
@@ -63,11 +75,6 @@ public class ProdutoService {
             return response;
         }
 
-        //isso abaixo é o mesmo que o codigo acima. tem que testar dps pra confirmar
-
-//        return produtos.stream()
-//                .map(produtoConverter::paraProdutoResponseDTO)
-//                .toList();
     }
 
     public List<ProdutoResponseDTO> listarTodosOsProdutos(){
@@ -94,7 +101,6 @@ public class ProdutoService {
     }
 
     public ProdutoDTO atualizaProduto(Long id, ProdutoDTO produtoDTO){
-        verificaProdutoExistente(produtoDTO.getSku());
 
         Produto produto = produtoRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Produto não encontrado " + id)
@@ -102,11 +108,15 @@ public class ProdutoService {
 
         Produto produtoAtualizado = produtoConverter.updateProduto(produtoDTO, produto );
 
+        if(produtoDTO.getSku().equals(produtoAtualizado.getSku())){
+            verificaProdutoExistente(produtoAtualizado.getSku());
+        }
+
         return produtoConverter.paraProdutoDTO(produtoRepository.save(produtoAtualizado));
     }
 
-    public CategoriaDTO atualizaCategoria(Long id, CategoriaDTO categoriaDTO){
-        verificaCategriaExistente(id);
+    public CategoriaDTO atualizaCategoria(Long id, CategoriaDTO categoriaDTO) {
+
 
         Categoria categoria = categoriaRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Categoria não encontrada " + id)
@@ -114,14 +124,45 @@ public class ProdutoService {
 
         Categoria categoriaAtualizada = produtoConverter.updateCategoria(categoriaDTO, categoria);
 
+        if(categoriaDTO.getSlug().equals(categoriaAtualizada.getSlug())){
+            validarDuplicidadeCategoria(categoriaAtualizada.getSlug());
+        }
+
         return produtoConverter.paraCategoriaDTO(categoriaRepository.save(categoriaAtualizada));
+
     }
 
-    public boolean verificaCategriaExistente(Long id){
-        return categoriaRepository.existsById(id);
+
+
+    public boolean verificaCategriaExistenteId(Long id){
+        if(categoriaRepository.existsById(id)){
+            throw new ConflictExceptions("Categoria já existe " + id );
+        }
+        return false;
+
+    }
+
+
+
+    public boolean validarDuplicidadeCategoria(String slug){
+        if (categoriaRepository.existsBySlug(slug)){
+            throw new ConflictExceptions("Categoria já existe " + slug );
+        }
+        return false;
+
     }
 
     public boolean verificaProdutoExistente(String sku){
-            return  produtoRepository.existsBySku(sku);
+        if(produtoRepository.existsBySku(sku)){
+            throw new ConflictExceptions("produto já existe " + sku );
+        }
+        return false;
+    }
+
+    public boolean encontrarProduto(String sku){
+        if(!produtoRepository.existsBySku(sku)){
+            throw new ResourceNotFoundException("Produto não encontrado");
+        }
+        return true;
     }
 }

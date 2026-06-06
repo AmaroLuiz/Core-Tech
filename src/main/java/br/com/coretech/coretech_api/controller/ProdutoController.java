@@ -24,6 +24,11 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoService.salvaProduto(produtoDTO));
     }
 
+    @PostMapping("/categoria")
+    public ResponseEntity<CategoriaDTO> salvaCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO){
+        return ResponseEntity.ok(produtoService.salvaCategoria(categoriaDTO));
+    }
+
     @GetMapping("/categoria/{categoria}")
     public ResponseEntity<List<ProdutoResponseDTO>> listaProduto(@PathVariable("categoria")
                                                                  Long categoria) {

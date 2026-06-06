@@ -13,6 +13,7 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
     @Override
     Optional<Categoria> findById(Long id);
 
+    boolean existsBySlug(String slug);
     boolean existsById(Long id);
 
     Optional<Categoria> findAllById(Long id);
