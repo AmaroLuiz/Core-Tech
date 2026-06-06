@@ -2,9 +2,7 @@ package br.com.coretech.coretech_api.service.mapper;
 
 import br.com.coretech.coretech_api.infraestructure.entity.Categoria;
 import br.com.coretech.coretech_api.infraestructure.entity.Produto;
-import br.com.coretech.coretech_api.service.dto.CategoriaDTO;
-import br.com.coretech.coretech_api.service.dto.ProdutoDTO;
-import br.com.coretech.coretech_api.service.dto.ProdutoRequestDTO;
+import br.com.coretech.coretech_api.service.dto.*;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -20,8 +18,13 @@ public interface ProdutoConverter {
     @Mapping(target = "categoria.slug", ignore = true)
     @Mapping(source = "categoria.id", target = "categoriaId")
     @Mapping(source = "criadoEm", target = "criadoEm")
-    ProdutoRequestDTO paraProdutoResponseDTO(Produto produto);
+    ProdutoRequestDTO paraProdutoRequestDTO(Produto produto);
 
+    @Mapping(source = "categoria.nome", target = "nomeCategoria")
+    ProdutoResponseDTO paraProdutoResponseDTO(Produto produto);
+
+    @Mapping(source = "categoria.nome", target = "nomeCategoria")
+    ProdutoResumoDTO paraProdutoResumoDTO(Produto produto);
 
     @Mapping(source = "categoriaId", target = "categoria.id")
     Produto toEntity(ProdutoRequestDTO dto);

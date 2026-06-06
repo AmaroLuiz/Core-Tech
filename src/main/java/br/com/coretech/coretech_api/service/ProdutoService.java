@@ -8,11 +8,14 @@ import br.com.coretech.coretech_api.infraestructure.repository.CategoriaReposito
 import br.com.coretech.coretech_api.infraestructure.repository.ProdutoRepository;
 import br.com.coretech.coretech_api.service.dto.ProdutoDTO;
 import br.com.coretech.coretech_api.service.dto.ProdutoRequestDTO;
+import br.com.coretech.coretech_api.service.dto.ProdutoResponseDTO;
+import br.com.coretech.coretech_api.service.dto.ProdutoResumoDTO;
 import br.com.coretech.coretech_api.service.mapper.ProdutoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +26,7 @@ public class ProdutoService {
     private final ProdutoRepository produtoRepository;
     private final CategoriaRepository categoriaRepository;
     private final AuthService authService;
+
 
     public ProdutoRequestDTO salvaProduto(ProdutoDTO produtoDTO){
         verificaProdutoExistente(produtoDTO.getSku());
@@ -37,7 +41,7 @@ public class ProdutoService {
         produtoRepository.save(produto);
 
 
-        return produtoConverter.paraProdutoResponseDTO(produto);
+        return produtoConverter.paraProdutoRequestDTO(produto);
     }
 
     public boolean verificaProdutoExistente(String sku){
@@ -45,6 +49,57 @@ public class ProdutoService {
             boolean existe = produtoRepository.existsBySku(sku);
             if(existe){
                 return produtoRepository.existsBySku(sku);
+
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<ProdutoResponseDTO> listaProdutoPorCategoria(Long categoria){
+
+        verificaCategriaExistente(categoria);
+
+        List<Produto> produtos = produtoRepository.findAllByCategoria_Id(categoria);
+        //colocar proteção contra lista vazia
+        List<ProdutoResponseDTO> response = new ArrayList<>();
+
+        for (Produto produto : produtos) {
+            response.add(produtoConverter.paraProdutoResponseDTO(produto));
+        }
+
+        return response;
+
+        //isso abaixo é o mesmo que o codigo acima. tem que testar dps pra confirmar
+
+//        return produtos.stream()
+//                .map(produtoConverter::paraProdutoResponseDTO)
+//                .toList();
+    }
+
+    public List<ProdutoResponseDTO> listarTodosOsProdutos(){
+        return produtoRepository.findAll().stream()
+                .map(produtoConverter::paraProdutoResponseDTO)
+                .toList();
+    }
+
+    public ProdutoResumoDTO pegarProduto(Long id) {
+
+        Produto produto = produtoRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Produto não encontrado" + id)
+        );
+
+        ProdutoResumoDTO produtoResumoDTO = produtoConverter.paraProdutoResumoDTO(produto);
+        return produtoResumoDTO;
+    }
+
+    public boolean verificaCategriaExistente(Long id){
+        try{
+            boolean existe = categoriaRepository.existsById(id);
+            if(existe){
+                return categoriaRepository.existsById(id);
 
             } else {
                 return false;
