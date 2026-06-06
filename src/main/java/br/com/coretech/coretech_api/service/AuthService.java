@@ -24,7 +24,7 @@ public class AuthService {
                 new UsernamePasswordAuthenticationToken(loginDTO.getEmail(),
                         loginDTO.getSenha())
         );
-        return "Bearer " + jwtUtil.generateToken(authentication.getName());
+        return "Bearer " + jwtUtil.generateToken(authentication);
     }
 
     public String getUsuarioAutenticadoEmail(){
