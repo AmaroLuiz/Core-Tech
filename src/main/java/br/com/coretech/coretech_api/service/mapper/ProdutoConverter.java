@@ -40,10 +40,6 @@ public interface ProdutoConverter {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "categoria", ignore = true)
-    @Mapping(target = "criadoEm", ignore = true)
-    @Mapping(target = "atualizadoEm", ignore = true)
-    @Mapping(target = "sku", ignore = true)
     public Produto updateProduto(ProdutoDTO dto, @MappingTarget Produto entity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

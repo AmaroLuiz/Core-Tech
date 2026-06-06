@@ -2,10 +2,7 @@ package br.com.coretech.coretech_api.controller;
 
 import br.com.coretech.coretech_api.infraestructure.entity.Produto;
 import br.com.coretech.coretech_api.service.ProdutoService;
-import br.com.coretech.coretech_api.service.dto.ProdutoDTO;
-import br.com.coretech.coretech_api.service.dto.ProdutoRequestDTO;
-import br.com.coretech.coretech_api.service.dto.ProdutoResponseDTO;
-import br.com.coretech.coretech_api.service.dto.ProdutoResumoDTO;
+import br.com.coretech.coretech_api.service.dto.*;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
@@ -54,5 +51,15 @@ public class ProdutoController {
         return ResponseEntity.ok().build();
     }
 
-
+    @PutMapping("/atualizar-produto-{id}")
+    public ResponseEntity<ProdutoDTO> atualizaProduto(@PathParam("id") Long id,
+                                                      @RequestBody ProdutoDTO produtoDTO){
+        return ResponseEntity.ok(produtoService.atualizaProduto(id, produtoDTO));
+    }
+    @PutMapping("/atualizar-categoria-{id}")
+    public ResponseEntity<CategoriaDTO> atualizaCategoria(@PathParam("id") Long id,
+                                                          @RequestBody CategoriaDTO categoriaDTO
+    ){
+        return ResponseEntity.ok(produtoService.atualizaCategoria(id, categoriaDTO));
+    }
 }

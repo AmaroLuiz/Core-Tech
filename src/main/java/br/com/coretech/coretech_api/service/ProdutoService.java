@@ -3,14 +3,10 @@ package br.com.coretech.coretech_api.service;
 
 import br.com.coretech.coretech_api.infraestructure.entity.Categoria;
 import br.com.coretech.coretech_api.infraestructure.entity.Produto;
-import br.com.coretech.coretech_api.infraestructure.exceptions.ConflictExceptions;
 import br.com.coretech.coretech_api.infraestructure.exceptions.ResourceNotFoundException;
 import br.com.coretech.coretech_api.infraestructure.repository.CategoriaRepository;
 import br.com.coretech.coretech_api.infraestructure.repository.ProdutoRepository;
-import br.com.coretech.coretech_api.service.dto.ProdutoDTO;
-import br.com.coretech.coretech_api.service.dto.ProdutoRequestDTO;
-import br.com.coretech.coretech_api.service.dto.ProdutoResponseDTO;
-import br.com.coretech.coretech_api.service.dto.ProdutoResumoDTO;
+import br.com.coretech.coretech_api.service.dto.*;
 import br.com.coretech.coretech_api.service.mapper.ProdutoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,19 +42,7 @@ public class ProdutoService {
         return produtoConverter.paraProdutoRequestDTO(produto);
     }
 
-    public boolean verificaProdutoExistente(String sku){
-        try{
-            boolean existe = produtoRepository.existsBySku(sku);
-            if(existe){
-                return produtoRepository.existsBySku(sku);
 
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public List<ProdutoResponseDTO> listaProdutoPorCategoria(Long categoria){
 
@@ -109,11 +93,55 @@ public class ProdutoService {
         produtoRepository.deleteById(id);
     }
 
+    public ProdutoDTO atualizaProduto(Long id, ProdutoDTO produtoDTO){
+        verificaProdutoExistente(produtoDTO.getSku());
+
+        Produto produto = produtoRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Produto não encontrado " + id)
+        );
+
+        Produto produtoAtualizado = produtoConverter.updateProduto(produtoDTO, produto );
+
+        return produtoConverter.paraProdutoDTO(produtoRepository.save(produtoAtualizado));
+    }
+
+    public CategoriaDTO atualizaCategoria(Long id, CategoriaDTO categoriaDTO){
+        verificaCategriaExistente(id);
+
+        Categoria categoria = categoriaRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Categoria não encontrada " + id)
+        );
+
+        Categoria categoriaAtualizada = produtoConverter.updateCategoria(categoriaDTO, categoria);
+
+        return produtoConverter.paraCategoriaDTO(categoriaRepository.save(categoriaAtualizada));
+    }
+
+
+
+
+
+
+
     public boolean verificaCategriaExistente(Long id){
         try{
             boolean existe = categoriaRepository.existsById(id);
             if(existe){
                 return categoriaRepository.existsById(id);
+
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean verificaProdutoExistente(String sku){
+        try{
+            boolean existe = produtoRepository.existsBySku(sku);
+            if(existe){
+                return produtoRepository.existsBySku(sku);
 
             } else {
                 return false;
