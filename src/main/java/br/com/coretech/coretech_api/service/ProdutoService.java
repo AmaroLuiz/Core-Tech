@@ -117,37 +117,11 @@ public class ProdutoService {
         return produtoConverter.paraCategoriaDTO(categoriaRepository.save(categoriaAtualizada));
     }
 
-
-
-
-
-
-
     public boolean verificaCategriaExistente(Long id){
-        try{
-            boolean existe = categoriaRepository.existsById(id);
-            if(existe){
-                return categoriaRepository.existsById(id);
-
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return categoriaRepository.existsById(id);
     }
 
     public boolean verificaProdutoExistente(String sku){
-        try{
-            boolean existe = produtoRepository.existsBySku(sku);
-            if(existe){
-                return produtoRepository.existsBySku(sku);
-
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+            return  produtoRepository.existsBySku(sku);
     }
 }
