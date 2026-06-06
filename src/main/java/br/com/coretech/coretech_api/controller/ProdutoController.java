@@ -1,12 +1,9 @@
 package br.com.coretech.coretech_api.controller;
 
-import br.com.coretech.coretech_api.infraestructure.entity.Produto;
 import br.com.coretech.coretech_api.service.ProdutoService;
 import br.com.coretech.coretech_api.service.dto.*;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

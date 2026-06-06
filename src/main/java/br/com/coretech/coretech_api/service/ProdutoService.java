@@ -9,6 +9,7 @@ import br.com.coretech.coretech_api.infraestructure.repository.CategoriaReposito
 import br.com.coretech.coretech_api.infraestructure.repository.ProdutoRepository;
 import br.com.coretech.coretech_api.service.dto.*;
 import br.com.coretech.coretech_api.service.mapper.ProdutoConverter;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +24,8 @@ public class ProdutoService {
     private final ProdutoConverter produtoConverter;
     private final ProdutoRepository produtoRepository;
     private final CategoriaRepository categoriaRepository;
-    private final AuthService authService;
 
-
+    @Transactional
     public ProdutoRequestDTO salvaProduto(ProdutoDTO produtoDTO){
         verificaProdutoExistente(produtoDTO.getSku());
 
@@ -42,6 +42,7 @@ public class ProdutoService {
         return produtoConverter.paraProdutoRequestDTO(produto);
     }
 
+    @Transactional
     public CategoriaDTO salvaCategoria(CategoriaDTO categoriaDTO){
 
         validarDuplicidadeCategoria(categoriaDTO.getSlug());
@@ -92,14 +93,17 @@ public class ProdutoService {
         return produtoConverter.paraProdutoResumoDTO(produto);
     }
 
+    @Transactional
     public void apagarCategoria(Long id){
         categoriaRepository.deleteById(id);
     }
 
+    @Transactional
     public void apagarProduto(Long id){
         produtoRepository.deleteById(id);
     }
 
+    @Transactional
     public ProdutoDTO atualizaProduto(Long id, ProdutoDTO produtoDTO){
 
         Produto produto = produtoRepository.findById(id).orElseThrow(
@@ -115,6 +119,7 @@ public class ProdutoService {
         return produtoConverter.paraProdutoDTO(produtoRepository.save(produtoAtualizado));
     }
 
+    @Transactional
     public CategoriaDTO atualizaCategoria(Long id, CategoriaDTO categoriaDTO) {
 
 
