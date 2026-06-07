@@ -1,4 +1,7 @@
 import { api } from "./api";
+import {coletarCategorias} from "../pages/categoria.js";
+import {coletarProduto} from "../pages/produto.js";
+
 
 export async function buscarTodosOsProduto() {
 
