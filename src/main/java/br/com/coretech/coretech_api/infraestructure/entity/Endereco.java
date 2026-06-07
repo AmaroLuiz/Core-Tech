@@ -25,7 +25,6 @@ public class Endereco {
     private String cidade;
 
     @Column(name = "cep", length = 8,   nullable = false)
-
     private String cep;
 
     @Column(name = "rua", length = 100,  nullable = false)
