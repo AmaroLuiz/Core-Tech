@@ -33,7 +33,6 @@ public class AuthService {
         if (authentication == null) {
             throw new AccessDeniedException("Usuario não autenticado");
         }
-
         String email = authentication.getName();
         return email;
     }

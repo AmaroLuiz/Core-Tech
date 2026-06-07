@@ -29,7 +29,7 @@ public class Usuario implements UserDetails {
     @Column(name = "email",  length = 150, nullable = false, unique = true)
     private String email;
 
-    @Column(name = "nome", length = 150, nullable = false)
+    @Column(name = "nome", length = 150)
     private String nome;
 
     @Column(name = "senha", nullable = false)
