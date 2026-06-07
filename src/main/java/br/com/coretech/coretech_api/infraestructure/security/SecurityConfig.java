@@ -33,30 +33,30 @@ public class  SecurityConfig {
         this.userDetailsService = userDetailsService;
     }
 
-    // Configuração do filtro de segurança
+                                                                                            // Configuração do filtro de segurança
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // Cria uma instância do JwtRequestFilter com JwtUtil e UserDetailsService
+                                                                                                // Cria uma instância do JwtRequestFilter com JwtUtil e UserDetailsService
         JwtRequestFilter jwtRequestFilter = new JwtRequestFilter(jwtUtil, userDetailsService);
 
         http
-                .csrf(AbstractHttpConfigurer::disable) // Desativa proteção CSRF para APIs REST (não aplicável a APIs que não mantêm estado)
+                .csrf(AbstractHttpConfigurer::disable)                                              // Desativa proteção CSRF para APIs REST (não aplicável a APIs que não mantêm estado)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/auth").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST,"/usuario/login").permitAll() // Permite acesso ao endpoint de login sem autenticação
+                        .requestMatchers(HttpMethod.POST,"/usuario/login").permitAll()          // Permite acesso ao endpoint de login sem autenticação
                         .requestMatchers(HttpMethod.POST, "/usuario/criar").permitAll()
-                        .requestMatchers("/usuario/**").authenticated() // Requer autenticação para qualquer endpoint que comece com /usuario/
+                        .requestMatchers("/usuario/**").authenticated()                     // Requer autenticação para qualquer endpoint que comece com /usuario/
                         .requestMatchers(HttpMethod.GET, "/produto/**").permitAll()
                         .requestMatchers("/produto/**").hasRole("ADMIN")
                         .anyRequest().hasRole("ADMIN")
                 )
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Configura a política de sessão como stateless (sem sessão)
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)                 // Configura a política de sessão como stateless (sem sessão)
                 )
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); // Adiciona o filtro JWT antes do filtro de autenticação padrão
 
-        // Retorna a configuração do filtro de segurança construída
+                                                                                                            // Retorna a configuração do filtro de segurança construída
         return http.build();
     }
 

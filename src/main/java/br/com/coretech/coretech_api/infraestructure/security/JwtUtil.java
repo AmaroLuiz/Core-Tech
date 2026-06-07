@@ -1,12 +1,9 @@
 package br.com.coretech.coretech_api.infraestructure.security;
 
-import br.com.coretech.coretech_api.infraestructure.entity.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,7 +17,7 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    // Gera um token JWT com o nome de usuário e validade de 1 hora
+
     public String generateToken(Authentication authentication) {
         String role = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -28,12 +25,12 @@ public class JwtUtil {
                 .orElse("ROLE_USER");
 
         return Jwts.builder()
-                .setSubject(authentication.getName()) // Define o nome de usuário como o assunto do token
+                .setSubject(authentication.getName())                                                   // Define o nome de usuário como o assunto do token
                 .claim("role", role)
-                .setIssuedAt(new Date()) // Define a data e hora de emissão do token
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // Define a data e hora de expiração (1 hora a partir da emissão)
+                .setIssuedAt(new Date())                                                            // Define a data e hora de emissão do token
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))               // Define a data e hora de expiração (1 hora a partir da emissão)
                 .signWith(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)), SignatureAlgorithm.HS256) // Converte a chave secreta em bytes e assina o token com ela
-                .compact(); // Constrói o token JWT
+                .compact();                                                                     // Constrói o token JWT
     }
 
     // Extrai as claims do token JWT (informações adicionais do token)
@@ -41,8 +38,8 @@ public class JwtUtil {
         return Jwts.parser()
                 .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8))) // Define a chave secreta para validar a assinatura do token
                 .build()
-                .parseClaimsJws(token) // Analisa o token JWT e obtém as claims
-                .getBody(); // Retorna o corpo das claims
+                .parseClaimsJws(token)                                                               // Analisa o token JWT e obtém as claims
+                .getBody();                                                                     // Retorna o corpo das claims
     }
 
 
