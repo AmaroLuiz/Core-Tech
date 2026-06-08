@@ -1,0 +1,280 @@
+body {
+    background: #060608;
+    color: #111;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+    margin: 0
+}
+
+.login-section {
+
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.cartao-dividido {
+    width: min(96%, 960px);
+    height: min(86vh, 560px);
+    display: flex;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(2, 2, 2, 0.6);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+}
+
+.painel-esquerdo {
+    flex: 1 1 50%;
+    background: #fff;
+    color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2.2rem;
+}
+
+.painel-direito {
+    flex: 1 1 50%;
+    background: linear-gradient(180deg, #ff7a00, #ff4d00);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.6rem;
+}
+
+.wrap-formulario {
+    width: 100%;
+    background-color:white;
+    border-radius: 12px;
+    max-width: 420px
+}
+
+.titulo-entrar {
+    color: black;
+    font-size: 2rem;
+    margin: 0 0 0.8rem;
+    font-weight: 700
+}
+
+.subtitulo {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 0.5rem 0 1rem
+}
+
+.formulario-autenticacao input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #e6e6e9;
+    background: #fbfbfd;
+    margin-top: 0.7rem;
+    font-size: 1rem;
+}
+
+.input-group { position: relative }
+.input-group input { padding-right: 3.2rem }
+.btn-eye {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-35%);
+    background: transparent;
+    border: none;
+    color: #666;
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btn-eye:focus { outline: 2px solid rgba(255,122,0,0.18) }
+
+
+.formulario-autenticacao input::placeholder {
+    color: #aaa
+}
+
+.acoes-login {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem
+}
+
+.lembrar {
+    color: #666;
+    font-size: 0.95rem
+}
+
+.btn-entrar {
+    background: #ff7a00;
+    color: #fff;
+    padding: 0.7rem 1.1rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-entrar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 122, 0, 0.12)
+}
+
+.btn-criar {
+    background: #ff7a00;
+    color: #fff;
+    padding: 0.7rem 1.1rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-criar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 122, 0, 0.12)
+}
+
+.esqueci-senha {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-left: 20px;
+    color: #888;
+    text-decoration: none
+}
+
+.promocao {
+    text-align: center
+}
+
+.promocao h3 {
+    font-size: 2.1rem;
+    margin: 0 0 0.6rem;
+    font-weight: 700
+}
+
+.promocao p {
+    margin: 0 0 1.4rem;
+    color: rgba(255, 255, 255, 0.95)
+}
+
+.btn-contorno {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600
+}
+
+.btn-contorno:hover {
+    background: rgba(255, 255, 255, 0.06)
+}
+
+.btn-cadastrar-mobile {
+    display: none;
+
+}
+
+@media (max-width:720px) {
+    .cartao-dividido {
+        flex-direction: column;
+        height: auto;
+        border-radius: 12px
+    }
+
+    .painel-esquerdo, .painel-direito {
+        flex: none;
+        width: 100%;
+        padding: 2rem
+    }
+
+    .painel-esquerdo {
+        order: 1
+    }
+
+    .painel-direito {
+        order: 2
+    }
+
+    .cartao-dividido.cartao-ativo .painel-esquerdo {
+        transform: translateY(100%);
+        opacity: 0.98;
+    }
+
+    .cartao-dividido.cartao-ativo .painel-direito {
+        transform: translateY(-100%);
+        opacity: 0.98;
+    }
+
+    .painel-direito {
+        display: none !important
+    }
+
+    .painel-esquerdo {
+        width: 100%;
+        padding: 2rem 1.2rem
+    }
+
+    .btn-cadastrar-mobile {
+        display: inline-block;
+        margin-top: 1rem;
+        border: 2px solid #ff7a00;
+        color: #ff7a00;
+
+    }
+}
+
+@media (max-width:420px) {
+    .titulo-entrar {
+        font-size: 1.5rem
+    }
+
+    .promocao h3 {
+        font-size: 1.6rem
+    }
+
+
+}
+
+.cartao-dividido {
+    position: relative;
+    overflow: hidden
+}
+
+.painel-esquerdo, .painel-direito {
+    transition: transform 1.5s cubic-bezier(.2, .9, .25, 1), opacity 560ms ease;
+    will-change: transform, opacity;
+}
+
+.cartao-dividido.cartao-ativo .painel-esquerdo {
+    transform: translateX(100%);
+    opacity: 0.98;
+}
+
+.cartao-dividido.cartao-ativo .painel-direito {
+    transform: translateX(-100%);
+    opacity: 0.98;
+}
+
+
+.cartao-dividido.cartao-ativo {
+    box-shadow: 0 20px 60px rgba(2, 2, 2, 0.6)
+}
+
+.cartao-dividido.cartao-ativo .painel-esquerdo, .cartao-dividido.cartao-ativo .painel-direito {
+    transform-origin: center;
+}
