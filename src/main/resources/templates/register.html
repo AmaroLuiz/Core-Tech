@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Core Tech</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/register.css">
+</head>
+
+<body class="bg-black text-white">
+
+
+<main>
+
+    <section class="login-section">
+
+        <div class="cartao-dividido">
+
+            <div class="wrap-formulario">
+                <h2 class="titulo-entrar">Crie sua conta</h2>
+                <p class="subtitulo">Cadastre-se com seu e-mail e senha</p>
+                <form id="formularioCadastro" class="formulario-autenticacao">
+                    <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+                    <div class="input-group">
+                        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                        <button type="button" class="btn-eye" data-target="senha" aria-label="Mostrar senha"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                    <div class="acoes-login">
+                        <div></div>
+                        <button type="submit" class="btn-criar">Criar conta</button>
+                    </div>
+                </form>
+                <p class="login-note">Já tem conta? <a href="login.html">Entrar</a></p>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<script src="../js/register.js"></script>
+</body>
+
+</html>
