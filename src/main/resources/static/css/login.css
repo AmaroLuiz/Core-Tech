@@ -1,13 +1,14 @@
 body {
-    background: #060608;
+    background: #000000;
     color: #111;
     font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
 }
 
 main {
-    margin: 0
+    margin: 0;
 }
 
 .login-section {
@@ -25,7 +26,7 @@ main {
     display: flex;
     border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 12px 40px rgba(2, 2, 2, 0.6);
+    /* box-shadow: 0 12px 40px rgba(2, 2, 2, 0.6); */
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
 }
 
@@ -75,12 +76,23 @@ main {
     border-radius: 10px;
     border: 1px solid #e6e6e9;
     background: #fbfbfd;
-    margin-top: 0.7rem;
+    margin-top: 1.4rem;
     font-size: 1rem;
 }
-
-.input-group { position: relative }
-.input-group input { padding-right: 3.2rem }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #000 !important;
+}
+input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: 3px solid #ff7a00 !important;
+}
+.input-senha { position: relative }
+.input-senha input { padding-right: 3.2rem }
 .btn-eye {
     position: absolute;
     right: 8px;

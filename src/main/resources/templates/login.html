@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="../static/css/footer.css">
     <link rel="stylesheet" href="../static/css/login.css">
+    <script type="module" src="../static/js/pages/usuario.js"></script>
+    <script src="../static/js/components/login.js"></script>
+    <script src="../static/js/components/login-anim.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
-
 <body class="bg-black text-white">
 
 
@@ -28,14 +30,15 @@
                     <p class="subtitulo">Faça login com seu e-mail e senha</p>
 
                     <form id="formularioLogin" class="formulario-autenticacao">
-                        <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
-                        <div class="input-group">
-                            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                        <div class="input-email">
+                            <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required></div>
+                        <div class="input-senha">
+                            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" minlength="6" maxlength="12" required>
                             <button type="button" class="btn-eye" data-target="senha" aria-label="Mostrar senha"><i class="fa-solid fa-eye"></i></button>
                         </div>
 
                         <div class="acoes-login">
-                            <button type="submit" class="btn-entrar">ENTRAR</button>
+                            <button type="submit" data-action="login" class="btn-entrar">ENTRAR</button>
                         </div>
                     </form>
 
@@ -57,9 +60,6 @@
     </section>
 
 </main>
-
-<script src="../static/js/components/login.js"></script>
-<script src="../static/js/components/login-anim.js"></script>
 </body>
 
 </html>

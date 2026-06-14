@@ -1,28 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('formularioLogin');
-
-    if (!form) return;
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('senha').value;
-
-        if (!email || !password) {
-            alert('Preencha email e senha.');
-            return;
-        }
-
-        // Validação simples de formato de email
-        const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRe.test(email)) {
-            alert('Digite um email válido.');
-            return;
-        }
-
-    });
-
     // botão de olho
     const eyeButtons = document.querySelectorAll('.btn-eye');
     eyeButtons.forEach(btn => {

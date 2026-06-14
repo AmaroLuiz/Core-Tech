@@ -11,6 +11,11 @@
 
     <link rel="stylesheet" href="../static/css/login.css">
     <link rel="stylesheet" href="../static/css/register.css">
+
+    <script src="../static/js/components/register.js"></script>
+    <script type="module" src="../static/js/pages/usuario.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../static/js/components/login.js"></script>
 </head>
 
 <body class="bg-black text-white">
@@ -25,15 +30,15 @@
             <div class="wrap-formulario">
                 <h2 class="titulo-entrar">Crie sua conta</h2>
                 <p class="subtitulo">Cadastre-se com seu e-mail e senha</p>
-                <form id="formularioCadastro" class="formulario-autenticacao">
-                    <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
-                    <div class="input-group">
+                <form id="formularioLogin" class="formulario-autenticacao">
+                    <div class="input-email"><input type="email" id="email" name="email" placeholder="Digite seu e-mail" required></div>
+                    <div class="input-senha">
                         <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
                         <button type="button" class="btn-eye" data-target="senha" aria-label="Mostrar senha"><i class="fa-solid fa-eye"></i></button>
                     </div>
                     <div class="acoes-login">
                         <div></div>
-                        <button type="submit" class="btn-criar">Criar conta</button>
+                        <button type="submit" data-action="cadastro" class="btn-entrar">CADASTRAR</button>
                     </div>
                 </form>
                 <p class="login-note">Já tem conta? <a href="login.html">Entrar</a></p>
@@ -43,10 +48,6 @@
     </section>
 
 </main>
-
-
-
-<script src="../static/js/components/register.js"></script>
 </body>
 
 </html>

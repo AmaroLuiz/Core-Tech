@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const title = document.querySelector('.titulo-entrar');
     const sub = document.querySelector('.subtitulo');
     const submitBtn = document.querySelector('.btn-entrar');
+    const btnLogin = document.querySelector(".btn-entrar");
 
     const texts = {
         login: {
@@ -33,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
     signup.addEventListener('click', function (e) {
         e.preventDefault();
 
+        const erro = document.querySelector('.erro-texto')?.remove();
+
         if (window.matchMedia && window.matchMedia('(max-width:768px)').matches) {
             window.location.href = 'register.html';
             return;
@@ -49,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (title) title.textContent = texts.register.title;
                 if (sub) sub.textContent = texts.register.sub;
                 if (submitBtn) submitBtn.textContent = texts.register.submit;
+                if (btnLogin) btnLogin.dataset.action = "cadastro";
                 if (promoTitleEl) promoTitleEl.textContent = texts.register.promoTitle;
                 if (promoTextEl) promoTextEl.textContent = texts.register.promoText;
                 signup.textContent = texts.register.signupLabel;
@@ -62,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (title) title.textContent = texts.login.title;
                 if (sub) sub.textContent = texts.login.sub;
                 if (submitBtn) submitBtn.textContent = texts.login.submit;
+                if (btnLogin) btnLogin.dataset.action = "login";
                 if (promoTitleEl) promoTitleEl.textContent = texts.login.promoTitle;
                 if (promoTextEl) promoTextEl.textContent = texts.login.promoText;
                 signup.textContent = texts.login.signupLabel;

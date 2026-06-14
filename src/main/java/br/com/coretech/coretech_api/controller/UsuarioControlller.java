@@ -17,6 +17,7 @@ import java.security.PublicKey;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/usuario")
+@CrossOrigin(origins = "*")
 public class UsuarioControlller {
 
     private final UsuarioService usuarioService;
