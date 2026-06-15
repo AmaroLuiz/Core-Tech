@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Meu Perfil | CoreTech</title>
+
+    <meta name="description"
+        content="Gerencie seus dados pessoais, endereços, telefones e acompanhe seus pedidos na CoreTech.">
+
+    <meta name="robots" content="noindex,nofollow">
+
+    <link rel="stylesheet" href="../static/css/profile.css">
+    <link rel="stylesheet" href="../static/css/footer.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="../static/js/components/profile.js"></script>
+
+</head>
+
+<body>
+    <header id="header">
+
+        <section class="hero-image">
+
+            <div class="top-gradient"></div>
+
+            <img src="../static/imagens/profile.webp" alt="imagem da home">
+
+            <div class="bottom-gradient"></div>
+
+        </section>
+
+        <nav>
+
+            <div class="menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <h2 class="logo">
+                <a href="index.html">CORE TECH</a>
+            </h2>
+
+            <ul class="menu">
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="about.html">Sobre nós</a></li>
+                <li><a href="https://wa.me/5544920011084" target="_blank">Contato</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+
+            <hr id="nav-line">
+
+        </nav>
+
+
+    </header>
+
+    <div class="perfil-container">
+
+        <aside class="sidebar">
+            <ul>
+                <li><a href="">Usuario</a></li>
+                <li><a href="">Endereço</a></li>
+                <li><a href="">Telefone</a></li>
+                <li><a href="">Pedidos</a></li>
+            </ul>
+        </aside>
+
+        <main class="perfil-content">
+
+            <article class="card usuario-card">
+
+                <header class="usuario-header">
+
+                    <img class="avatar" src="../static/img/avatar-default.png" alt="Foto de perfil do usuário">
+
+                    <section class="usuario-info">
+
+                        <h1>Luiz Miguel Poleti Amaro</h1>
+
+                        <p>
+                            <a href="mailto:luizmpoletiamaro@gmail.com">
+                                luizmpoletiamaro@gmail.com
+                            </a>
+                        </p>
+
+                        <div class="usuario-extra">
+                            <span>Mansueto Serafini</span>
+                            <span>Nº 90</span>
+                        </div>
+
+                    </section>
+
+                    <button class="btn-pedidos" type="button" aria-label="Visualizar pedidos">
+                        Pedidos
+                    </button>
+                    <div class="atualiza-usuario"></div>
+                    <button class="btn-menu" type="button" aria-label="Abrir opções da conta">
+                        ⋮
+                    </button>
+
+                </header>
+
+            </article>
+
+            <section class="card endereco-card">
+
+                <button class="btn-atualizar">
+                    Atualizar
+                </button>
+
+                <div class="endereco-detalhes">
+
+                    <address class="endereco-info">
+                        <h2>Goioerê</h2>
+                        <p>Santa Mônica</p>
+                        <p>Mansueto Serafini, Nº 90</p>
+                    </address>
+
+                    <div class="icone-casa">
+                        🏠
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="card telefone-card" aria-labelledby="titulo-telefone">
+
+                <div class="icone-telefone" aria-hidden="true">
+                    📞
+                </div>
+
+                <div class="telefone-info">
+
+                    <h2 id="titulo-telefone">
+                        Telefones
+                    </h2>
+
+                    <p>
+                        <a href="tel:+5544920011084">
+                            +55 (44) 92001-1084
+                        </a>
+                    </p>
+
+                    <p>
+                        <a href="tel:+554498230837">
+                            +55 (44) 9823-0837
+                        </a>
+                    </p>
+
+                </div>
+
+                <button class="btn-atualizar" type="button" aria-label="Atualizar telefone">
+                    Atualizar
+                </button>
+
+            </section>
+
+        </main>
+
+    </div>
+    <footer class="footer" id="footer">
+
+        <div class="footer-glow"></div>
+
+        <section class="footer-content">
+
+            <div class="footer-brand">
+
+                <h2>CORE TECH</h2>
+
+                <p>
+                    Tecnologia, precisão e criatividade
+                    transformando ideias em peças reais
+                    através da impressão 3D.
+                </p>
+
+                <div class="footer-social">
+
+                    <a href="https://www.instagram.com/field_bots/" target="_blank">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <a href="https://wa.me/5544920011084" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+
+                    <a href="#">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="footer-links">
+
+                <h4>Navegação</h4>
+
+                <a href="catalogo.html">Catálogo</a>
+                <a href="produtos.html?categoria=todos">Produtos</a>
+                <a href="about.html">Sobre Nós</a>
+                <a href="https://wa.me/5544920011084" target="_blank">Contato</a>
+
+            </div>
+
+            <div class="footer-links">
+
+                <h4>Categorias</h4>
+
+                <a href="produtos.html?categoria=articulado">Articulados</a>
+                <a href="produtos.html?categoria=minimalista">Minimalistas</a>
+                <a href="produtos.html?categoria=chaveiro">Chaveiros</a>
+                <a href="produtos.html?categoria=suporte">Suportes</a>
+
+            </div>
+
+            <div class="footer-contact">
+
+                <h4>Contato</h4>
+
+                <p>coretechofc@gmail.com</p>
+                <p>(44) 92001-1084</p>
+                <p>Paraná, Brasil</p>
+
+            </div>
+
+        </section>
+
+        <hr class="footer-line">
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 Core Tech — Todos os direitos reservados.
+            </p>
+
+            <p>
+                Desenvolvido Por Luiz Amaro.
+            </p>
+
+        </div>
+
+    </footer>
+    <script src="../static/js/components/navbar.js"></script>
+</body>
+
+</html>
