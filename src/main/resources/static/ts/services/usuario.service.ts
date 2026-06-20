@@ -1,7 +1,7 @@
 import {api} from './api.js';
 import {Login} from '../types/usuario.js';
-import {Endereco} from "../types/endereco";
-import {Telefone} from "../types/telefone";
+import {Endereco} from "../types/endereco.js";
+import {Telefone} from "../types/telefone.js";
 
 export async function login(usuario: Login){
 

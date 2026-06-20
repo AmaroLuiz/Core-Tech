@@ -1,4 +1,8 @@
 import { api } from "./api.js";
+export async function exibirDashboard() {
+    const response = await api.get("/produto/dashboard");
+    return response.data;
+}
 export async function buscarTodosOsProduto() {
     const response = await api.get("/produto/categoria-all");
     return response.data;

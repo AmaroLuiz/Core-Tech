@@ -1,9 +1,15 @@
 import { api } from "./api.js";
-import {coletarCategorias} from "../pages/categoria.js";
-import {coletarProduto} from "../pages/produto.js";
 import {Produto} from "../types/produto.js";
 import {Categoria} from "../types/categoria.js";
 
+
+export async function exibirDashboard(){
+
+    const response = await api.get("/produto/dashboard");
+
+    return response.data;
+
+}
 
 export async function buscarTodosOsProduto() {
 
