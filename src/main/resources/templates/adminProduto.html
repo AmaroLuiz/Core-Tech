@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/adminProduto.css">
+</head>
+
+<body>
+    <aside class="sidebar">
+        <h1 class="logo">Core Tech</h1>
+
+        <nav>
+            <ul>
+                <li><a href="admin.html">Home</a></li>
+                <li><a href="adminProduto.html">Produtos</a></li>
+                <li><a href="adminUsuario.html">Usuários</a></li>
+            </ul>
+        </nav>
+    </aside>
+    
+    <main class="produtos-container">
+
+        <header class="page-header">
+            <h1>Gerenciamento de Produtos</h1>
+            <p>Pesquisar e editar produtos cadastrados</p>
+        </header>
+
+        <section class="pesquisa-card">
+
+            <h2>Pesquisar Produto</h2>
+
+            <div class="pesquisa-area">
+
+                <select id="tipo-pesquisa">
+                    <option value="id">ID</option>
+                    <option value="sku">SKU</option>
+                    <option value="categoria">Categoria</option>
+                </select>
+
+                <input type="text" id="valor-pesquisa" placeholder="Digite o valor da pesquisa">
+
+                <button id="btn-pesquisar">
+                    Pesquisar
+                </button>
+
+            </div>
+
+        </section>
+
+        <section class="categoria-card">
+
+            <h2>Produtos por Categoria</h2>
+
+            <div class="pesquisa-area">
+
+                <select id="categoria-select">
+                    <option>Hardware</option>
+                    <option>Periféricos</option>
+                    <option>Monitores</option>
+                </select>
+
+                <button id="btn-categoria">
+                    Buscar
+                </button>
+
+            </div>
+
+        </section>
+
+        <section class="lista-produtos">
+
+            <!-- Produto Exemplo -->
+
+            <article class="produto-card">
+
+                <button class="menu-produto">
+                    ⋮
+                </button>
+
+                <img src="https://placehold.co/300x220" alt="Produto" class="produto-imagem">
+
+                <span class="produto-categoria">
+                    Hardware
+                </span>
+
+                <h3 class="produto-nome">
+                    RTX 5070 Ti
+                </h3>
+
+                <p class="produto-preco">
+                    R$ 4.299,90
+                </p>
+
+            </article>
+
+        </section>
+
+    </main>
+</body>
+
+</html>
