@@ -2,11 +2,14 @@ package br.com.coretech.coretech_api.service;
 
 
 import br.com.coretech.coretech_api.infraestructure.entity.Categoria;
+import br.com.coretech.coretech_api.infraestructure.entity.Dashboard;
 import br.com.coretech.coretech_api.infraestructure.entity.Produto;
 import br.com.coretech.coretech_api.infraestructure.exceptions.ConflictExceptions;
 import br.com.coretech.coretech_api.infraestructure.exceptions.ResourceNotFoundException;
 import br.com.coretech.coretech_api.infraestructure.repository.CategoriaRepository;
+import br.com.coretech.coretech_api.infraestructure.repository.DashboardRepository;
 import br.com.coretech.coretech_api.infraestructure.repository.ProdutoRepository;
+import br.com.coretech.coretech_api.infraestructure.repository.UsuarioRepository;
 import br.com.coretech.coretech_api.service.dto.*;
 import br.com.coretech.coretech_api.service.mapper.ProdutoConverter;
 import jakarta.transaction.Transactional;
@@ -24,6 +27,8 @@ public class ProdutoService {
     private final ProdutoConverter produtoConverter;
     private final ProdutoRepository produtoRepository;
     private final CategoriaRepository categoriaRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final DashboardRepository dashboardRepository;
 
     @Transactional
     public ProdutoRequestDTO salvaProduto(ProdutoDTO produtoDTO){
@@ -54,8 +59,14 @@ public class ProdutoService {
         return produtoConverter.paraCategoriaDTO(categoria);
     }
 
-
-
+    public DashboardDTO exibirDashboard(){
+        return DashboardDTO.builder()
+                .totalProdutos(produtoRepository.count())
+                .totalContas(usuarioRepository.count())
+                .totalCategoria(categoriaRepository.count())
+                .totalVisitas(1349L)
+                .build();
+    }
     public List<ProdutoResponseDTO> listaProdutoPorCategoria(Long categoria){
 
         if (!categoriaRepository.existsById(categoria)) {

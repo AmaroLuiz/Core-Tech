@@ -28,6 +28,10 @@ public class ProdutoController {
     public ResponseEntity<CategoriaDTO> salvaCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO){
         return ResponseEntity.ok(produtoService.salvaCategoria(categoriaDTO));
     }
+    @GetMapping("/dashboard")
+    public ResponseEntity<DashboardDTO> exibirDashboard(){
+        return ResponseEntity.ok(produtoService.exibirDashboard());
+    }
 
     @GetMapping("/categoria/{categoria}")
     public ResponseEntity<List<ProdutoResponseDTO>> listaProduto(@PathVariable
