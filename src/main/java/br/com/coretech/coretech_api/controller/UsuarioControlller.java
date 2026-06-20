@@ -9,12 +9,17 @@ import br.com.coretech.coretech_api.service.dto.TelefoneDTO;
 import br.com.coretech.coretech_api.service.dto.UsuarioDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.osgi.annotation.bundle.Header;
+import org.osgi.annotation.bundle.Headers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.PublicKey;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/usuario")
+@CrossOrigin(origins = "*")
 public class UsuarioControlller {
 
     private final UsuarioService usuarioService;
@@ -22,8 +27,23 @@ public class UsuarioControlller {
 
 
     @PostMapping("/criar")
-    public ResponseEntity<UsuarioDTO> salvaUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
-        return ResponseEntity.ok(usuarioService.salvaUsuario(usuarioDTO));
+    public ResponseEntity<LoginDTO> salvaUsuario(@Valid @RequestBody LoginDTO loginDTO) {
+        return ResponseEntity.ok(usuarioService.salvaUsuario(loginDTO));
+    }
+
+    @PostMapping("/criar/telefone")
+    public ResponseEntity<TelefoneDTO> salvaTelefone(@Valid @RequestBody TelefoneDTO telefoneDTO) {
+        return ResponseEntity.ok(usuarioService.salvaTelefone(telefoneDTO));
+    }
+
+    @PostMapping("/criar/endereco")
+    public ResponseEntity<EnderecoDTO> salvaEndereco(@Valid @RequestBody EnderecoDTO enderecoDTO) {
+        return ResponseEntity.ok(usuarioService.salvaEndereco(enderecoDTO));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UsuarioDTO> me() {
+        return ResponseEntity.ok(usuarioService.buscarUsuarioAutenticado());
     }
 
     @GetMapping

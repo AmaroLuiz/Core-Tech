@@ -1,13 +1,18 @@
-import { api } from "../service/api.js";
-export async function buscarTodosOsProduto() {
-    const response = await api.get("/produto/categoria-all");
-    return response.data;
-}
-export async function buscarProdutoPorId(id) {
-    const response = await api.get(`/produto/${id}`);
-    return response.data;
-}
-export async function buscarProdutoPorCategoria(categoria) {
-    const response = await api.get(`/produto/categoria/${categoria}`);
-    return response.data;
+export async function coletarProduto() {
+    const nomeInput = document.querySelector("#nome");
+    let skuInput = document.querySelector("#sku");
+    let descricaoInput = document.querySelector("#descricao");
+    let precoInput = document.querySelector("#preco");
+    let imagemUrlInput = document.querySelector("#imagemUrl");
+    let ativoInput = document.querySelector("#ativo");
+    let categoriaIdInput = document.querySelector("#categoriaId");
+    return {
+        nome: nomeInput.value,
+        sku: skuInput.value,
+        descricao: descricaoInput.value,
+        preco: Number(precoInput.value),
+        imagemUrl: imagemUrlInput.value,
+        ativo: ativoInput.checked,
+        categoriaId: Number(categoriaIdInput.value)
+    };
 }

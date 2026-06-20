@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Core Tech</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="../static/css/login.css">
+    <link rel="stylesheet" href="../static/css/register.css">
+
+    <script src="../static/js/components/register.js"></script>
+    <script type="module" src="../static/js/pages/usuario.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../static/js/components/login.js"></script>
+</head>
+
+<body class="bg-black text-white">
+
+
+<main>
+
+    <section class="login-section">
+
+        <div class="cartao-dividido">
+
+            <div class="wrap-formulario">
+                <h2 class="titulo-entrar">Crie sua conta</h2>
+                <p class="subtitulo">Cadastre-se com seu e-mail e senha</p>
+                <form id="formularioLogin" class="formulario-autenticacao">
+                    <div class="input-email"><input type="email" id="email" name="email" placeholder="Digite seu e-mail" required></div>
+                    <div class="input-senha">
+                        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+                        <button type="button" class="btn-eye" data-target="senha" aria-label="Mostrar senha"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                    <div class="acoes-login">
+                        <div></div>
+                        <button type="submit" data-action="cadastro" class="btn-entrar">CADASTRAR</button>
+                    </div>
+                </form>
+                <p class="login-note">Já tem conta? <a href="login.html">Entrar</a></p>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+</body>
+
+</html>

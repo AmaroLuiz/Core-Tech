@@ -17,4 +17,6 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
     @Transactional
     void deleteByEmail(String email);
 
+
+
 }

@@ -20,7 +20,7 @@ public class Telefone {
     @Column(name = "telefone", length = 10, nullable = false)
     private String telefone;
 
-    @Column(name = "ddd", length = 3, nullable = false)
+    @Column(name = "ddd", length = 2, nullable = false)
     private String ddd;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,0 +1,280 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #000;
+    --bg-card: #0a0a0a;
+    --bg-sidebar: #111;
+    --primary: #ff7a00;
+    --text-primary: #fff;
+    --text-secondary: #bdbdbd;
+    --border-radius: 14px;
+}
+
+
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: Inter, sans-serif;
+    min-height: 100vh;
+}
+
+.hero-image img{
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+/* ===== Layout ===== */
+
+.perfil-container {
+    max-width: 1200px;
+    margin: 300px auto;
+    display: flex;
+    gap: 1.5rem;
+    z-index: 100;
+    position: relative;
+    padding: 2rem;
+}
+
+.sidebar {
+    width: 250px;
+    min-height: 600px;
+    background: var(--bg-sidebar);
+    border-radius: 20px;
+
+}
+.sidebar ul {
+    margin-top: 60px;
+}
+.sidebar li {
+    color: rgba(255, 255, 255, 0.75);
+    text-align: center;
+    margin: 10px;
+    font-size: 2rem;
+    margin: 80px 0;
+    transition: transform 0.5s ease;
+}
+.sidebar li:hover{
+    transform: scale(1.1);
+    color: #ff7a00;
+}
+
+.perfil-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 100px 0
+}
+
+/* ===== Cards ===== */
+
+.card {
+    background: var(--bg-sidebar);
+    border-radius: var(--border-radius);
+    transition: .25s ease;
+    margin-top: 100px;
+}
+
+.card:hover {
+    box-shadow: 0 0 20px rgba(255, 122, 0, .15);
+}
+
+/* ===== Card Usuário ===== */
+
+.usuario-card {
+    padding: 1.5rem;
+}
+
+.usuario-header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.usuario-info {
+    flex: 1;
+}
+
+.usuario-info h1 {
+    font-size: 1.2rem;
+    margin-bottom: .3rem;
+}
+
+.usuario-info a {
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+.usuario-info a:hover {
+    color: var(--primary);
+}
+
+.usuario-extra {
+    display: flex;
+    gap: 1rem;
+    margin-top: .75rem;
+    font-size: .9rem;
+    color: var(--text-secondary);
+}
+
+.btn-pedidos {
+    border: none;
+    background: #ff7a00;
+    color: black;
+    padding: .65rem 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.btn-pedidos:hover {
+    transform: scale(1.1);
+}
+
+.btn-menu {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: .5rem;
+}
+
+/* ===== Endereço ===== */
+
+.endereco-card {
+    display: flex;
+    align-items: center;
+    padding: 1.75rem;
+    background-color: var(--bg-sidebar);
+    border-radius: 20px;
+}
+.endereco-detalhes {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.endereco-info h2 {
+    margin-bottom: .5rem;
+    text-align: end !important;
+}
+
+.endereco-info p {
+    margin-top: .25rem;
+    color: var(--text-secondary);
+    text-align: end !important;
+}
+
+.icone-casa {
+    font-size: 4rem;
+}
+
+/* ===== Telefones ===== */
+
+.telefone-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.75rem;
+}
+
+.icone-telefone {
+    font-size: 3.5rem;
+}
+
+.telefone-info {
+    flex: 1;
+    margin-left: 2rem;
+}
+
+.telefone-info h2 {
+    margin-bottom: .75rem;
+}
+
+.telefone-info a {
+    display: block;
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-top: .35rem;
+}
+
+.telefone-info a:hover {
+    color: var(--primary);
+}
+
+/* ===== Botão Atualizar ===== */
+
+.btn-atualizar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px dashed white;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.btn-atualizar:hover {
+    color: var(--primary);
+    transform: scale(1.05);
+}
+
+/* ===== Focus ===== */
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+/* ===== Mobile ===== */
+
+@media (max-width: 768px) {
+
+    .perfil-container {
+        flex-direction: column;
+        margin: 100px auto;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .usuario-header {
+        flex-wrap: wrap;
+    }
+
+    .btn-pedidos {
+        width: 100%;
+    }
+
+    .endereco-card,
+    .telefone-card {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .telefone-info {
+        margin-left: 0;
+    }
+}

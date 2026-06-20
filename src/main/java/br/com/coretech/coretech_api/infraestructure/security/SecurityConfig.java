@@ -16,6 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -40,15 +44,19 @@ public class  SecurityConfig {
         JwtRequestFilter jwtRequestFilter = new JwtRequestFilter(jwtUtil, userDetailsService);
 
         http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)                                              // Desativa proteção CSRF para APIs REST (não aplicável a APIs que não mantêm estado)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.GET, "/auth").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/usuario/login").permitAll()          // Permite acesso ao endpoint de login sem autenticação
                         .requestMatchers(HttpMethod.POST, "/usuario/criar").permitAll()
-                        .requestMatchers("/usuario/**").authenticated()                     // Requer autenticação para qualquer endpoint que comece com /usuario/
+                        .requestMatchers(HttpMethod.GET, "/auth").permitAll()
                         .requestMatchers(HttpMethod.GET, "/produto/**").permitAll()
+
+                        .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
                         .requestMatchers("/produto/**").hasRole("ADMIN")
+                        .requestMatchers("/usuario/**").authenticated()                     // Requer autenticação para qualquer endpoint que comece com /usuario/
+                        .requestMatchers(HttpMethod.POST, "/usuario/criar/**").authenticated()
+
                         .anyRequest().hasRole("ADMIN")
                 )
                 .sessionManagement(session -> session
@@ -58,6 +66,18 @@ public class  SecurityConfig {
 
                                                                                                             // Retorna a configuração do filtro de segurança construída
         return http.build();
+    }
+
+    @Bean
+    public UrlBasedCorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*")); // Em prod, tenho que mudar para o domínio
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Cache-Control"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     // Configura o PasswordEncoder para criptografar senhas usando BCrypt

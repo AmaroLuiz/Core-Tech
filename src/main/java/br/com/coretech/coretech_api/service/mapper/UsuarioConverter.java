@@ -4,6 +4,7 @@ import br.com.coretech.coretech_api.infraestructure.entity.Endereco;
 import br.com.coretech.coretech_api.infraestructure.entity.Telefone;
 import br.com.coretech.coretech_api.infraestructure.entity.Usuario;
 import br.com.coretech.coretech_api.service.dto.EnderecoDTO;
+import br.com.coretech.coretech_api.service.dto.LoginDTO;
 import br.com.coretech.coretech_api.service.dto.TelefoneDTO;
 import br.com.coretech.coretech_api.service.dto.UsuarioDTO;
 import org.mapstruct.*;
@@ -18,7 +19,11 @@ public interface UsuarioConverter {
     Usuario paraUsuarioEntity(UsuarioDTO usuarioDTO);
 
     UsuarioDTO paraUsuarioDTO(Usuario usuario);
-    
+
+    Usuario paraUsuarioLogin(LoginDTO loginDTO);
+
+    LoginDTO paraLoginDTO(Usuario usuario);
+
     @Mapping(target = "usuario", ignore = true)
     Endereco paraEnderecoEntity(EnderecoDTO enderecoDTO);
 
@@ -40,10 +45,12 @@ public interface UsuarioConverter {
     @Mapping(target = "authorities", ignore = true)
     Usuario updateUsuario(UsuarioDTO dto, @MappingTarget Usuario entity);
 
+
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "usuario", ignore = true)
     @Mapping(target = "id", ignore = true)
     Endereco updateEndereco(EnderecoDTO dto, @MappingTarget Endereco entity);
+
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "usuario", ignore = true)
