@@ -1,4 +1,4 @@
-import { api } from "./api";
+import { api } from "./api.js";
 export async function buscarTodosOsProduto() {
     const response = await api.get("/produto/categoria-all");
     return response.data;

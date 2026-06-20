@@ -1,4 +1,3 @@
-
 declare var axios: any;
 
 export const api = axios.create({
@@ -10,7 +9,7 @@ api.interceptors.request.use((config: any) => {
 
     if (token) {
         config.headers = config.headers || {};
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Authorization = token;
     }
     return config;
 });

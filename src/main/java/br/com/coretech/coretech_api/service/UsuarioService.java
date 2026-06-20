@@ -19,6 +19,7 @@ import br.com.coretech.coretech_api.service.dto.UsuarioDTO;
 import br.com.coretech.coretech_api.service.mapper.UsuarioConverter;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,7 +39,7 @@ public class UsuarioService {
     private final EnderecoRepository enderecoRepository;
     private final TelefoneRepository telefoneRepository;
     private final AuthService authService;
-
+    private final JwtUtil jwtUtil;
 
 
 //    public UsuarioDTO salvaUsuario(UsuarioDTO usuarioDTO) {
@@ -126,6 +127,18 @@ public class UsuarioService {
         } catch (ResourceNotFoundException e){
             throw new ResourceNotFoundException("Email não encontrado"+ email);
         }
+    }
+
+    public UsuarioDTO buscarUsuarioAutenticado() {
+
+        String email = authService.getUsuarioAutenticadoEmail();
+
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Usuário não encontrado")
+                );
+
+        return usuarioConverter.paraUsuarioDTO(usuario);
     }
 
 

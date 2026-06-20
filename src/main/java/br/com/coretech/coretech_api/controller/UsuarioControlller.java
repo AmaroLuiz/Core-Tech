@@ -9,6 +9,8 @@ import br.com.coretech.coretech_api.service.dto.TelefoneDTO;
 import br.com.coretech.coretech_api.service.dto.UsuarioDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.osgi.annotation.bundle.Header;
+import org.osgi.annotation.bundle.Headers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +41,10 @@ public class UsuarioControlller {
         return ResponseEntity.ok(usuarioService.salvaEndereco(enderecoDTO));
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<UsuarioDTO> me() {
+        return ResponseEntity.ok(usuarioService.buscarUsuarioAutenticado());
+    }
 
     @GetMapping
     public ResponseEntity<UsuarioDTO> buscarUsuarioPorEmail(@RequestParam("email") String email) {

@@ -17,7 +17,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="../static/js/components/profile.js"></script>
-
+    <script type="module" src="../static/js/pages/profile.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../static/js/pages/usuario.js"></script>
+    <script type="module" src="../static/js/validations/validarTelefone.js"></script>
+    <script type="module" src="../static/js/validations/validarEndereco.js"></script>
 </head>
 
 <body>
@@ -65,6 +69,7 @@
                 <li><a href="">Endereço</a></li>
                 <li><a href="">Telefone</a></li>
                 <li><a href="">Pedidos</a></li>
+                <li><a href="login.html" id="sair">Sair</a></li>
             </ul>
         </aside>
 
@@ -78,17 +83,17 @@
 
                     <section class="usuario-info">
 
-                        <h1>Luiz Miguel Poleti Amaro</h1>
+                        <h1 id="nome"></h1>
 
                         <p>
-                            <a href="mailto:luizmpoletiamaro@gmail.com">
-                                luizmpoletiamaro@gmail.com
+                            <a id="email">
+
                             </a>
                         </p>
 
                         <div class="usuario-extra">
-                            <span>Mansueto Serafini</span>
-                            <span>Nº 90</span>
+                            <span id="rua-usuario"></span>
+                            <span id="numero-rua-usuario"></span>
                         </div>
 
                     </section>
@@ -107,16 +112,17 @@
 
             <section class="card endereco-card">
 
-                <button class="btn-atualizar">
+                <button class="btn-atualizar btn-endereco" data-action="adicionar">
                     Atualizar
                 </button>
 
                 <div class="endereco-detalhes">
 
                     <address class="endereco-info">
-                        <h2>Goioerê</h2>
-                        <p>Santa Mônica</p>
-                        <p>Mansueto Serafini, Nº 90</p>
+                        <h2 id="cidade"></h2>
+                        <span id="bairro"></span>
+                        <span id="rua-endereco"></span>
+                        <span id="numero-rua-endereco"></span>
                     </address>
 
                     <div class="icone-casa">
@@ -140,20 +146,20 @@
                     </h2>
 
                     <p>
-                        <a href="tel:+5544920011084">
-                            +55 (44) 92001-1084
-                        </a>
+                        <span id="ddd">
+
+                        </span>
                     </p>
 
                     <p>
-                        <a href="tel:+554498230837">
-                            +55 (44) 9823-0837
-                        </a>
+                        <span id="telefone">
+
+                        </span>
                     </p>
 
                 </div>
 
-                <button class="btn-atualizar" type="button" aria-label="Atualizar telefone">
+                <button class="btn-atualizar btn-telefone" data-action="adicionar">
                     Atualizar
                 </button>
 

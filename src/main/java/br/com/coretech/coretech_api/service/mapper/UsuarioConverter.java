@@ -45,10 +45,12 @@ public interface UsuarioConverter {
     @Mapping(target = "authorities", ignore = true)
     Usuario updateUsuario(UsuarioDTO dto, @MappingTarget Usuario entity);
 
+
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "usuario", ignore = true)
     @Mapping(target = "id", ignore = true)
     Endereco updateEndereco(EnderecoDTO dto, @MappingTarget Endereco entity);
+
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "usuario", ignore = true)

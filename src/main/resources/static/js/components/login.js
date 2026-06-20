@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // botão de olho
+
+
     const eyeButtons = document.querySelectorAll('.btn-eye');
     eyeButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -16,4 +17,5 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
 });

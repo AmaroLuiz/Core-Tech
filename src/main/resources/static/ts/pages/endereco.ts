@@ -1,23 +1,26 @@
 import {Endereco} from "../types/endereco.js";
 
-export async function coletarEndereco() {
+export function coletarEndereco(): Endereco {
 
-    let estadoInput = document.querySelector("#estado") as HTMLInputElement;
-    let cidadeInput = document.querySelector("#cidade") as HTMLInputElement;
-    let cepInput = document.querySelector("#cep") as HTMLInputElement;
-    let ruaInput = document.querySelector("#rua") as HTMLInputElement;
-    let numeroInput = document.querySelector("#numero") as HTMLInputElement;
-    let complementoInput = document.querySelector("#complemento") as HTMLInputElement;
+    let estadoInput: HTMLInputElement | null = document.querySelector(".estado-input") as HTMLInputElement;
+    let cepInput: HTMLInputElement | null  = document.querySelector(".cep-input") as HTMLInputElement;
+    let cidadeInput: HTMLInputElement | null  = document.querySelector(".cidade-input") as HTMLInputElement;
+    let bairroInput: HTMLInputElement | null  = document.querySelector(".bairro-input") as HTMLInputElement;
+    let ruaInput: HTMLInputElement | null  = document.querySelector(".rua-input") as HTMLInputElement;
+    let numeroInput: HTMLInputElement | null  = document.querySelector(".numero-input") as HTMLInputElement;
+    const vazio = null;
 
+
+    
     return {
-
-        estado: estadoInput.value,
-        cidade: cidadeInput.value,
-        cep: cepInput.value,
-        rua: ruaInput.value,
-        numero: Number(numeroInput.value),
-        complemento: complementoInput.value
-
-    }
+        estado: estadoInput.value.trim() || null,
+        cidade: cidadeInput.value.trim() || null,
+        cep: cepInput.value.trim() || null,
+        rua: ruaInput.value.trim() || null,
+        numero: numeroInput.value.trim()
+            ? Number(numeroInput.value)
+            : null,
+        complemento: bairroInput.value.trim() || null
+    };
 
 }

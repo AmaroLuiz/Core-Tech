@@ -2,7 +2,8 @@
 
 export interface Telefone {
 
-    telefone: string;
-    ddd: string;
+    id?: number | null;
+    telefone: string | null;
+    ddd: string | null;
 
 }

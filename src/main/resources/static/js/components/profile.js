@@ -1,16 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
+    let btnEndereco = document.querySelector(".btn-endereco");
+    let btnTelefone = document.querySelector(".btn-telefone");
     const createUpdateOverlay = (type) => {
-        // type: 'usuario' | 'endereco' | 'telefone'
+
         let overlay = document.querySelector(".atualiza-usuario-overlay");
 
-        // toggle: if same type is open, close it
+
         if (overlay && overlay.dataset.type === type) {
             overlay.remove();
             document.body.style.overflowY = "";
             return;
         }
 
-        // remove existing different overlay
         if (overlay) overlay.remove();
 
         overlay = document.createElement("div");
@@ -72,32 +73,125 @@ document.addEventListener("DOMContentLoaded", () => {
         if (type === 'usuario') {
             titulo.textContent = "Atualizar Dados";
             const nome = makeInput('text', 'Nome');
+            nome.className = "nome-input";
             const gmail = makeInput('email', 'Gmail');
+            gmail.className = "gmail-input";
+            const erroGmail = document.createElement("div");
+            erroGmail.className = "erro-gmail";
+            const enviar = document.createElement("button");
+            enviar.className= "btn-enviar-usuario btn-usuario";
+            enviar.textContent = "Enviar";
+            enviar.style.backgroundColor = "#ff4d00";
+            enviar.style.marginTop = "20px";
+            enviar.style.width = "100%";
+            enviar.style.color = "#black";
+            enviar.style.fontSize = "16px";
+            enviar.style.padding = "12px 24px";
+            enviar.style.borderRadius = "8px";
+            enviar.style.cursor = "pointer";
+            enviar.style.fontWeight = "bold";
+
             card.appendChild(titulo);
             card.appendChild(nome);
             card.appendChild(gmail);
+            card.appendChild(erroGmail);
+            card.appendChild(enviar);
             card.appendChild(fechar);
         } else if (type === 'endereco') {
-            titulo.textContent = "Atualizar Endereço";
+            if (btnEndereco.dataset.action === "editar") {
+
+                titulo.textContent = "Atualizar Endereço";
+            }
+            if (btnEndereco.dataset.action === "adicionar") {
+                titulo.textContent = "Adicionar Endereço";
+            }
+            const estado = makeInput('text', 'Estado');
+            estado.className = "estado-input";
+            const erroEstado = document.createElement("div");
+            erroEstado.className = "erro-estado";
+            const cep = makeInput('text', 'CEP');
+            cep.className = "cep-input";
+            const erroCep = document.createElement("div");
+            erroCep.className = "erro-cep";
             const cidade = makeInput('text', 'Cidade');
+            cidade.className = "cidade-input";
+            const erroCidade = document.createElement("div");
+            erroCidade.className = "erro-cidade";
             const bairro = makeInput('text', 'Bairro');
+            bairro.className = "bairro-input";
+            const erroBairro = document.createElement("div");
+            erroBairro.className = "erro-bairro";
             const rua = makeInput('text', 'Rua / Logradouro');
+            rua.className = "rua-input";
+            const erroRua = document.createElement("div");
+            erroRua.className = "erro-rua";
             const numero = makeInput('text', 'Número');
+            numero.className = "numero-input";
+            const erroNumero = document.createElement("div");
+            erroNumero.className = "erro-numero";
+            const enviar = document.createElement("button");
+            enviar.textContent = "Enviar";
+            enviar.className= "btn-enviar-endereco";
+            enviar.style.backgroundColor = "#ff4d00";
+            enviar.style.marginTop = "20px";
+            enviar.style.width = "100%";
+            enviar.style.color = "#black";
+            enviar.style.fontSize = "16px";
+            enviar.style.padding = "12px 24px";
+            enviar.style.borderRadius = "8px";
+            enviar.style.cursor = "pointer";
+            enviar.style.fontWeight = "bold";
 
             card.appendChild(titulo);
+            card.appendChild(estado);
+            card.appendChild(erroEstado);
+            card.appendChild(cep);
+            card.appendChild(erroCep);
             card.appendChild(cidade);
+            card.appendChild(erroCidade);
             card.appendChild(bairro);
+            card.appendChild(erroBairro);
             card.appendChild(rua);
+            card.appendChild(erroRua);
             card.appendChild(numero);
+            card.appendChild(erroNumero);
+            card.appendChild(enviar);
             card.appendChild(fechar);
             
         } else if (type === 'telefone') {
-            titulo.textContent = "Atualizar Telefone";
-            const tel1 = makeInput('tel', 'Telefone principal');
-            const tel2 = makeInput('tel', 'Telefone secundário (opcional)');
+            if (btnTelefone.dataset.action === "editar") {
+                titulo.textContent = "Atualizar Telefone";
+            }
+            if (btnTelefone.dataset.action === "adicionar") {
+                titulo.textContent = "Adicionar Telefone";
+            }
+
+            const ddd = makeInput('tel', 'DDD');
+            ddd.className = "ddd-input";
+            const erroDdd = document.createElement("div");
+            erroDdd.className = "erro-ddd";
+            const tel = makeInput('tel', 'Telefone');
+            tel.className = "telefone-input";
+            const erroTel = document.createElement("div");
+            erroTel.className = "erro-telefone";
+            const enviar = document.createElement("button");
+            enviar.textContent = "Enviar";
+            enviar.style.backgroundColor = "#ff4d00";
+            enviar.className = "btn-enviar-telefone";
+            enviar.style.marginTop = "20px";
+            enviar.style.width = "100%";
+            enviar.style.color = "#black";
+            enviar.style.fontSize = "16px";
+            enviar.style.padding = "12px 24px";
+            enviar.style.borderRadius = "8px";
+            enviar.style.cursor = "pointer";
+            enviar.style.fontWeight = "bold";
             card.appendChild(titulo);
-            card.appendChild(tel1);
-            card.appendChild(tel2);
+            card.appendChild(ddd);
+            card.appendChild(erroDdd);
+            card.appendChild(tel);
+            card.appendChild(erroTel);
+            card.appendChild(enviar);
             card.appendChild(fechar);
         }
 
@@ -106,13 +200,11 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.overflowY = "hidden";
     };
 
-    // listener para o botão de menu (dados do usuário)
     const btn = document.querySelector(".btn-menu");
     if (btn) {
         btn.addEventListener("click", () => createUpdateOverlay('usuario'));
     }
 
-    // listeners para botões de atualizar (endereço e telefone). Usa atributo data-target opcional
     const atualizarButtons = document.querySelectorAll('.btn-atualizar');
     atualizarButtons.forEach(b => {
         b.addEventListener('click', (evt) => {

@@ -1,4 +1,4 @@
-import { mostrarErro } from "./erro.js";
+import { mostrarErro } from "./erroDiv.js";
 export function validarUsuario(usuario) {
     const inputEmail = usuario.email.trim();
     const inputSenha = usuario.senha.trim();
