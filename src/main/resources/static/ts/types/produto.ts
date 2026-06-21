@@ -2,12 +2,11 @@
 
 export interface Produto {
 
+    id?: number;
     nome: string;
-    sku: string;
     descricao: string;
     preco: number;
     imagemUrl: string;
-    ativo: boolean;
-    categoriaId: number;
+    nomeCategoria: string;
 
 }

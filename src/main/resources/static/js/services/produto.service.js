@@ -7,12 +7,20 @@ export async function buscarTodosOsProduto() {
     const response = await api.get("/produto/categoria-all");
     return response.data;
 }
-export async function buscarProdutoPorId(id) {
-    const response = await api.get(`/produto/${id}`);
+export async function exibirProdutoPorId(id) {
+    const response = await api.get(`/produto/id-${id}`);
     return response.data;
 }
-export async function buscarProdutoPorCategoria(categoria) {
-    const response = await api.get(`/produto/categoria/${categoria}`);
+export async function exibirProdutoPorSku(sku) {
+    const response = await api.get(`/produto/sku-${sku}`);
+    return response.data;
+}
+export async function exibirProdutoPorNome(nome) {
+    const response = await api.get(`/produto/nome-${nome}`);
+    return response.data;
+}
+export async function exibirProdutoPorCategoria(slug) {
+    const response = await api.get(`/produto/slug/${slug}`);
     return response.data;
 }
 export async function salvarProduto(produto) {

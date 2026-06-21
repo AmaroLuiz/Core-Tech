@@ -17,7 +17,9 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     boolean existsBySku(String sku);
 
-    List<Produto> findAllByCategoria_Id(Long id);
+    List<Produto> findAllByCategoria_Slug(String slug);
 
     Optional<Produto> findById(Long id);
+    Optional<Produto> findBySku(String sku);
+    Optional<Produto> findByNome(String nome);
 }

@@ -53,7 +53,9 @@ public class  SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/produto/**").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
-                        .requestMatchers("/produto/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/produto/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"/produto/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,"/produto/**").hasRole("ADMIN")
                         .requestMatchers("/usuario/**").authenticated()                     // Requer autenticação para qualquer endpoint que comece com /usuario/
                         .requestMatchers(HttpMethod.POST, "/usuario/criar/**").authenticated()
 

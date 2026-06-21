@@ -13,6 +13,6 @@ export async function coletarProduto() {
         preco: Number(precoInput.value),
         imagemUrl: imagemUrlInput.value,
         ativo: ativoInput.checked,
-        categoriaId: Number(categoriaIdInput.value)
+        categoria: categoriaIdInput.value
     };
 }

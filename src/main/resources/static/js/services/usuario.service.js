@@ -11,6 +11,10 @@ export async function atualizarUsuario(nome, gmail, id) {
     const response = await api.put(`/usuario?id=${id}`, { nome, gmail });
     return response.data;
 }
+export async function buscarUsuarioPorGmail(gmail) {
+    const response = await api.get(`/usuario?email=${gmail}`);
+    return response.data;
+}
 export async function salvarTelefone(telefone) {
     const response = await api.post("/usuario/criar/telefone", telefone);
     return response.data;

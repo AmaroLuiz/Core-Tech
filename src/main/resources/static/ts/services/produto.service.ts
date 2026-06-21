@@ -21,19 +21,37 @@ export async function buscarTodosOsProduto() {
 
 }
 
-export async function buscarProdutoPorId(id: number) {
+export async function exibirProdutoPorId(id: number) {
 
     const response = await api.get(
-        `/produto/${id}`
+        `/produto/id-${id}`
     );
 
     return response.data;
 
 }
 
-export async function buscarProdutoPorCategoria(categoria: number) {
+export async function exibirProdutoPorSku(sku: string) {
     const response = await api.get(
-        `/produto/categoria/${categoria}`
+        `/produto/sku-${sku}`
+    );
+
+    return response.data;
+
+}
+
+export async function exibirProdutoPorNome(nome: string) {
+    const response = await api.get(
+        `/produto/nome-${nome}`
+    );
+
+    return response.data;
+
+}
+
+export async function exibirProdutoPorCategoria(slug: string) {
+    const response = await api.get(
+        `/produto/slug/${slug}`
     );
 
     return response.data;
@@ -93,3 +111,4 @@ export async function atualizarCategoria(categoria: Categoria, id: number) {
     return response.data;
 
 }
+

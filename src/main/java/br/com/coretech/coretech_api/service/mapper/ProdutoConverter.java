@@ -27,6 +27,7 @@ public interface ProdutoConverter {
 
 
     @Mapping(source = "categoria.nome", target = "nomeCategoria")
+    @Mapping(source = "id", target = "id")
     ProdutoResponseDTO paraProdutoResponseDTO(Produto produto);
 
     @Mapping(source = "categoria.nome", target = "nomeCategoria")

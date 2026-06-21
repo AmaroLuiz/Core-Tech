@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../static/css/adminUsuario.css">
+    <script type="module" src="../static/js/pages/adminUsuario.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
-<body>
+<body class="admin-only">
     <aside class="sidebar">
         <h1 class="logo">Core Tech</h1>
 
@@ -34,7 +36,7 @@
             <div class="search-area">
                 <input type="email" id="email-pesquisa" placeholder="Digite o email">
 
-                <button id="btn-pesquisar">
+                <button id="btn-pesquisar" class="btn-pesquisar">
                     Pesquisar
                 </button>
             </div>
@@ -48,54 +50,84 @@
 
                 <div>
                     <span>Nome</span>
-                    <p id="usuario-nome">-</p>
+                    <p id="usuario-nome"></p>
                 </div>
 
                 <div>
                     <span>Email</span>
-                    <p id="usuario-email">-</p>
+                    <p id="usuario-email"></p>
                 </div>
 
                 <div>
                     <span>Perfil</span>
-                    <p id="usuario-role">-</p>
+                    <p id="usuario-role"></p>
                 </div>
 
                 <div>
                     <span>ID</span>
-                    <p id="usuario-id">-</p>
+                    <p id="usuario-id"></p>
                 </div>
 
             </div>
 
         </article>
 
-        <article class="editar-card">
+        <article class="dados-card">
 
-            <h2>Editar Usuário</h2>
+            <h2>Endereço do Usuário</h2>
 
-            <form id="form-editar">
+            <div class="dados-grid">
 
-                <label>
-                    Nome
-                </label>
+                <div>
+                    <span>Estado</span>
+                    <p id="usuario-estado"></p>
+                </div>
 
-                <input type="text" id="editar-nome">
+                <div>
+                    <span>Cidade</span>
+                    <p id="usuario-cidade"></p>
+                </div>
 
-                <label>
-                    Email
-                </label>
+                <div>
+                    <span>CEP</span>
+                    <p id="usuario-cep"></p>
+                </div>
 
-                <input type="email" id="editar-email">
+                <div>
+                    <span>Bairro</span>
+                    <p id="usuario-bairro"></p>
+                </div>
 
-                <button type="submit">
-                    Salvar Alterações
-                </button>
+                <div>
+                    <span>Rua</span>
+                    <p id="usuario-rua"></p>
+                </div>
 
-            </form>
+                <div>
+                    <span>Numero</span>
+                    <p id="usuario-numero"></p>
+                </div>
+
+            </div>
 
         </article>
 
+        <article class="dados-card">
+
+            <h2>Telefone do Usuário</h2>
+
+            <div class="dados-grid">
+
+                <div>
+                    <span>DDD</span>
+                    <p id="usuario-ddd"></p>
+                </div>
+
+                <div>
+                    <span>Telefone</span>
+                    <p id="usuario-telefone"></p>
+                </div>
+        </article>
     </section>
 </body>
 

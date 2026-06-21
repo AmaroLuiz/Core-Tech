@@ -67,13 +67,13 @@ public class ProdutoService {
                 .totalVisitas(1349L)
                 .build();
     }
-    public List<ProdutoResponseDTO> listaProdutoPorCategoria(Long categoria){
+    public List<ProdutoResponseDTO> exibirProdutoPorCategoria(String slug){
 
-        if (!categoriaRepository.existsById(categoria)) {
-            throw new ResourceNotFoundException("Categoria não encontrada com o ID: " + categoria);
+        if (!categoriaRepository.existsBySlug(slug)) {
+            throw new ResourceNotFoundException("Categoria não encontrada com o ID: " + slug);
         }
 
-        List<Produto> produtos = produtoRepository.findAllByCategoria_Id(categoria);
+        List<Produto> produtos = produtoRepository.findAllByCategoria_Slug(slug);
         List<ProdutoResponseDTO> response = new ArrayList<>();
 
 
@@ -95,10 +95,28 @@ public class ProdutoService {
                 .toList();
     }
 
-    public ProdutoResumoDTO pegarProduto(Long id) {
+    public ProdutoResumoDTO exibirProdutoPorId(Long id) {
 
         Produto produto = produtoRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Produto não encontrado " + id)
+        );
+
+        return produtoConverter.paraProdutoResumoDTO(produto);
+    }
+
+    public ProdutoResumoDTO exibirProdutoPorSku(String sku) {
+
+        Produto produto = produtoRepository.findBySku(sku).orElseThrow(
+                () -> new ResourceNotFoundException("Produto não encontrado " + sku)
+        );
+
+        return produtoConverter.paraProdutoResumoDTO(produto);
+    }
+
+    public ProdutoResumoDTO exibirProdutoPorNome(String nome) {
+
+        Produto produto = produtoRepository.findByNome(nome).orElseThrow(
+                () -> new ResourceNotFoundException("Produto não encontrado " + nome)
         );
 
         return produtoConverter.paraProdutoResumoDTO(produto);

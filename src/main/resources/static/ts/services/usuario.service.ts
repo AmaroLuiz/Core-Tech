@@ -21,6 +21,11 @@ export async function atualizarUsuario(nome: string,gmail: any ,id: number) {
     );
     return response.data;
 }
+export async function buscarUsuarioPorGmail(gmail: string){
+
+    const response = await api.get(`/usuario?email=${gmail}`)
+    return response.data;
+}
 
 export async function salvarTelefone(telefone: Telefone) {
 

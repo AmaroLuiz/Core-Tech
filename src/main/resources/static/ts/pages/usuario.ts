@@ -1,10 +1,11 @@
 import {validarLogin}from "../validations/validarLogin.js";
-import {Login} from "../types/usuario.js";
+import {Login, Usuario} from "../types/usuario.js";
 import {mostrarErro} from "../validations/erroDiv.js";
 import {limparErro} from "../validations/limparErros.js";
 import {
     salvaUsuario, login
 } from "../services/usuario.service.js";
+import {api} from "../services/api";
 
 const btnLogin = document.querySelector(".btn-entrar") as HTMLButtonElement;
 
@@ -23,6 +24,7 @@ if (btnLogin) {
             email: inputEmail.value,
             senha: inputSenha.value
         }
+
 
         if (!validarLogin(usuario)) {
             return;

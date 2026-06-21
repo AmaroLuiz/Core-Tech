@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../static/css/adminProduto.css">
+    <script type="module" src="../static/js/pages/adminProduto.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
-<body>
+<body class="admin-only">
     <aside class="sidebar">
         <h1 class="logo">Core Tech</h1>
 
@@ -37,16 +39,21 @@
                 <select id="tipo-pesquisa">
                     <option value="id">ID</option>
                     <option value="sku">SKU</option>
-                    <option value="categoria">Categoria</option>
+                    <option value="nome">NOME</option>
                 </select>
 
                 <input type="text" id="valor-pesquisa" placeholder="Digite o valor da pesquisa">
 
-                <button id="btn-pesquisar">
+                <button id="btn-pesquisar" class="btn-pesquisar">
                     Pesquisar
                 </button>
 
             </div>
+
+        </section>
+
+        <section class="exibir-produto-unico">
+
 
         </section>
 
@@ -57,12 +64,15 @@
             <div class="pesquisa-area">
 
                 <select id="categoria-select">
-                    <option>Hardware</option>
-                    <option>Periféricos</option>
-                    <option>Monitores</option>
+                    <option value="chaveiros">Chaveiros</option>
+                    <option value="agro">Agro</option>
+                    <option value="minimalista">Minimalistas</option>
+                    <option value="funko-pop">Funko Pop</option>
+                    <option value="suportes">Suportes</option>
+                    <option value="trico">Tricô</option>
                 </select>
 
-                <button id="btn-categoria">
+                <button id="btn-categoria" class="btn-categoria">
                     Buscar
                 </button>
 
@@ -76,22 +86,22 @@
 
             <article class="produto-card">
 
-                <button class="menu-produto">
-                    ⋮
+                <button class="menu-produto" data-id="0">
+
                 </button>
 
                 <img src="https://placehold.co/300x220" alt="Produto" class="produto-imagem">
 
                 <span class="produto-categoria">
-                    Hardware
+
                 </span>
 
                 <h3 class="produto-nome">
-                    RTX 5070 Ti
+
                 </h3>
 
                 <p class="produto-preco">
-                    R$ 4.299,90
+
                 </p>
 
             </article>
