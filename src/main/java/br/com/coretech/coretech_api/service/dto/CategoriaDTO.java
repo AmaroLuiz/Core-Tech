@@ -19,6 +19,8 @@ public class CategoriaDTO {
     @Size(min = 0, max = 100, message = "Nome deve ter entre 0 e 100 caracteres")
     private String nome;
 
+    private String imagemURL;
+
     @NotBlank(message = "Slug de produto é obrigatório")
     private String slug;
 }
