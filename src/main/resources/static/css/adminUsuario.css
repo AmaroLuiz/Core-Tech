@@ -84,7 +84,8 @@ body {
 
 .search-card,
 .dados-card,
-.editar-card {
+.editar-card,
+.apagar-usuario-card {
     background: #161b22;
     padding: 2rem;
     border-radius: 12px;
@@ -93,7 +94,8 @@ body {
 
 .search-card h2,
 .dados-card h2,
-.editar-card h2 {
+.editar-card h2,
+.apagar-usuario-card {
     color: #ff5c00;
     margin-bottom: 1rem;
 }
@@ -173,4 +175,35 @@ body {
 #form-editar button:hover,
 .search-area button:hover {
     opacity: .9;
+}
+
+#id{
+    background: #0f1117;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+}
+.apagar-usuario-card{
+
+
+}
+.apagar-usuario-card input{
+    margin: 20px 0;
+    width: 50%;
+}
+.apagar-usuario-card div {
+    display: flex;
+    flex-direction: column;
+}
+.btn-apagar-usuario{
+    width: 20%;
+    height: 40px;
+    background-color: #ff5c00;
+    border-radius: 10px;
+    border: none;
+    transition: transform 0.5s ease;
+}
+.btn-apagar-usuario:hover{
+    transform: scale(1.05);
 }

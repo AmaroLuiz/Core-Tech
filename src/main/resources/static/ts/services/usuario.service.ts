@@ -35,6 +35,12 @@ export async function salvarTelefone(telefone: Telefone) {
     return response.data;
 }
 
+export async function deletarUsuairPorGmail(gmail: string) {
+    const response = await api.delete(
+        `/usuario/${gmail}`
+    );
+    return response.data;
+}
 
 export async function atualizarTelefone(telefone: Telefone, telefoneId: number) {
     const response = await api.put(

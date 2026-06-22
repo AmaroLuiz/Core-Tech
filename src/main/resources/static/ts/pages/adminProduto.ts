@@ -1,20 +1,55 @@
 import {Produto} from "../types/produto.js";
 import {Categoria} from "../types/categoria.js";
 import {
+    atualizarProduto, deletarProduto,
     exibirProdutoPorCategoria,
     exibirProdutoPorId,
     exibirProdutoPorNome,
-    exibirProdutoPorSku
+    exibirProdutoPorSku,
+    salvarProduto
 } from "../services/produto.service.js";
 
 const grid = document.querySelector(".lista-produtos") as HTMLElement;
 const cardProduto = document.querySelector(".exibir-produto-unico") as HTMLDivElement;
 let produtosCarregados: Produto[] = [];
 
+export async function criarProduto() {
+
+    const nomeInput = document.querySelector("#criacao-nome") as HTMLInputElement;
+    const precoInput = document.querySelector("#criacao-preco") as HTMLInputElement;
+    const skuInput = document.querySelector("#criacao-sku") as HTMLInputElement;
+    const categoriaInput = document.querySelector("#criacao-categoria") as HTMLSelectElement;
+    const imagemInput = document.querySelector("#criacao-imagem") as HTMLInputElement;
+    const descricaoInput = document.querySelector("#criacao-descricao") as HTMLTextAreaElement;
+
+    const categoriaa: Categoria = {
+        nome: categoriaInput.textContent?.toString() || "",
+        slug: categoriaInput.value.toString()
+    }
+
+    if (nomeInput.value.trim() && precoInput.value.trim()
+        && skuInput.value.trim() && categoriaInput.value.trim()
+        && imagemInput.value.trim() && descricaoInput.value.trim()) {
+        const produto: Produto = {
+            nome: nomeInput.value,
+            descricao: descricaoInput.value,
+            sku: skuInput.value,
+            preco: Number(precoInput.value),
+            imagemUrl: imagemInput.value,
+            categoria:  {
+                slug: categoriaInput.value,
+                nome: categoriaInput.textContent?.toString()
+            }
+        };
+        await salvarProduto(produto);
+    }
+}
+
+
+
 export async function buscarProduto() {
     const tipo = document.querySelector("#tipo-pesquisa") as HTMLSelectElement;
     const valorPesquisa = document.querySelector("#valor-pesquisa") as HTMLInputElement;
-
     try {
         if (tipo.value === "id" && Number(valorPesquisa.value)) {
             const produto: Produto =
@@ -40,9 +75,35 @@ export async function buscarProduto() {
         }
     }
 }
+
+function pegarDadosAtualizarProduto(): Produto{
+    const nomeInput = document.querySelector("#editar-nome") as HTMLInputElement;
+    const precoInput = document.querySelector("#editar-preco") as HTMLInputElement;
+    const categoriaInput = document.querySelector("#editar-categoria") as HTMLSelectElement;
+    const imagemInput = document.querySelector("#editar-imagem") as HTMLInputElement;
+    const descricaoInput = document.querySelector("#editar-descricao") as HTMLTextAreaElement;
+
+    return {
+        nome: nomeInput.value || null,
+        preco: Number(precoInput.value.trim()) || null,
+        descricao: descricaoInput.value.trim() || null,
+        nomeCategoria: categoriaInput.value.trim() || null,
+        imagemUrl: imagemInput.value.trim() || null
+    }
+}
+
+async function criarAtualizacaoProduto(produto: Produto,id: number){
+
+    
+
+    if(produto.nome != null || produto.preco != null || produto.nomeCategoria != null
+        || produto.descricao != null){
+        await atualizarProduto(produto, id)
+    }
+
+}
+
 function criarCardDeProduto(produto: Produto): HTMLElement {
-    console.log(produto);
-    console.log(produto.id);
 
     const article = document.createElement("article");
     article.className = "produto-card";
@@ -54,18 +115,22 @@ function criarCardDeProduto(produto: Produto): HTMLElement {
 
     const img = document.createElement("img");
     img.className = "produto-imagem";
-    img.src = produto.imagemUrl;
+    img.src = produto.imagemUrl || "";
+
 
     const span = document.createElement("span");
     span.className = "produto-categoria";
-    span.textContent = produto.nomeCategoria;
+    span.textContent = produto.nomeCategoria ?? "" ;
+    
 
     const h3 = document.createElement("h3");
     h3.className = "produto-nome";
     h3.textContent = produto.nome;
+
     const p = document.createElement("p");
     p.className = "produto-preco";
     p.textContent = `R$ ${produto.preco}`;
+
 
     cardProduto.appendChild(article);
     article.appendChild(menu);
@@ -138,6 +203,7 @@ function criarOverlayProduto(produto: Produto) {
                 <p><strong>Nome:</strong> ${produto.nome}</p>
                 <p><strong>Preço:</strong> R$ ${produto.preco}</p>
                 <p><strong>Categoria:</strong> ${produto.nomeCategoria}</p>
+                <p><strong>Descrição</strong> ${produto.descricao}</>
 
                 <img
                     src="${produto.imagemUrl}"
@@ -157,12 +223,15 @@ function criarOverlayProduto(produto: Produto) {
                 <input
                     id="editar-nome"
                     value="${produto.nome}"
+                    placeholder="Novo nome"
                     style="width:100%;padding:10px;margin-bottom:10px"
                 >
+
 
                 <input
                     id="editar-preco"
                     value="${produto.preco}"
+                    placeholder="Novo preço"
                     style="width:100%;padding:10px;margin-bottom:10px"
                 >
 
@@ -170,17 +239,26 @@ function criarOverlayProduto(produto: Produto) {
                 <input
                     id="editar-categoria"
                     value="${produto.nomeCategoria}"
+                    placeholder="Nova categoria"
+                    style="width:100%;padding:10px;margin-bottom:10px"
+                >
+
+                <input
+                    id="editar-descricao"
+                    value="${produto.descricao}"
+                    placeholder="Nova descrição"
                     style="width:100%;padding:10px;margin-bottom:10px"
                 >
 
                 <input
                     id="editar-imagem"
                     value="${produto.imagemUrl}"
+                    placeholder="Nova imagem"
                     style="width:100%;padding:10px;margin-bottom:20px"
                 >
 
                 <button
-                    class="btn-salvar-produto"
+                    class="btn-atualizar-produto"
                     data-id="${produto.id}"
                     style="
                         width:100%;
@@ -193,6 +271,23 @@ function criarOverlayProduto(produto: Produto) {
                     "
                 >
                     Salvar
+                </button>
+                
+                <button
+                    class="btn-apagar-produto"
+                    data-id="${produto.id}"
+                    style="
+                        width:100%;
+                        padding:12px;
+                        margin: 10px 0;
+                        background:#ff5c00;
+                        border:none;
+                        border-radius:10px;
+                        font-weight:bold;
+                        cursor:pointer;
+                    "
+                >
+                    Apagar
                 </button>
 
                 <button
@@ -223,6 +318,37 @@ function criarOverlayProduto(produto: Produto) {
 
 document.addEventListener("click", async (e) => {
     const target = e.target as HTMLElement;
+
+    if (target.classList.contains("criacao-enviar")) {
+        try{
+            const container = document.querySelector(".criacao-card") as HTMLElement;
+            const carregando = document.createElement("div");
+            carregando.className = "carregando";
+            const carregandoTexto = document.createTextNode("Carregando...");
+            carregando.style.width = "100%";
+            carregando.style.height = "100%";
+            carregando.style.position = "fixed";
+            carregando.style.top = "0";
+            carregando.style.left = "0";
+            carregando.style.display = "flex";
+            carregando.style.justifyContent = "center";
+            carregando.style.alignItems = "center";
+            carregando.style.background = "rgba(0,0,0,.8)";
+            carregando.style.zIndex = "9999";
+            carregando.appendChild(carregandoTexto);
+            container.appendChild(carregando);
+            await criarProduto();
+        } catch (error: any) {
+            window.alert("Erro ao salvar produto");
+        }
+        finally {
+            await new Promise(resolve =>
+                setTimeout(resolve, 1000)
+            );
+            const fechar = document.querySelector(".carregando") as HTMLElement;
+            fechar.remove();
+        }
+    }
 
     if (target.classList.contains("btn-pesquisar")) {
         await buscarProduto();
@@ -257,6 +383,49 @@ document.addEventListener("click", async (e) => {
         }
 
     }
+
+    if (target.classList.contains("btn-atualizar-produto")) {
+        try{
+            const produtoId = Number(target.dataset.id);
+
+            const produto: Produto = pegarDadosAtualizarProduto();
+            console.log(produto)
+
+            await criarAtualizacaoProduto(produto, produtoId);
+            window.alert("Produto atualizado com sucesso")
+        } catch(error: any){
+            if(error.status == 403){
+                window.alert("Usuario não tem permição")
+            }
+            if (error.status == 404) {
+                window.alert("Produto não encontrado")
+            }
+            else{
+                window.alert("Ocorreu um erro inesperado")
+            }
+        }
+
+    }
+    if (target.classList.contains("btn-apagar-produto")) {
+
+        try{
+            const produtoId = Number(target.dataset.id);
+            await deletarProduto(produtoId)
+            window.alert("Produto apagado com sucesso")
+            
+        } catch (error: any) {
+            if(error.status == 403){
+                window.alert("Usuario não tem permição")
+            }
+            if (error.status == 404) {
+                window.alert("Produto não encontrado")
+            }
+            else{
+                window.alert("Ocorreu um erro inesperado")
+            }
+        }
+    }
+
     if (target.classList.contains("btn-fechar-modal")) {
 
         const overlay =

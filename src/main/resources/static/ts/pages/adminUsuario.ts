@@ -1,5 +1,5 @@
 import {Usuario} from "../types/usuario.js";
-import {buscarUsuarioPorGmail} from "../services/usuario.service.js";
+import {buscarUsuarioPorGmail, deletarUsuairPorGmail} from "../services/usuario.service.js";
 import {api} from "../services/api.js";
 
 
@@ -133,6 +133,24 @@ document.addEventListener("click", async (e) => {
         const login = await api.get("/usuario/me")
         const emailPesquisa = document.querySelector("#email-pesquisa") as HTMLInputElement;
         await buscarUsuario(emailPesquisa.value);
+    }
+    if (target.classList.contains('btn-apagar-usuario')){
+        try{
+            const email = document.querySelector("#id") as HTMLInputElement;
+            await deletarUsuairPorGmail(email.value.toString());
+
+            window.alert("Usuario apagado com sucesso")
+        } catch(error: any){
+            if(error.status == 403){
+                window.alert("Usuario não tem permição")
+            }
+            if (error.status == 404) {
+                window.alert("Usuario não encontrado")
+            }
+            else{
+                window.alert("Ocorreu um erro inesperado")
+            }
+        }
     }
 
 })

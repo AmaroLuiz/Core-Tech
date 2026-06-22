@@ -35,7 +35,7 @@ export async function deletarCategoria(id) {
     const response = await api.delete(`/produto/categoria/${id}`);
 }
 export async function deletarProduto(id) {
-    const response = await api.delete(`/produto/${id}`);
+    const response = await api.delete(`/produto?id=${id}`);
 }
 export async function atualizarProduto(produto, id) {
     const response = await api.put(`/produto/${id}`, produto);

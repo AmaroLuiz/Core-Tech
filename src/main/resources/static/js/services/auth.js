@@ -45,7 +45,7 @@ function enableUserAccess() {
 }
 function redirectToLogin() {
     if (login) {
-        login.textContent = "login";
+        login.textContent = "Login";
         login.href = "../../../templates/login.html";
     }
 }

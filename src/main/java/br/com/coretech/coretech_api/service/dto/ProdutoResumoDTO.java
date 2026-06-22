@@ -1,5 +1,6 @@
 package br.com.coretech.coretech_api.service.dto;
 
+import br.com.coretech.coretech_api.infraestructure.entity.Categoria;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

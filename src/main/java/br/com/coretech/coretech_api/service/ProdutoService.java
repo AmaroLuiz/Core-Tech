@@ -36,8 +36,8 @@ public class ProdutoService {
 
         Produto produto = produtoConverter.paraProdutoEntity(produtoDTO);
 
-        if (produto.getCategoria() != null && produto.getCategoria().getId() != null) {
-            Categoria categoria = categoriaRepository.findById(produto.getCategoria().getId())
+        if (produto.getCategoria() != null && produto.getCategoria().getSlug() != null) {
+            Categoria categoria = categoriaRepository.findBySlug(produto.getCategoria().getSlug())
                     .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
             produto.setCategoria(categoria);
         }

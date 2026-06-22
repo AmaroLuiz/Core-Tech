@@ -19,6 +19,10 @@ export async function salvarTelefone(telefone) {
     const response = await api.post("/usuario/criar/telefone", telefone);
     return response.data;
 }
+export async function deletarUsuairPorGmail(gmail) {
+    const response = await api.delete(`/usuario/${gmail}`);
+    return response.data;
+}
 export async function atualizarTelefone(telefone, telefoneId) {
     const response = await api.put(`/usuario/telefone?id=${telefoneId}`, telefone);
     return response.data;

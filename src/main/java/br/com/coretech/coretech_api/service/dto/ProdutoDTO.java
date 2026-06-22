@@ -43,7 +43,6 @@ public class ProdutoDTO {
     @NotNull
     private String imagemUrl;
 
-    @NotNull(message = "Estado de produto é obrigatório")
     private Boolean ativo;
 
     private LocalDateTime criadoEm;

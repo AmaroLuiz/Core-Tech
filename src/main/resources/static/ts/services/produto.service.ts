@@ -22,11 +22,9 @@ export async function buscarTodosOsProduto() {
 }
 
 export async function exibirProdutoPorId(id: number) {
-
     const response = await api.get(
         `/produto/id-${id}`
     );
-
     return response.data;
 
 }
@@ -87,7 +85,7 @@ export async function deletarCategoria(id: number) {
 
 export async function deletarProduto(id: number) {
     const response = await api.delete(
-        `/produto/${id}`
+        `/produto?id=${id}`
     )
 }
 

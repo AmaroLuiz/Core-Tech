@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -29,6 +29,25 @@
             <h1>Gerenciamento de Produtos</h1>
             <p>Pesquisar e editar produtos cadastrados</p>
         </header>
+
+        <section class="criacao-card">
+            <h2>Criar Produto</h2>
+            
+            <input placeholder="Nome" type="text" id="criacao-nome">
+            <input placeholder="Sku" id="criacao-sku" type="text">
+            <input placeholder="Descrição" id="criacao-descricao" type="text">
+            <input placeholder="Preço" id="criacao-preco" type="number">
+            <input placeholder="Imagem" id="criacao-imagem"  type="text">
+            <select id="criacao-categoria">
+                <option value="chaveiros">Chaveiros</option>
+                <option value="minimalista">Minimalista</option>
+                <option value="suportes">Suportes</option>
+                <option value="agro">Agro</option>
+                <option value="trico">Tricô</option>
+                <option value="funko-pop">Funko Pop</option>
+            </select>
+            <button class="criacao-enviar" >Criar Produto</button>
+        </section>
 
         <section class="pesquisa-card">
 
@@ -81,8 +100,6 @@
         </section>
 
         <section class="lista-produtos">
-
-            <!-- Produto Exemplo -->
 
             <article class="produto-card">
 
