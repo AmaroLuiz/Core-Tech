@@ -1,9 +1,15 @@
 import { api } from "./api.js";
-import {coletarCategorias} from "../pages/categoria.js";
-import {coletarProduto} from "../pages/produto.js";
 import {Produto} from "../types/produto.js";
 import {Categoria} from "../types/categoria.js";
 
+
+export async function exibirDashboard(){
+
+    const response = await api.get("/produto/dashboard");
+
+    return response.data;
+
+}
 
 export async function buscarTodosOsProduto() {
 
@@ -15,19 +21,35 @@ export async function buscarTodosOsProduto() {
 
 }
 
-export async function buscarProdutoPorId(id: number) {
-
+export async function exibirProdutoPorId(id: number) {
     const response = await api.get(
-        `/produto/${id}`
+        `/produto/id-${id}`
+    );
+    return response.data;
+
+}
+
+export async function exibirProdutoPorSku(sku: string) {
+    const response = await api.get(
+        `/produto/sku-${sku}`
     );
 
     return response.data;
 
 }
 
-export async function buscarProdutoPorCategoria(categoria: number) {
+export async function exibirProdutoPorNome(nome: string) {
     const response = await api.get(
-        `/produto/categoria/${categoria}`
+        `/produto/nome-${nome}`
+    );
+
+    return response.data;
+
+}
+
+export async function exibirProdutoPorCategoria(slug: string) {
+    const response = await api.get(
+        `/produto/slug/${slug}`
     );
 
     return response.data;
@@ -63,7 +85,7 @@ export async function deletarCategoria(id: number) {
 
 export async function deletarProduto(id: number) {
     const response = await api.delete(
-        `/produto/${id}`
+        `/produto?id=${id}`
     )
 }
 
@@ -87,3 +109,4 @@ export async function atualizarCategoria(categoria: Categoria, id: number) {
     return response.data;
 
 }
+

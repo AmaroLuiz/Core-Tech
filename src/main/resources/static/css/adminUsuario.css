@@ -1,0 +1,209 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0f1117;
+    color: white;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #161b22;
+    border-right: 1px solid #222;
+    padding: 2rem;
+}
+
+.logo {
+    color: #ff5c00;
+    margin-bottom: 3rem;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    margin-bottom: 1rem;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+    color: white;
+    border-radius: 8px;
+    transition: .2s;
+}
+
+.sidebar a:hover {
+    background: #ff5c00;
+}
+
+/* CONTEÚDO */
+
+.usuarios-container {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+
+    padding: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* CARDS */
+.page-header {
+    margin-bottom: 1rem;
+}
+
+.page-header h1 {
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.page-header p {
+    color: #999;
+    margin-top: .5rem;
+    text-align: center;
+}
+
+.search-card,
+.dados-card,
+.editar-card,
+.apagar-usuario-card {
+    background: #161b22;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #222;
+}
+
+.search-card h2,
+.dados-card h2,
+.editar-card h2,
+.apagar-usuario-card {
+    color: #ff5c00;
+    margin-bottom: 1rem;
+}
+
+/* PESQUISA */
+
+.search-area {
+    display: flex;
+    gap: 1rem;
+}
+
+.search-area input {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #0f1117;
+    color: white;
+}
+
+.search-area button {
+    width: 150px;
+}
+
+/* DADOS */
+
+.dados-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.dados-grid div {
+    background: #0f1117;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.dados-grid span {
+    color: #999;
+    display: block;
+    margin-bottom: .5rem;
+}
+
+.dados-grid p {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* FORM */
+
+#form-editar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#form-editar input {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #0f1117;
+    color: white;
+}
+
+#form-editar button,
+.search-area button {
+    background: #ff5c00;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .2s;
+}
+
+#form-editar button:hover,
+.search-area button:hover {
+    opacity: .9;
+}
+
+#id{
+    background: #0f1117;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+}
+.apagar-usuario-card{
+
+
+}
+.apagar-usuario-card input{
+    margin: 20px 0;
+    width: 50%;
+}
+.apagar-usuario-card div {
+    display: flex;
+    flex-direction: column;
+}
+.btn-apagar-usuario{
+    width: 20%;
+    height: 40px;
+    background-color: #ff5c00;
+    border-radius: 10px;
+    border: none;
+    transition: transform 0.5s ease;
+}
+.btn-apagar-usuario:hover{
+    transform: scale(1.05);
+}

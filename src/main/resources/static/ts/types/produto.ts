@@ -1,13 +1,14 @@
-
+import {Categoria} from "./categoria.js";
 
 export interface Produto {
 
-    nome: string;
-    sku: string;
-    descricao: string;
-    preco: number;
-    imagemUrl: string;
-    ativo: boolean;
-    categoriaId: number;
+    id?: number;
+    nome: string | null;
+    descricao: string  | null;
+    sku?: string  | null;
+    preco: number  | null;
+    imagemUrl: string  | null;
+    categoria?: Categoria  | null,
+    nomeCategoria?: string  | null
 
 }

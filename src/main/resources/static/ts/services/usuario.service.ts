@@ -1,7 +1,7 @@
 import {api} from './api.js';
 import {Login} from '../types/usuario.js';
-import {Endereco} from "../types/endereco";
-import {Telefone} from "../types/telefone";
+import {Endereco} from "../types/endereco.js";
+import {Telefone} from "../types/telefone.js";
 
 export async function login(usuario: Login){
 
@@ -21,6 +21,11 @@ export async function atualizarUsuario(nome: string,gmail: any ,id: number) {
     );
     return response.data;
 }
+export async function buscarUsuarioPorGmail(gmail: string){
+
+    const response = await api.get(`/usuario?email=${gmail}`)
+    return response.data;
+}
 
 export async function salvarTelefone(telefone: Telefone) {
 
@@ -30,6 +35,12 @@ export async function salvarTelefone(telefone: Telefone) {
     return response.data;
 }
 
+export async function deletarUsuairPorGmail(gmail: string) {
+    const response = await api.delete(
+        `/usuario/${gmail}`
+    );
+    return response.data;
+}
 
 export async function atualizarTelefone(telefone: Telefone, telefoneId: number) {
     const response = await api.put(

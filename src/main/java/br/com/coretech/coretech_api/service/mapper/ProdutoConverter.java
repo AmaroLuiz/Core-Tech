@@ -1,6 +1,7 @@
 package br.com.coretech.coretech_api.service.mapper;
 
 import br.com.coretech.coretech_api.infraestructure.entity.Categoria;
+import br.com.coretech.coretech_api.infraestructure.entity.Dashboard;
 import br.com.coretech.coretech_api.infraestructure.entity.Produto;
 import br.com.coretech.coretech_api.service.dto.*;
 import org.mapstruct.*;
@@ -20,7 +21,13 @@ public interface ProdutoConverter {
     @Mapping(source = "criadoEm", target = "criadoEm")
     ProdutoRequestDTO paraProdutoRequestDTO(Produto produto);
 
+    Dashboard paraDashboardEntity(DashboardDTO dashboardDTO);
+
+    DashboardDTO paraDashboardDTO(Dashboard dashboard);
+
+
     @Mapping(source = "categoria.nome", target = "nomeCategoria")
+    @Mapping(source = "id", target = "id")
     ProdutoResponseDTO paraProdutoResponseDTO(Produto produto);
 
     @Mapping(source = "categoria.nome", target = "nomeCategoria")

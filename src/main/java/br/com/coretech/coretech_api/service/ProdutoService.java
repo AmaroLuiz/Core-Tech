@@ -2,11 +2,14 @@ package br.com.coretech.coretech_api.service;
 
 
 import br.com.coretech.coretech_api.infraestructure.entity.Categoria;
+import br.com.coretech.coretech_api.infraestructure.entity.Dashboard;
 import br.com.coretech.coretech_api.infraestructure.entity.Produto;
 import br.com.coretech.coretech_api.infraestructure.exceptions.ConflictExceptions;
 import br.com.coretech.coretech_api.infraestructure.exceptions.ResourceNotFoundException;
 import br.com.coretech.coretech_api.infraestructure.repository.CategoriaRepository;
+import br.com.coretech.coretech_api.infraestructure.repository.DashboardRepository;
 import br.com.coretech.coretech_api.infraestructure.repository.ProdutoRepository;
+import br.com.coretech.coretech_api.infraestructure.repository.UsuarioRepository;
 import br.com.coretech.coretech_api.service.dto.*;
 import br.com.coretech.coretech_api.service.mapper.ProdutoConverter;
 import jakarta.transaction.Transactional;
@@ -24,6 +27,8 @@ public class ProdutoService {
     private final ProdutoConverter produtoConverter;
     private final ProdutoRepository produtoRepository;
     private final CategoriaRepository categoriaRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final DashboardRepository dashboardRepository;
 
     @Transactional
     public ProdutoRequestDTO salvaProduto(ProdutoDTO produtoDTO){
@@ -31,8 +36,8 @@ public class ProdutoService {
 
         Produto produto = produtoConverter.paraProdutoEntity(produtoDTO);
 
-        if (produto.getCategoria() != null && produto.getCategoria().getId() != null) {
-            Categoria categoria = categoriaRepository.findById(produto.getCategoria().getId())
+        if (produto.getCategoria() != null && produto.getCategoria().getSlug() != null) {
+            Categoria categoria = categoriaRepository.findBySlug(produto.getCategoria().getSlug())
                     .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
             produto.setCategoria(categoria);
         }
@@ -54,15 +59,21 @@ public class ProdutoService {
         return produtoConverter.paraCategoriaDTO(categoria);
     }
 
+    public DashboardDTO exibirDashboard(){
+        return DashboardDTO.builder()
+                .totalProdutos(produtoRepository.count())
+                .totalContas(usuarioRepository.count())
+                .totalCategoria(categoriaRepository.count())
+                .totalVisitas(1349L)
+                .build();
+    }
+    public List<ProdutoResponseDTO> exibirProdutoPorCategoria(String slug){
 
-
-    public List<ProdutoResponseDTO> listaProdutoPorCategoria(Long categoria){
-
-        if (!categoriaRepository.existsById(categoria)) {
-            throw new ResourceNotFoundException("Categoria não encontrada com o ID: " + categoria);
+        if (!categoriaRepository.existsBySlug(slug)) {
+            throw new ResourceNotFoundException("Categoria não encontrada com o ID: " + slug);
         }
 
-        List<Produto> produtos = produtoRepository.findAllByCategoria_Id(categoria);
+        List<Produto> produtos = produtoRepository.findAllByCategoria_Slug(slug);
         List<ProdutoResponseDTO> response = new ArrayList<>();
 
 
@@ -84,10 +95,28 @@ public class ProdutoService {
                 .toList();
     }
 
-    public ProdutoResumoDTO pegarProduto(Long id) {
+    public ProdutoResumoDTO exibirProdutoPorId(Long id) {
 
         Produto produto = produtoRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Produto não encontrado " + id)
+        );
+
+        return produtoConverter.paraProdutoResumoDTO(produto);
+    }
+
+    public ProdutoResumoDTO exibirProdutoPorSku(String sku) {
+
+        Produto produto = produtoRepository.findBySku(sku).orElseThrow(
+                () -> new ResourceNotFoundException("Produto não encontrado " + sku)
+        );
+
+        return produtoConverter.paraProdutoResumoDTO(produto);
+    }
+
+    public ProdutoResumoDTO exibirProdutoPorNome(String nome) {
+
+        Produto produto = produtoRepository.findByNome(nome).orElseThrow(
+                () -> new ResourceNotFoundException("Produto não encontrado " + nome)
         );
 
         return produtoConverter.paraProdutoResumoDTO(produto);

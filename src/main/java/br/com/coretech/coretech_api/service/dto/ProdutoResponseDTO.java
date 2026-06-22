@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
 @Builder
 public class ProdutoResponseDTO {
 
+    private Long id;
+
     @NotBlank(message = "Nome de produto é obrigatório")
     @NotNull
     @Size(min = 0, max = 100, message = "Nome deve ter entre 0 e 100 caracteres")

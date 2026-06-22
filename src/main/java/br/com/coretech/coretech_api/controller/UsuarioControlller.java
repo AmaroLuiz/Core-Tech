@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.osgi.annotation.bundle.Header;
 import org.osgi.annotation.bundle.Headers;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.PublicKey;
@@ -47,6 +48,7 @@ public class UsuarioControlller {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UsuarioDTO> buscarUsuarioPorEmail(@RequestParam("email") String email) {
         return ResponseEntity.ok(usuarioService.buscarUsuarioPorEmail(email));
     }

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/adminProduto.css">
+    <script type="module" src="../static/js/pages/adminProduto.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body class="admin-only">
+    <aside class="sidebar">
+        <h1 class="logo">Core Tech</h1>
+
+        <nav>
+            <ul>
+                <li><a href="admin.html">Home</a></li>
+                <li><a href="adminProduto.html">Produtos</a></li>
+                <li><a href="adminUsuario.html">Usuários</a></li>
+            </ul>
+        </nav>
+    </aside>
+    
+    <main class="produtos-container">
+
+        <header class="page-header">
+            <h1>Gerenciamento de Produtos</h1>
+            <p>Pesquisar e editar produtos cadastrados</p>
+        </header>
+
+        <section class="criacao-card">
+            <h2>Criar Produto</h2>
+            
+            <input placeholder="Nome" type="text" id="criacao-nome">
+            <input placeholder="Sku" id="criacao-sku" type="text">
+            <input placeholder="Descrição" id="criacao-descricao" type="text">
+            <input placeholder="Preço" id="criacao-preco" type="number">
+            <input placeholder="Imagem" id="criacao-imagem"  type="text">
+            <select id="criacao-categoria">
+                <option value="chaveiros">Chaveiros</option>
+                <option value="minimalista">Minimalista</option>
+                <option value="suportes">Suportes</option>
+                <option value="agro">Agro</option>
+                <option value="trico">Tricô</option>
+                <option value="funko-pop">Funko Pop</option>
+            </select>
+            <button class="criacao-enviar" >Criar Produto</button>
+        </section>
+
+        <section class="pesquisa-card">
+
+            <h2>Pesquisar Produto</h2>
+
+            <div class="pesquisa-area">
+
+                <select id="tipo-pesquisa">
+                    <option value="id">ID</option>
+                    <option value="sku">SKU</option>
+                    <option value="nome">NOME</option>
+                </select>
+
+                <input type="text" id="valor-pesquisa" placeholder="Digite o valor da pesquisa">
+
+                <button id="btn-pesquisar" class="btn-pesquisar">
+                    Pesquisar
+                </button>
+
+            </div>
+
+        </section>
+
+        <section class="exibir-produto-unico">
+
+
+        </section>
+
+        <section class="categoria-card">
+
+            <h2>Produtos por Categoria</h2>
+
+            <div class="pesquisa-area">
+
+                <select id="categoria-select">
+                    <option value="chaveiros">Chaveiros</option>
+                    <option value="agro">Agro</option>
+                    <option value="minimalista">Minimalistas</option>
+                    <option value="funko-pop">Funko Pop</option>
+                    <option value="suportes">Suportes</option>
+                    <option value="trico">Tricô</option>
+                </select>
+
+                <button id="btn-categoria" class="btn-categoria">
+                    Buscar
+                </button>
+
+            </div>
+
+        </section>
+
+        <section class="lista-produtos">
+
+            <article class="produto-card">
+
+                <button class="menu-produto" data-id="0">
+
+                </button>
+
+                <img src="https://placehold.co/300x220" alt="Produto" class="produto-imagem">
+
+                <span class="produto-categoria">
+
+                </span>
+
+                <h3 class="produto-nome">
+
+                </h3>
+
+                <p class="produto-preco">
+
+                </p>
+
+            </article>
+
+        </section>
+
+    </main>
+</body>
+
+</html>

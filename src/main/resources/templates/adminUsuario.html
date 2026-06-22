@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/adminUsuario.css">
+    <script type="module" src="../static/js/pages/adminUsuario.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body class="admin-only">
+    <aside class="sidebar">
+        <h1 class="logo">Core Tech</h1>
+
+        <nav>
+            <ul>
+                <li><a href="admin.html">Home</a></li>
+                <li><a href="adminProduto.html">Produtos</a></li>
+                <li><a href="adminUsuario.html">Usuários</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <section class="usuarios-container">
+
+        <header class="page-header">
+            <h1>Gerenciamento de Usuários</h1>
+            <p>Pesquisar e editar usuários cadastrados</p>
+        </header>
+
+        <article class="search-card">
+            <h2>Pesquisar Usuário</h2>
+
+            <div class="search-area">
+                <input type="email" id="email-pesquisa" placeholder="Digite o email">
+
+                <button id="btn-pesquisar" class="btn-pesquisar">
+                    Pesquisar
+                </button>
+            </div>
+        </article>
+
+        <article class="dados-card">
+
+            <h2>Dados do Usuário</h2>
+
+            <div class="dados-grid">
+
+                <div>
+                    <span>Nome</span>
+                    <p id="usuario-nome"></p>
+                </div>
+
+                <div>
+                    <span>Email</span>
+                    <p id="usuario-email"></p>
+                </div>
+
+                <div>
+                    <span>Perfil</span>
+                    <p id="usuario-role"></p>
+                </div>
+
+                <div>
+                    <span>ID</span>
+                    <p id="usuario-id"></p>
+                </div>
+
+            </div>
+
+        </article>
+
+        <article class="dados-card">
+
+            <h2>Endereço do Usuário</h2>
+
+            <div class="dados-grid">
+
+                <div>
+                    <span>Estado</span>
+                    <p id="usuario-estado"></p>
+                </div>
+
+                <div>
+                    <span>Cidade</span>
+                    <p id="usuario-cidade"></p>
+                </div>
+
+                <div>
+                    <span>CEP</span>
+                    <p id="usuario-cep"></p>
+                </div>
+
+                <div>
+                    <span>Bairro</span>
+                    <p id="usuario-bairro"></p>
+                </div>
+
+                <div>
+                    <span>Rua</span>
+                    <p id="usuario-rua"></p>
+                </div>
+
+                <div>
+                    <span>Numero</span>
+                    <p id="usuario-numero"></p>
+                </div>
+
+            </div>
+
+        </article>
+
+        <article class="dados-card">
+
+            <h2>Telefone do Usuário</h2>
+
+            <div class="dados-grid">
+
+                <div>
+                    <span>DDD</span>
+                    <p id="usuario-ddd"></p>
+                </div>
+
+                <div>
+                    <span>Telefone</span>
+                    <p id="usuario-telefone"></p>
+                </div>
+        </article>
+        <article class="apagar-usuario-card">
+
+            <h2>Apagar usuário</h2>
+
+            <div>
+                <input id="id" type="text" placeholder="Digite o email">
+                <button class="btn-apagar-usuario" id="btn-apagar-usuario">Deletar usuário</button>
+            </div>
+        </article>
+    </section>
+</body>
+
+</html>
