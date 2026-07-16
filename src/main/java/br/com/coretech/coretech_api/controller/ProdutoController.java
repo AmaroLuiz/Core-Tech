@@ -49,6 +49,7 @@ public class ProdutoController {
 
         return ResponseEntity.ok(produtoService.exibirProdutoPorId(id));
     }
+//    @GetMapping("/")
 
     @GetMapping("/sku-{sku}")
     public ResponseEntity<ProdutoResumoDTO> exibirProdutoPorSku(@PathVariable String sku){
@@ -58,6 +59,10 @@ public class ProdutoController {
     @GetMapping("/nome-{nome}")
     public ResponseEntity<ProdutoResumoDTO> exibirProdutoPorNome(@PathVariable String nome){
         return ResponseEntity.ok(produtoService.exibirProdutoPorNome(nome));
+    }
+    @GetMapping("/todas-categoria")
+    public ResponseEntity<List<CategoriaDTO>> exibirTodasCategorias(){
+        return ResponseEntity.ok(produtoService.exibirTodasCategorias());
     }
 
 

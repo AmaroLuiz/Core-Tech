@@ -122,6 +122,14 @@ public class ProdutoService {
         return produtoConverter.paraProdutoResumoDTO(produto);
     }
 
+    public List<CategoriaDTO> exibirTodasCategorias(){
+
+        return categoriaRepository.findAll().stream()
+                .map(produtoConverter::paraCategoriaDTO)
+                .toList();
+
+    }
+
     @Transactional
     public void apagarCategoria(Long id){
         categoriaRepository.deleteById(id);

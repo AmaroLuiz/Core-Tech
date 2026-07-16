@@ -22,6 +22,8 @@ public class Categoria {
     @Column(name = "nome", nullable = false, length = 100, unique = true)
     private String nome;
 
+    private String imagemURL;
+
     @Column(name = "slug", nullable = false)
     private String slug;
 
