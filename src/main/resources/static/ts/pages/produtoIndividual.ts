@@ -2,22 +2,18 @@ import { exibirProdutoPorId } from "../services/produto.service.js";
 import { Produto } from "../types/produto.js";
 
 
-async function exibirProduto(id: number | null): Promise<void> {
+async function exibirProduto(id: number | null)  {
 
     if (id === null) {
         return;
     }
 
     try {
-
         const produto: Produto = await exibirProdutoPorId(id);
-
         if (!produto) {
             mostrarErro();
         } else {
-
             preencherDadosProduto(produto);
-
             const btnComprar = document.getElementById("comprar") as HTMLButtonElement;
 
             btnComprar?.addEventListener("click", () => {
@@ -37,7 +33,6 @@ async function exibirProduto(id: number | null): Promise<void> {
 
     } catch (error) {
 
-        console.error(error);
         mostrarErro();
 
     }
@@ -45,8 +40,6 @@ async function exibirProduto(id: number | null): Promise<void> {
 
 
 function mostrarErro(): void {
-
-    console.log("mostrarErro foi chamada");
 
     const especificacoes = document.querySelector(".especificacoes") as HTMLElement;
     const descricao = document.querySelector(".descricao-produto") as HTMLElement;
@@ -117,7 +110,7 @@ function coletarURL(): number | null {
 }
 
 
-function preencherDadosProduto(produto: Produto): void {
+function preencherDadosProduto(produto: Produto) {
 
 
     const nome = document.getElementById("nome") as HTMLElement;
@@ -130,7 +123,7 @@ function preencherDadosProduto(produto: Produto): void {
     categoria.textContent = produto.nomeCategoria ?? "";
 
 
-    const categoria2 = document.querySelector(".categoria") as HTMLElement;
+    const categoria2 = document.querySelector(".categoria") as HTMLParagraphElement;
 
     categoria2.textContent = produto.nomeCategoria ?? "";
 
