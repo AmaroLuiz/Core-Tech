@@ -4,7 +4,6 @@ package br.com.coretech.coretech_api.service;
 import br.com.coretech.coretech_api.infraestructure.entity.Endereco;
 import br.com.coretech.coretech_api.infraestructure.entity.Telefone;
 import br.com.coretech.coretech_api.infraestructure.entity.Usuario;
-import br.com.coretech.coretech_api.infraestructure.exceptions.ConflictExceptions;
 import br.com.coretech.coretech_api.infraestructure.exceptions.EmailAlreadyExistsException;
 import br.com.coretech.coretech_api.infraestructure.exceptions.ResourceNotFoundException;
 import br.com.coretech.coretech_api.infraestructure.exceptions.UserOwnershipException;
@@ -19,13 +18,8 @@ import br.com.coretech.coretech_api.service.dto.UsuarioDTO;
 import br.com.coretech.coretech_api.service.mapper.UsuarioConverter;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.http.parser.Authorization;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.access.AccessDeniedException;
-
 
 
 @Service

@@ -13,7 +13,7 @@ import java.util.List;
 public interface ProdutoConverter {
 
     @Mapping(source = "id", target = "id")
-    public Produto paraProdutoEntity(ProdutoDTO produtoDTO);
+    Produto paraProdutoEntity(ProdutoDTO produtoDTO);
 
     @Mapping(target = "categoria.nome", ignore = true)
     @Mapping(target = "categoria.slug", ignore = true)
