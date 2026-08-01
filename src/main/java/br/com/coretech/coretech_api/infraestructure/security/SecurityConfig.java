@@ -49,9 +49,10 @@ public class  SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST,"/usuario/login").permitAll()          // Permite acesso ao endpoint de login sem autenticação
                         .requestMatchers(HttpMethod.POST, "/usuario/criar").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/usuario/criar/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/pedido/criar-pedido").authenticated()
                         .requestMatchers(HttpMethod.POST, "/pedido/criar-pedido-item").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/produto/**").hasRole("ADMIN")
 
                         .requestMatchers(HttpMethod.GET, "/auth").permitAll()
@@ -65,8 +66,8 @@ public class  SecurityConfig {
 
                         .requestMatchers(HttpMethod.DELETE,"/produto/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE,"/pedido/apagar-pedido").authenticated()
+                        .requestMatchers(HttpMethod.DELETE,"/pedido/apagar-pedido-item").authenticated()
                         .requestMatchers("/usuario/**").authenticated()                     // Requer autenticação para qualquer endpoint que comece com /usuario/
-                        .requestMatchers(HttpMethod.POST, "/usuario/criar/**").authenticated()
 
                         .anyRequest().hasRole("ADMIN")
                 )

@@ -76,6 +76,7 @@ public class PedidoService {
 
     }
 
+    @Transactional
     public List<PedidoItemResponseDTO> salvaPedidoItem(Long id,
                                                        List<PedidoItemRequestDTO> pedidoItemRequestDTO){
 
@@ -193,6 +194,35 @@ public class PedidoService {
         }
 
         return pedidoConverter.paraPedidoResponseDTO(pedidoRepository.save(pedidoAtualizado));
+
+    }
+
+    @Transactional
+    public void apagarPedidoItem(Long id){
+        String email = authService.getUsuarioAutenticadoEmail();
+
+        PedidoItem pedidoItem = pedidoItemRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Item de pedido não encontrado")
+        );
+
+        if (!pedidoItem.getPedido().getUsuario().getEmail().equals(email)){
+            throw new AccessDeniedException("Item de pedido não pertence ao usuario " + email);
+        }
+
+        BigDecimal valor = BigDecimal.ZERO;
+        valor = pedidoItem.getSubTotal();
+
+        Pedido pedido = pedidoItem.getPedido();
+
+
+        pedido.setValorProduto(pedido.getValorProduto().subtract(valor));
+
+        pedido.setValorTotal(pedido.getValorTotal().subtract(valor));
+
+
+        pedidoRepository.save(pedido);
+
+        pedidoItemRepository.delete(pedidoItem);
 
     }
 }

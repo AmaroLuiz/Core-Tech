@@ -61,4 +61,10 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.buscarPedidoItem(id));
     }
 
+    @DeleteMapping("/apagar-pedido-item")
+    public ResponseEntity<Void> apagarPedidoItem(@RequestParam("id") Long id){
+        pedidoService.apagarPedidoItem(id);
+        return ResponseEntity.ok().build();
+    }
+
 }
