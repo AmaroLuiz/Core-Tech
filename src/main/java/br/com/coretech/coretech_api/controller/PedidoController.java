@@ -55,4 +55,10 @@ public class PedidoController {
             ,@RequestBody List<PedidoItemRequestDTO> pedidoItemRequestDTO) {
        return ResponseEntity.ok(pedidoService.salvaPedidoItem(id, pedidoItemRequestDTO));
     }
+
+    @GetMapping("/buscar-pedido-item")
+    public ResponseEntity<PedidoItemResponseDTO> buscaPedidoItem(@RequestParam("id") Long id){
+        return ResponseEntity.ok(pedidoService.buscarPedidoItem(id));
+    }
+
 }

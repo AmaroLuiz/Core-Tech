@@ -136,6 +136,22 @@ public class PedidoService {
         return pedidoConverter.paraPedidoResponseDTO(pedido);
     }
 
+    public PedidoItemResponseDTO buscarPedidoItem(Long id){
+
+        String email = authService.getUsuarioAutenticadoEmail();
+
+        PedidoItem pedidoItem = pedidoItemRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Item de pedido não encontrado")
+        );
+
+        if (!pedidoItem.getPedido().getUsuario().getEmail().equals(email)){
+            throw new AccessDeniedException("Item de pedido não pertence ao usuario " + email);
+        }
+
+        return pedidoConverter.paraPedidoItemResponseDTO(pedidoItem);
+
+    }
+
     public List<PedidoResponseDTO> buscarTodosPedidos(){
 
         String email = authService.getUsuarioAutenticadoEmail();

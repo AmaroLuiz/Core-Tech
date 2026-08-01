@@ -59,7 +59,7 @@ public class  SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/produto/todas-categoria").permitAll()
                         .requestMatchers(HttpMethod.GET, "/pedido/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/pedido/buscar-todos-pedidos").authenticated()
-
+                        .requestMatchers(HttpMethod.GET, "/pedido/buscar-pedido-item").authenticated()
                         .requestMatchers(HttpMethod.PUT,"/pedido/atualizar-pedido").authenticated()
                         .requestMatchers(HttpMethod.PUT,"/produto/**").hasRole("ADMIN")
 
