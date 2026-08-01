@@ -63,10 +63,4 @@ public class Pedido {
         this.dataCriacao = LocalDateTime.now();
 
     }
-    @PreUpdate
-    private void preUpdate() {
-        if (status.equals(PagamentoStatus.PAGO)) {
-            this.dataPagamento = LocalDateTime.now();
-        }
-    }
 }

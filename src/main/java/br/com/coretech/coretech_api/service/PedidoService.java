@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -73,6 +74,45 @@ public class PedidoService {
 
         return pedidoConverter.paraPedidoResponseDTO(pedidoSalvo);
 
+    }
+
+    public List<PedidoItemResponseDTO> salvaPedidoItem(Long id,
+                                                       List<PedidoItemRequestDTO> pedidoItemRequestDTO){
+
+        String email = authService.getUsuarioAutenticadoEmail();
+
+        Pedido pedido = pedidoRepository.findByIdAndUsuarioEmail(id, email)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Pedido não encontrado")
+                );
+
+        List<PedidoItem> novosItens = pedidoConverter.paraPedidoItemListEntity(pedidoItemRequestDTO);
+
+        for (PedidoItem item : novosItens) {
+
+            Produto produto = produtoRepository.findById(item.getProduto().getId()).orElseThrow(
+                    () -> new ResourceNotFoundException("Produto não encontrado " + item.getProduto().getId())
+            );
+
+            item.setPrecoUnitario(produto.getPreco());
+            item.setSubTotal(produto.getPreco()
+                    .multiply(BigDecimal.valueOf(item.getQuantidade())));
+            pedido.adicionarItem(item);
+        }
+
+        BigDecimal novoValorProduto = BigDecimal.ZERO;
+
+        for (PedidoItem item : pedido.getPedidoItems()) {
+            novoValorProduto = novoValorProduto.add(item.getSubTotal());
+        }
+
+        pedido.setValorProduto(novoValorProduto);
+        pedido.setValorTotal(novoValorProduto.add(pedido.getValorFrete()));
+
+        pedidoRepository.save(pedido);
+
+
+        return pedidoConverter.paraPedidoItemListResponseDTO(novosItens);
     }
 
     public PedidoResponseDTO buscaPedido(Long id){

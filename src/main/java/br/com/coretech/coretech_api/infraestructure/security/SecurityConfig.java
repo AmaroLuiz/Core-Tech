@@ -50,6 +50,7 @@ public class  SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/usuario/login").permitAll()          // Permite acesso ao endpoint de login sem autenticação
                         .requestMatchers(HttpMethod.POST, "/usuario/criar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/pedido/criar-pedido").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/pedido/criar-pedido-item").authenticated()
                         .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/produto/**").hasRole("ADMIN")
 

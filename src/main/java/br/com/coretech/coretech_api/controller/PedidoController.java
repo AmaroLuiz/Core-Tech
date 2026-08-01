@@ -4,9 +4,7 @@ import br.com.coretech.coretech_api.infraestructure.entity.Pedido;
 import br.com.coretech.coretech_api.infraestructure.entity.PedidoItem;
 import br.com.coretech.coretech_api.infraestructure.repository.PedidoRepository;
 import br.com.coretech.coretech_api.service.PedidoService;
-import br.com.coretech.coretech_api.service.dto.PedidoDTO;
-import br.com.coretech.coretech_api.service.dto.PedidoRequestDTO;
-import br.com.coretech.coretech_api.service.dto.PedidoResponseDTO;
+import br.com.coretech.coretech_api.service.dto.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
@@ -52,8 +50,9 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.atualizaPedido(id, pedidoRequestDTO));
     }
 
-    //    @PostMapping("/criar-pedido-item")
-//    public ResponseEntity<PedidoItemResponseDTO> salvaPedidoItem(@RequestBody PedidoItemRequestDTO pedidoItemRequestDTO) {
-//       return ResponseEntity.ok(pedidoItemService.salvaPedidoItem(pedidoItemRequestDTO));
-//    }
+    @PostMapping("/criar-pedido-item")
+    public ResponseEntity<List<PedidoItemResponseDTO>> salvaPedidoItem(@RequestParam("id") Long id
+            ,@RequestBody List<PedidoItemRequestDTO> pedidoItemRequestDTO) {
+       return ResponseEntity.ok(pedidoService.salvaPedidoItem(id, pedidoItemRequestDTO));
+    }
 }
