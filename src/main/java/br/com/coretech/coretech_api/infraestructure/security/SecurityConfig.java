@@ -55,6 +55,7 @@ public class  SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/produto/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/produto/todas-categoria").permitAll()
                         .requestMatchers(HttpMethod.GET, "/pedido/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/pedido/buscar-todos-pedidos").authenticated()
 
                         .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/produto/**").hasRole("ADMIN")

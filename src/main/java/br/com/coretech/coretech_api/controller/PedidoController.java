@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/pedido")
@@ -30,6 +32,11 @@ public class PedidoController {
     @GetMapping("/buscar-pedido-{id}")
     public ResponseEntity<PedidoResponseDTO> buscaPedido(@PathVariable Long id){
         return ResponseEntity.ok(pedidoService.buscaPedido(id));
+    }
+
+    @GetMapping("/buscar-todos-pedidos")
+    public ResponseEntity<List<PedidoResponseDTO>> buscaTodosPedidos(){
+        return ResponseEntity.ok(pedidoService.buscarTodosPedidos());
     }
 
     //    @PostMapping("/criar-pedido-item")

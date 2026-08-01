@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PedidoConverter {
@@ -22,6 +24,9 @@ public interface PedidoConverter {
 
     @Mapping(source = "usuario.id", target = "usuarioId")
     PedidoResponseDTO paraPedidoResponseDTO(Pedido pedido);
+
+//    @Mapping(source = "usuario.id", target = "usuarioId")
+    List<PedidoResponseDTO> paraPedidoListResponseDTO(List<Pedido> pedido);
 
     @Mapping(source = "usuario.id", target = "usuarioId")
     PedidoRequestDTO paraPedidoRequestDTO(Pedido pedido);

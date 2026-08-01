@@ -23,7 +23,7 @@ public class PedidoDTO {
     private Long id;
 
     @NotNull(message = "O usuário é obrigatório.")
-    private UsuarioDTO usuario;
+    private Long usuarioId;
 
     @NotNull(message = "O status é obrigatório.")
     private PagamentoStatus status;

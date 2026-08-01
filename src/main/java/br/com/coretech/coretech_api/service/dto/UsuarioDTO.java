@@ -40,5 +40,5 @@ public class UsuarioDTO {
 
     private List<EnderecoDTO> enderecos;
     private List<TelefoneDTO> telefones;
-
+    private List<PedidoResponseDTO> pedidos;
 }

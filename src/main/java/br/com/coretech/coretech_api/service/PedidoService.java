@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -60,6 +61,7 @@ public class PedidoService {
         );
 
         pedido.setUsuario(usuario);
+
         pedido.setValorProduto(valorProduto);
         pedido.setValorFrete(BigDecimal.valueOf(10.00));
         pedido.setValorTotal(pedido.getValorProduto().add(pedido.getValorFrete()));
@@ -89,6 +91,19 @@ public class PedidoService {
 //        }
 
         return pedidoConverter.paraPedidoResponseDTO(pedido);
+    }
+
+    public List<PedidoResponseDTO> buscarTodosPedidos(){
+
+        String email = authService.getUsuarioAutenticadoEmail();
+
+        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(
+                () -> new ResourceNotFoundException("Usuario não encontrado " + email)
+        );
+
+        List<Pedido> pedido = usuario.getPedidos();
+
+        return pedidoConverter.paraPedidoListResponseDTO(pedido);
     }
 
 
