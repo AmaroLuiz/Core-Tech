@@ -9,6 +9,7 @@ import br.com.coretech.coretech_api.service.dto.PedidoRequestDTO;
 import br.com.coretech.coretech_api.service.dto.PedidoResponseDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,18 @@ public class PedidoController {
     @GetMapping("/buscar-todos-pedidos")
     public ResponseEntity<List<PedidoResponseDTO>> buscaTodosPedidos(){
         return ResponseEntity.ok(pedidoService.buscarTodosPedidos());
+    }
+
+    @DeleteMapping("/apagar-pedido")
+    public ResponseEntity<Void> apagarPedido(@RequestParam("id") Long id){
+        pedidoService.apagarPedido(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/atualizar-pedido")
+    public ResponseEntity<PedidoResponseDTO> atualizaPedido(@RequestParam("id") Long id,
+                                                            @RequestBody PedidoRequestDTO pedidoRequestDTO){
+        return ResponseEntity.ok(pedidoService.atualizaPedido(id, pedidoRequestDTO));
     }
 
     //    @PostMapping("/criar-pedido-item")

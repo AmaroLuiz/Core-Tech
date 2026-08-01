@@ -50,6 +50,8 @@ public class  SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/usuario/login").permitAll()          // Permite acesso ao endpoint de login sem autenticação
                         .requestMatchers(HttpMethod.POST, "/usuario/criar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/pedido/criar-pedido").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/produto/**").hasRole("ADMIN")
 
                         .requestMatchers(HttpMethod.GET, "/auth").permitAll()
                         .requestMatchers(HttpMethod.GET, "/produto/**").permitAll()
@@ -57,10 +59,11 @@ public class  SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/pedido/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/pedido/buscar-todos-pedidos").authenticated()
 
-                        .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST,"/produto/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"/pedido/atualizar-pedido").authenticated()
                         .requestMatchers(HttpMethod.PUT,"/produto/**").hasRole("ADMIN")
+
                         .requestMatchers(HttpMethod.DELETE,"/produto/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,"/pedido/apagar-pedido").authenticated()
                         .requestMatchers("/usuario/**").authenticated()                     // Requer autenticação para qualquer endpoint que comece com /usuario/
                         .requestMatchers(HttpMethod.POST, "/usuario/criar/**").authenticated()
 

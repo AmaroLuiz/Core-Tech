@@ -1,5 +1,6 @@
 package br.com.coretech.coretech_api.service;
 
+import br.com.coretech.coretech_api.infraestructure.Enums.PagamentoStatus;
 import br.com.coretech.coretech_api.infraestructure.entity.Pedido;
 import br.com.coretech.coretech_api.infraestructure.entity.PedidoItem;
 import br.com.coretech.coretech_api.infraestructure.entity.Produto;
@@ -13,10 +14,12 @@ import br.com.coretech.coretech_api.infraestructure.repository.UsuarioRepository
 import br.com.coretech.coretech_api.service.dto.*;
 import br.com.coretech.coretech_api.service.mapper.PedidoConverter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -106,5 +109,34 @@ public class PedidoService {
         return pedidoConverter.paraPedidoListResponseDTO(pedido);
     }
 
+    @Transactional
+    public void apagarPedido(Long id){
 
+        String email = authService.getUsuarioAutenticadoEmail();
+
+        Pedido pedido = pedidoRepository.findByIdAndUsuarioEmail(id, email).orElseThrow(
+                () -> new ResourceNotFoundException("Pedido não encontrado ou não pertence ao usuario")
+        );
+
+        pedidoRepository.delete(pedido);
+    }
+
+    @Transactional
+    public PedidoResponseDTO atualizaPedido(Long id, PedidoRequestDTO pedidoRequestDTO){
+
+        String email = authService.getUsuarioAutenticadoEmail();
+
+        Pedido pedido = pedidoRepository.findByIdAndUsuarioEmail(id, email).orElseThrow(
+                () -> new ResourceNotFoundException("Pedido não encontrado ou não pertence ao usuario")
+        );
+
+        Pedido pedidoAtualizado = pedidoConverter.updatePedido(pedidoRequestDTO, pedido);
+
+        if (pedidoAtualizado.getStatus().equals(PagamentoStatus.PAGO)){
+            pedidoAtualizado.setDataPagamento(LocalDateTime.now());
+        }
+
+        return pedidoConverter.paraPedidoResponseDTO(pedidoRepository.save(pedidoAtualizado));
+
+    }
 }

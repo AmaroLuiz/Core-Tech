@@ -3,9 +3,7 @@ package br.com.coretech.coretech_api.service.mapper;
 import br.com.coretech.coretech_api.infraestructure.entity.Pedido;
 import br.com.coretech.coretech_api.infraestructure.entity.PedidoItem;
 import br.com.coretech.coretech_api.service.dto.*;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -31,6 +29,16 @@ public interface PedidoConverter {
     @Mapping(source = "usuario.id", target = "usuarioId")
     PedidoRequestDTO paraPedidoRequestDTO(Pedido pedido);
 
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "usuario", ignore = true)
+    @Mapping(target = "valorProduto", ignore = true)
+    @Mapping(target = "valorFrete", ignore = true)
+    @Mapping(target = "valorTotal", ignore = true)
+    @Mapping(target = "dataCriacao", ignore = true)
+    @Mapping(target = "pedidoItems", ignore = true)
+    Pedido updatePedido(PedidoRequestDTO dto, @MappingTarget Pedido entity);
 
 
     @Mapping(source = "produtoId", target = "produto.id")

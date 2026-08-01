@@ -15,4 +15,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
     @Override
     Optional<Pedido> findById(Long id);
+
+
+    Optional<Pedido> findByIdAndUsuarioEmail(Long id, String email);
 }
