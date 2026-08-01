@@ -20,7 +20,7 @@ import java.util.List;
 public class Pedido {
 
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,20 +31,20 @@ public class Pedido {
     @Column(name = "status", nullable = false)
     private PagamentoStatus status;
 
-    @Column(name = "valor_produto", nullable = false)
+    @Column(name = "valor_produto")
     private BigDecimal valorProduto;
 
-    @Column(name = "valor_frete", nullable = false)
+    @Column(name = "valor_frete")
     private BigDecimal valorFrete;
 
-    @Column(name = "valor_total", nullable = false)
+    @Column(name = "valor_total")
     private BigDecimal valorTotal;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "pagamento", nullable = false)
     private FormaPagamento formaPagamento;
 
-    @Column(name = "data_criacao", nullable = false)
+    @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
 
     @Column(name = "data_pagamento")
@@ -61,9 +61,13 @@ public class Pedido {
     @PrePersist
     private void prePersist() {
         this.dataCriacao = LocalDateTime.now();
+
     }
     @PreUpdate
     private void preUpdate() {
-        this.dataPagamento = LocalDateTime.now();
+        if (!status.equals(PagamentoStatus.PAGO))
+        {
+            this.dataPagamento = LocalDateTime.now();
+        }
     }
 }

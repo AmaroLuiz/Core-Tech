@@ -19,6 +19,7 @@ import java.util.List;
 @Builder
 public class PedidoRequestDTO {
 
+    private Long id;
 
     @NotNull(message = "O usuário é obrigatório.")
     private Long usuarioId;
@@ -26,19 +27,13 @@ public class PedidoRequestDTO {
     @NotNull(message = "O status é obrigatório.")
     private PagamentoStatus status;
 
-    @NotNull(message = "O valor dos produtos é obrigatório.")
-    @DecimalMin(value = "0.00", inclusive = true,
-            message = "O valor dos produtos não pode ser negativo.")
+
     private BigDecimal valorProduto;
 
-    @NotNull(message = "O valor do frete é obrigatório.")
-    @DecimalMin(value = "0.00", inclusive = true,
-            message = "O valor do frete não pode ser negativo.")
+
     private BigDecimal valorFrete;
 
-    @NotNull(message = "O valor total é obrigatório.")
-    @DecimalMin(value = "0.00", inclusive = true,
-            message = "O valor total não pode ser negativo.")
+
     private BigDecimal valorTotal;
 
     @NotNull(message = "A forma de pagamento é obrigatória.")

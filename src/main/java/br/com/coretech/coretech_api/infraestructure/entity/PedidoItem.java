@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Setter
 @Getter
@@ -34,4 +35,5 @@ public class PedidoItem {
 
     @Column(name = "sub_total", nullable = false)
     private BigDecimal subTotal;
+
 }
