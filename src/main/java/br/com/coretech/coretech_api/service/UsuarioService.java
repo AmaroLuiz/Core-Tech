@@ -99,8 +99,6 @@ public class UsuarioService {
             boolean existe =  verificarEmail(email);
             if(existe){
                 throw new EmailAlreadyExistsException("Email já casdastrado" + email);
-            } else{
-
             }
         } catch (EmailAlreadyExistsException e){
             throw new EmailAlreadyExistsException("Email já cadastrado", e.getCause());

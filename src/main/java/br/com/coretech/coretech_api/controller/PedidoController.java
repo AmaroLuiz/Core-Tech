@@ -10,10 +10,7 @@ import br.com.coretech.coretech_api.service.dto.PedidoResponseDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +25,11 @@ public class PedidoController {
     @PostMapping("/criar-pedido")
     public ResponseEntity<PedidoResponseDTO> salvaPedido(@Valid @RequestBody PedidoRequestDTO pedidoRequestDTO) {
         return ResponseEntity.ok(pedidoService.salvaPedido(pedidoRequestDTO));
+    }
+
+    @GetMapping("/buscar-pedido-{id}")
+    public ResponseEntity<PedidoResponseDTO> buscaPedido(@PathVariable Long id){
+        return ResponseEntity.ok(pedidoService.buscaPedido(id));
     }
 
     //    @PostMapping("/criar-pedido-item")

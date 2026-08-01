@@ -21,7 +21,7 @@ public class PedidoRequestDTO {
 
     private Long id;
 
-    @NotNull(message = "O usuário é obrigatório.")
+
     private Long usuarioId;
 
     @NotNull(message = "O status é obrigatório.")
