@@ -48,11 +48,9 @@ public class PedidoService {
                     .orElseThrow(() -> new ResourceNotFoundException(
                             "Produto não encontrado " + item.getProduto().getId()));
 
-            item.setPrecoUnitario(produto.getPreco());
+            item.setProduto(produto);
 
-            item.setSubTotal(
-                    produto.getPreco().multiply(BigDecimal.valueOf(item.getQuantidade()))
-            );
+            item.recalcValores();
         }
 
         String email = authService.getUsuarioAutenticadoEmail();
@@ -89,10 +87,10 @@ public class PedidoService {
                     () -> new ResourceNotFoundException("Produto não encontrado " + item.getProduto().getId())
             );
 
+            item.setProduto(produto);
 
-            item.setPrecoUnitario(produto.getPreco());
-            item.setSubTotal(produto.getPreco()
-                    .multiply(BigDecimal.valueOf(item.getQuantidade())));
+            item.recalcValores();
+
             pedido.adicionarItem(item);
         }
 
@@ -231,9 +229,7 @@ public class PedidoService {
             pedidoItem.setQuantidade(pedidoItemRequestDTO.getQuantidade());
         }
 
-
-        pedidoItem.setPrecoUnitario(pedidoItem.getProduto().getPreco());
-        pedidoItem.setSubTotal(pedidoItem.getPrecoUnitario().multiply(BigDecimal.valueOf(pedidoItem.getQuantidade())));
+        pedidoItem.recalcValores();
 
         Pedido pedido = pedidoItem.getPedido();
 

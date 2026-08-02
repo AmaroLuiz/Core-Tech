@@ -36,4 +36,12 @@ public class PedidoItem {
     @Column(name = "sub_total", nullable = false)
     private BigDecimal subTotal;
 
+    public void recalcValores(){
+        BigDecimal precoUnitario = produto.getPreco();
+        BigDecimal subTotal = precoUnitario.multiply(BigDecimal.valueOf(this.quantidade));
+
+        this.precoUnitario = precoUnitario;
+        this.subTotal = subTotal;
+    }
+
 }
