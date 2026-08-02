@@ -12,6 +12,7 @@ import org.mapstruct.*;
 import java.util.List;
 
 @Mapper(componentModel = "spring",
+        uses = {PedidoConverter.class},
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UsuarioConverter {
 
@@ -42,6 +43,7 @@ public interface UsuarioConverter {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "enderecos", ignore = true)
     @Mapping(target = "telefones", ignore = true)
+    @Mapping(target = "pedidos", ignore = true)
     @Mapping(target = "authorities", ignore = true)
     Usuario updateUsuario(UsuarioDTO dto, @MappingTarget Usuario entity);
 

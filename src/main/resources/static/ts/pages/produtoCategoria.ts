@@ -31,7 +31,7 @@ function criarCardProduto(produto:Produto){
 
         <p>R$ ${produto.preco?.toFixed(2)}</p>
 
-        <a href="produto.html?id=${produto.id}">
+        <a href="produtoIndividual.html?id=${produto.id}">
             Ver Produto
         </a>
     </div>
