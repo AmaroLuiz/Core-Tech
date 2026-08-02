@@ -53,8 +53,6 @@ public interface PedidoConverter {
     @Mapping(source = "produto.id", target = "produtoId")
     PedidoItemResponseDTO paraPedidoItemResponseDTO(PedidoItem pedidoItem);
 
-    @Mapping(source = "pedido.id", target = "pedidoId")
-    @Mapping(source = "produto.id", target = "produtoId")
     List<PedidoItemResponseDTO> paraPedidoItemListResponseDTO(List<PedidoItem >pedidoItem);
 
     @Mapping(source = "pedido.id", target = "pedidoId")

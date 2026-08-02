@@ -95,6 +95,7 @@ public class PedidoService {
                     () -> new ResourceNotFoundException("Produto não encontrado " + item.getProduto().getId())
             );
 
+
             item.setPrecoUnitario(produto.getPreco());
             item.setSubTotal(produto.getPreco()
                     .multiply(BigDecimal.valueOf(item.getQuantidade())));
@@ -110,10 +111,9 @@ public class PedidoService {
         pedido.setValorProduto(novoValorProduto);
         pedido.setValorTotal(novoValorProduto.add(pedido.getValorFrete()));
 
-        pedidoRepository.save(pedido);
+        Pedido pedidoSalvo = pedidoRepository.saveAndFlush(pedido);
 
-
-        return pedidoConverter.paraPedidoItemListResponseDTO(novosItens);
+        return pedidoConverter.paraPedidoItemListResponseDTO(pedidoSalvo.getPedidoItems());
     }
 
     public PedidoResponseDTO buscaPedido(Long id){

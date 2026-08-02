@@ -8,6 +8,7 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -54,6 +55,9 @@ public class Pedido {
     private List<PedidoItem> pedidoItems;
 
     public void adicionarItem(PedidoItem item) {
+        if (this.pedidoItems == null) {
+            this.pedidoItems = new ArrayList<>();
+        }
         this.pedidoItems.add(item);
         item.setPedido(this);
     }
