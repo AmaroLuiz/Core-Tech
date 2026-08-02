@@ -40,8 +40,6 @@ public class PedidoService {
 
         Pedido pedido = pedidoConverter.paraPedidoEntity(pedidoRequestDTO);
 
-        BigDecimal valorProduto = BigDecimal.ZERO;
-
         for (PedidoItem item : pedido.getPedidoItems()) {
 
             item.setPedido(pedido);
@@ -50,13 +48,9 @@ public class PedidoService {
                     .orElseThrow(() -> new ResourceNotFoundException(
                             "Produto não encontrado " + item.getProduto().getId()));
 
-            item.setPrecoUnitario(produto.getPreco());
+            item.setProduto(produto);
 
-            item.setSubTotal(
-                    produto.getPreco().multiply(BigDecimal.valueOf(item.getQuantidade()))
-            );
-
-            valorProduto = valorProduto.add(item.getSubTotal());
+            item.recalcValores();
         }
 
         String email = authService.getUsuarioAutenticadoEmail();
@@ -66,9 +60,7 @@ public class PedidoService {
 
         pedido.setUsuario(usuario);
 
-        pedido.setValorProduto(valorProduto);
-        pedido.setValorFrete(BigDecimal.valueOf(10.00));
-        pedido.setValorTotal(pedido.getValorProduto().add(pedido.getValorFrete()));
+        pedido.recalcValores();
 
         Pedido pedidoSalvo = pedidoRepository.save(pedido);
 
@@ -95,21 +87,14 @@ public class PedidoService {
                     () -> new ResourceNotFoundException("Produto não encontrado " + item.getProduto().getId())
             );
 
+            item.setProduto(produto);
 
-            item.setPrecoUnitario(produto.getPreco());
-            item.setSubTotal(produto.getPreco()
-                    .multiply(BigDecimal.valueOf(item.getQuantidade())));
+            item.recalcValores();
+
             pedido.adicionarItem(item);
         }
 
-        BigDecimal novoValorProduto = BigDecimal.ZERO;
-
-        for (PedidoItem item : pedido.getPedidoItems()) {
-            novoValorProduto = novoValorProduto.add(item.getSubTotal());
-        }
-
-        pedido.setValorProduto(novoValorProduto);
-        pedido.setValorTotal(novoValorProduto.add(pedido.getValorFrete()));
+        pedido.recalcValores();
 
         Pedido pedidoSalvo = pedidoRepository.saveAndFlush(pedido);
 
@@ -126,13 +111,14 @@ public class PedidoService {
 
         Usuario usuario = pedido.getUsuario();
 
-        if (!usuario.getEmail().equals(email)){
-            throw new ConflictExceptions("Pedido não pertence ao usuario " + email);
-        }
-
 //        if (pedido == null){
 //            throw new ResourceNotFoundException("Usuario não possui pedidos " + email);
 //        }
+
+        if (!usuario.getEmail().equals(email)){
+            throw new AccessDeniedException("Pedido não pertence ao usuario " + email);
+        }
+
 
         return pedidoConverter.paraPedidoResponseDTO(pedido);
     }
@@ -190,20 +176,13 @@ public class PedidoService {
             throw new AccessDeniedException("Item de pedido não pertence ao usuario " + email);
         }
 
-        BigDecimal valor = BigDecimal.ZERO;
-        valor = pedidoItem.getSubTotal();
-
         Pedido pedido = pedidoItem.getPedido();
 
+        pedido.getPedidoItems().remove(pedidoItem);
 
-        pedido.setValorProduto(pedido.getValorProduto().subtract(valor));
-
-        pedido.setValorTotal(pedido.getValorTotal().subtract(valor));
-
+        pedido.recalcValores();
 
         pedidoRepository.save(pedido);
-
-        pedidoItemRepository.delete(pedidoItem);
 
     }
 
@@ -239,6 +218,9 @@ public class PedidoService {
         if (!pedidoItem.getPedido().getUsuario().getEmail().equals(email)){
             throw new AccessDeniedException("Item de pedido não pertence ao usuario " + email);
         }
+
+        pedidoConverter.updatePedidoItem(pedidoItemRequestDTO, pedidoItem);
+
         if (pedidoItemRequestDTO.getProdutoId() != null){
             Produto produto = produtoRepository.findById(pedidoItemRequestDTO.getProdutoId())
                     .orElseThrow(
@@ -246,25 +228,11 @@ public class PedidoService {
                     );
             pedidoItem.setProduto(produto);
         }
-        if (pedidoItemRequestDTO.getQuantidade() != null){
-            pedidoItem.setQuantidade(pedidoItemRequestDTO.getQuantidade());
-        }
 
-
-        pedidoItem.setPrecoUnitario(pedidoItem.getProduto().getPreco());
-        pedidoItem.setSubTotal(pedidoItem.getPrecoUnitario().multiply(BigDecimal.valueOf(pedidoItem.getQuantidade())));
+        pedidoItem.recalcValores();
 
         Pedido pedido = pedidoItem.getPedido();
-
-        BigDecimal novoValorProduto = BigDecimal.ZERO;
-
-        for (PedidoItem item : pedido.getPedidoItems()) {
-            novoValorProduto = novoValorProduto.add(item.getSubTotal());
-        }
-
-        pedido.setValorProduto(novoValorProduto);
-        pedido.setValorTotal(novoValorProduto.add(pedido.getValorFrete()));
-
+        pedido.recalcValores();
 
         pedidoRepository.save(pedido);
 

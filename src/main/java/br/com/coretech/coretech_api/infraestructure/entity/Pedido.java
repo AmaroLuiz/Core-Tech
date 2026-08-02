@@ -62,6 +62,30 @@ public class Pedido {
         item.setPedido(this);
     }
 
+    public void recalcValores() {
+        BigDecimal valorProduto = BigDecimal.ZERO;
+        BigDecimal valorFrete = BigDecimal.valueOf(10.00);
+        BigDecimal valorTotal = BigDecimal.ZERO;
+
+        if (this.pedidoItems != null) {
+
+            for (PedidoItem item : pedidoItems) {
+                valorTotal = valorTotal.add(item.getSubTotal());
+                valorProduto = valorProduto.add(item.getSubTotal());
+            }
+
+            valorTotal = valorTotal.add(valorFrete);
+            this.valorFrete = valorFrete;
+            this.valorProduto = valorProduto;
+            this.valorTotal = valorTotal;
+        } else {
+            this.valorProduto = BigDecimal.ZERO;
+            this.valorFrete = BigDecimal.ZERO;
+            this.valorTotal = BigDecimal.ZERO;
+        }
+
+    }
+
     @PrePersist
     private void prePersist() {
         this.dataCriacao = LocalDateTime.now();
