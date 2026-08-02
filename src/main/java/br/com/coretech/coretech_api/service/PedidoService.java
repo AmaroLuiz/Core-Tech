@@ -116,7 +116,7 @@ public class PedidoService {
 //        }
 
         if (!usuario.getEmail().equals(email)){
-            throw new ConflictExceptions("Pedido não pertence ao usuario " + email);
+            throw new AccessDeniedException("Pedido não pertence ao usuario " + email);
         }
 
 
@@ -218,6 +218,9 @@ public class PedidoService {
         if (!pedidoItem.getPedido().getUsuario().getEmail().equals(email)){
             throw new AccessDeniedException("Item de pedido não pertence ao usuario " + email);
         }
+
+        pedidoConverter.updatePedidoItem(pedidoItemRequestDTO, pedidoItem);
+
         if (pedidoItemRequestDTO.getProdutoId() != null){
             Produto produto = produtoRepository.findById(pedidoItemRequestDTO.getProdutoId())
                     .orElseThrow(
@@ -225,14 +228,10 @@ public class PedidoService {
                     );
             pedidoItem.setProduto(produto);
         }
-        if (pedidoItemRequestDTO.getQuantidade() != null){
-            pedidoItem.setQuantidade(pedidoItemRequestDTO.getQuantidade());
-        }
 
         pedidoItem.recalcValores();
 
         Pedido pedido = pedidoItem.getPedido();
-
         pedido.recalcValores();
 
         pedidoRepository.save(pedido);
