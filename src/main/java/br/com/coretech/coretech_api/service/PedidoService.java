@@ -198,6 +198,52 @@ public class PedidoService {
     }
 
     @Transactional
+    public PedidoItemResponseDTO atualizaPedidoItem(Long id,
+                                                    PedidoItemRequestDTO pedidoItemRequestDTO){
+
+        String email = authService.getUsuarioAutenticadoEmail();
+
+        PedidoItem pedidoItem = pedidoItemRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Item de pedido não encontrado")
+        );
+
+        if (!pedidoItem.getPedido().getUsuario().getEmail().equals(email)){
+            throw new AccessDeniedException("Item de pedido não pertence ao usuario " + email);
+        }
+        if (pedidoItemRequestDTO.getProdutoId() != null){
+            Produto produto = produtoRepository.findById(pedidoItemRequestDTO.getProdutoId())
+                    .orElseThrow(
+                            () -> new ResourceNotFoundException("Produto não encontrado " + pedidoItemRequestDTO.getProdutoId())
+                    );
+            pedidoItem.setProduto(produto);
+        }
+        if (pedidoItemRequestDTO.getQuantidade() != null){
+            pedidoItem.setQuantidade(pedidoItemRequestDTO.getQuantidade());
+        }
+
+
+        pedidoItem.setPrecoUnitario(pedidoItem.getProduto().getPreco());
+        pedidoItem.setSubTotal(pedidoItem.getPrecoUnitario().multiply(BigDecimal.valueOf(pedidoItem.getQuantidade())));
+
+        Pedido pedido = pedidoItem.getPedido();
+
+        BigDecimal novoValorProduto = BigDecimal.ZERO;
+
+        for (PedidoItem item : pedido.getPedidoItems()) {
+            novoValorProduto = novoValorProduto.add(item.getSubTotal());
+        }
+
+        pedido.setValorProduto(novoValorProduto);
+        pedido.setValorTotal(novoValorProduto.add(pedido.getValorFrete()));
+
+
+        pedidoRepository.save(pedido);
+
+        return pedidoConverter.paraPedidoItemResponseDTO(pedidoItem);
+
+    }
+
+    @Transactional
     public void apagarPedidoItem(Long id){
         String email = authService.getUsuarioAutenticadoEmail();
 

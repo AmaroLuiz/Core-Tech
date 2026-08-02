@@ -58,4 +58,9 @@ public interface PedidoConverter {
     @Mapping(source = "pedido.id", target = "pedidoId")
     @Mapping(source = "produto.id", target = "produtoId")
     PedidoItemRequestDTO paraPedidoItemRequestDTO(PedidoItem pedidoItem);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "pedido", ignore = true)
+    PedidoItem updatePedidoItem(PedidoItemRequestDTO dto, @MappingTarget PedidoItem entity);
 }

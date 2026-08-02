@@ -67,4 +67,10 @@ public class PedidoController {
         return ResponseEntity.ok().build();
     }
 
+    @PatchMapping("/atualizar-pedido-item")
+    public ResponseEntity<PedidoItemResponseDTO> atualizarPedidoItem(@RequestParam("id") Long id,
+                                                                     @RequestBody PedidoItemRequestDTO pedidoItemRequestDTO){
+        return ResponseEntity.ok(pedidoService.atualizaPedidoItem(id, pedidoItemRequestDTO));
+    }
+
 }
