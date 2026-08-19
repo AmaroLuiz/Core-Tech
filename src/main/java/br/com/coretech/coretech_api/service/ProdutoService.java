@@ -130,6 +130,14 @@ public class ProdutoService {
 
     }
 
+    public CategoriaDTO exibirCategoriaPorId(Long id){
+        Categoria categoria = categoriaRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Categoria não encontrada " + id)
+        );
+
+        return produtoConverter.paraCategoriaDTO(categoria);
+    }
+
     @Transactional
     public void apagarCategoria(Long id){
         categoriaRepository.deleteById(id);
@@ -141,7 +149,7 @@ public class ProdutoService {
     }
 
     @Transactional
-    public ProdutoDTO atualizaProduto(Long id, ProdutoDTO produtoDTO){
+    public ProdutoResponseDTO atualizaProduto(Long id, ProdutoDTO produtoDTO){
 
         Produto produto = produtoRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Produto não encontrado " + id)
@@ -153,7 +161,7 @@ public class ProdutoService {
             verificaProdutoExistente(produtoAtualizado.getSku());
         }
 
-        return produtoConverter.paraProdutoDTO(produtoRepository.save(produtoAtualizado));
+        return produtoConverter.paraProdutoResponseDTO(produtoRepository.save(produtoAtualizado));
     }
 
     @Transactional

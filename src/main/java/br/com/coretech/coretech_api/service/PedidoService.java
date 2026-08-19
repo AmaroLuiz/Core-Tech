@@ -123,12 +123,12 @@ public class PedidoService {
         return pedidoConverter.paraPedidoResponseDTO(pedido);
     }
 
-    public PedidoItemResponseDTO buscarPedidoItem(Long id){
+    public PedidoItemResponseDTO buscarPedidoItem(Long pedidoId, Long itemId){
 
         String email = authService.getUsuarioAutenticadoEmail();
 
-        PedidoItem pedidoItem = pedidoItemRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Item de pedido não encontrado")
+        PedidoItem pedidoItem = pedidoItemRepository.findByIdAndPedidoId(itemId, pedidoId).orElseThrow(
+                () -> new ResourceNotFoundException("Pedido ou item não encontrado")
         );
 
         if (!pedidoItem.getPedido().getUsuario().getEmail().equals(email)){
@@ -165,11 +165,11 @@ public class PedidoService {
     }
 
     @Transactional
-    public void apagarPedidoItem(Long id){
+    public void apagarPedidoItem(Long pedidoId,Long itemId){
         String email = authService.getUsuarioAutenticadoEmail();
 
-        PedidoItem pedidoItem = pedidoItemRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Item de pedido não encontrado")
+        PedidoItem pedidoItem = pedidoItemRepository.findByIdAndPedidoId(itemId, pedidoId).orElseThrow(
+                () -> new ResourceNotFoundException("Pedido ou item de pedido não encontrado")
         );
 
         if (!pedidoItem.getPedido().getUsuario().getEmail().equals(email)){
@@ -206,12 +206,12 @@ public class PedidoService {
     }
 
     @Transactional
-    public PedidoItemResponseDTO atualizaPedidoItem(Long id,
+    public PedidoItemResponseDTO atualizaPedidoItem(Long pedidoId,Long itemId,
                                                     PedidoItemRequestDTO pedidoItemRequestDTO){
 
         String email = authService.getUsuarioAutenticadoEmail();
 
-        PedidoItem pedidoItem = pedidoItemRepository.findById(id).orElseThrow(
+        PedidoItem pedidoItem = pedidoItemRepository.findByIdAndPedidoId(itemId, pedidoId).orElseThrow(
                 () -> new ResourceNotFoundException("Item de pedido não encontrado")
         );
 
