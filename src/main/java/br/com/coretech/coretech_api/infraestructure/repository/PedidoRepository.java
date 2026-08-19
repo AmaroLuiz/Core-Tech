@@ -1,5 +1,6 @@
 package br.com.coretech.coretech_api.infraestructure.repository;
 
+import br.com.coretech.coretech_api.infraestructure.Enums.PagamentoStatus;
 import br.com.coretech.coretech_api.infraestructure.entity.Pedido;
 import jakarta.persistence.Id;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
 
     Optional<Pedido> findByIdAndUsuarioEmail(Long id, String email);
+
+    Optional<Pedido> findByUsuarioEmailAndStatus(String email, PagamentoStatus status);
+
+
 }

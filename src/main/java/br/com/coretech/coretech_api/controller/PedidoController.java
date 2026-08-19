@@ -23,54 +23,57 @@ public class PedidoController {
     private final PedidoRepository pedidoRepository;
 
 
-    @PostMapping("/criar-pedido")
+    @PostMapping
     public ResponseEntity<PedidoResponseDTO> salvaPedido(@Valid @RequestBody PedidoRequestDTO pedidoRequestDTO) {
         return ResponseEntity.ok(pedidoService.salvaPedido(pedidoRequestDTO));
     }
 
-    @GetMapping("/buscar-pedido-{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PedidoResponseDTO> buscaPedido(@PathVariable Long id){
         return ResponseEntity.ok(pedidoService.buscaPedido(id));
     }
 
-    @GetMapping("/buscar-todos-pedidos")
+    @GetMapping
     public ResponseEntity<List<PedidoResponseDTO>> buscaTodosPedidos(){
         return ResponseEntity.ok(pedidoService.buscarTodosPedidos());
     }
 
-    @DeleteMapping("/apagar-pedido")
-    public ResponseEntity<Void> apagarPedido(@RequestParam("id") Long id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> apagarPedido(@PathVariable Long id){
         pedidoService.apagarPedido(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/atualizar-pedido")
-    public ResponseEntity<PedidoResponseDTO> atualizaPedido(@RequestParam("id") Long id,
+    @PutMapping("/{id}")
+    public ResponseEntity<PedidoResponseDTO> atualizaPedido(@PathVariable Long id,
                                                             @RequestBody PedidoRequestDTO pedidoRequestDTO){
         return ResponseEntity.ok(pedidoService.atualizaPedido(id, pedidoRequestDTO));
     }
 
-    @PostMapping("/criar-pedido-item")
-    public ResponseEntity<List<PedidoItemResponseDTO>> salvaPedidoItem(@RequestParam("id") Long id
+    @PostMapping("/{id}/itens")
+    public ResponseEntity<List<PedidoItemResponseDTO>> salvaPedidoItem(@PathVariable Long id
             ,@RequestBody List<PedidoItemRequestDTO> pedidoItemRequestDTO) {
        return ResponseEntity.ok(pedidoService.salvaPedidoItem(id, pedidoItemRequestDTO));
     }
 
-    @GetMapping("/buscar-pedido-item")
-    public ResponseEntity<PedidoItemResponseDTO> buscaPedidoItem(@RequestParam("id") Long id){
-        return ResponseEntity.ok(pedidoService.buscarPedidoItem(id));
+    @GetMapping("/{pedidoId}/itens/{itemId}")
+    public ResponseEntity<PedidoItemResponseDTO> buscaPedidoItem(@PathVariable Long pedidoId,
+                                                                 @PathVariable Long itemId){
+        return ResponseEntity.ok(pedidoService.buscarPedidoItem(pedidoId, itemId));
     }
 
-    @DeleteMapping("/apagar-pedido-item")
-    public ResponseEntity<Void> apagarPedidoItem(@RequestParam("id") Long id){
-        pedidoService.apagarPedidoItem(id);
+    @DeleteMapping("/{pedidoId}/itens/{itemId}")
+    public ResponseEntity<Void> apagarPedidoItem(@PathVariable Long pedidoId,
+                                                 @PathVariable Long itemId){
+        pedidoService.apagarPedidoItem(pedidoId, itemId);
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/atualizar-pedido-item")
-    public ResponseEntity<PedidoItemResponseDTO> atualizarPedidoItem(@RequestParam("id") Long id,
+    @PatchMapping("/{pedidoId}/itens/{itemId}")
+    public ResponseEntity<PedidoItemResponseDTO> atualizarPedidoItem(@PathVariable Long pedidoId,
+                                                                     @PathVariable Long itemId,
                                                                      @RequestBody PedidoItemRequestDTO pedidoItemRequestDTO){
-        return ResponseEntity.ok(pedidoService.atualizaPedidoItem(id, pedidoItemRequestDTO));
+        return ResponseEntity.ok(pedidoService.atualizaPedidoItem(pedidoId, itemId, pedidoItemRequestDTO));
     }
 
 }

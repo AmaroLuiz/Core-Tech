@@ -23,55 +23,60 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoService.salvaProduto(produtoDTO));
     }
 
-    @PostMapping("/categoria")
+    @PostMapping("/categorias")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoriaDTO> salvaCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO){
         return ResponseEntity.ok(produtoService.salvaCategoria(categoriaDTO));
     }
+
     @GetMapping("/dashboard")
     public ResponseEntity<DashboardDTO> exibirDashboard(){
         return ResponseEntity.ok(produtoService.exibirDashboard());
     }
 
-    @GetMapping("/slug/{slug}")
+    @GetMapping("/categorias/{slug}/produtos")
     public ResponseEntity<List<ProdutoResponseDTO>> exibirProdutoPorCategoria(@PathVariable
                                                                  String slug) {
         return ResponseEntity.ok(produtoService.exibirProdutoPorCategoria(slug));
     }
 
-    @GetMapping("/categoria-all")
+    @GetMapping("/todos")
     public ResponseEntity<List<ProdutoResponseDTO>> listarTodosProdutos() {
         return ResponseEntity.ok(produtoService.listarTodosOsProdutos());
     }
 
-    @GetMapping("/id-{id}")
-    public ResponseEntity<ProdutoResumoDTO> exibirProdutoPorId(@PathVariable Long id){
-
+    @GetMapping
+    public ResponseEntity<ProdutoResumoDTO> exibirProdutoPorId(@RequestParam("id") Long id){
         return ResponseEntity.ok(produtoService.exibirProdutoPorId(id));
     }
-//    @GetMapping("/")
 
-    @GetMapping("/sku-{sku}")
-    public ResponseEntity<ProdutoResumoDTO> exibirProdutoPorSku(@PathVariable String sku){
+    @GetMapping("/sku")
+    public ResponseEntity<ProdutoResumoDTO> exibirProdutoPorSku(@RequestParam("sku") String sku){
         return ResponseEntity.ok(produtoService.exibirProdutoPorSku(sku));
     }
 
-    @GetMapping("/nome-{nome}")
-    public ResponseEntity<ProdutoResumoDTO> exibirProdutoPorNome(@PathVariable String nome){
+    @GetMapping("/nome")
+    public ResponseEntity<ProdutoResumoDTO> exibirProdutoPorNome(@RequestParam("nome") String nome){
         return ResponseEntity.ok(produtoService.exibirProdutoPorNome(nome));
     }
-    @GetMapping("/todas-categoria")
+
+    @GetMapping("/categorias")
     public ResponseEntity<List<CategoriaDTO>> exibirTodasCategorias(){
         return ResponseEntity.ok(produtoService.exibirTodasCategorias());
     }
 
+    @GetMapping("/categorias/{id}")
+    public ResponseEntity<CategoriaDTO> exibirCategoriaPorId(@PathVariable Long id){
+        return ResponseEntity.ok(produtoService.exibirCategoriaPorId(id));
+    }
 
-    @DeleteMapping("/deletar/categoria")
+    @DeleteMapping("/categoria")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deletarCategoria(@RequestParam("id") Long id){
         produtoService.apagarCategoria(id);
         return ResponseEntity.ok().build();
     }
+
     @DeleteMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deletarProduto(@RequestParam("id") Long id){
@@ -81,15 +86,18 @@ public class ProdutoController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ProdutoDTO> atualizaProduto(@PathVariable Long id,
+    public ResponseEntity<ProdutoResponseDTO> atualizaProduto(@PathVariable Long id,
                                                       @RequestBody ProdutoDTO produtoDTO){
         return ResponseEntity.ok(produtoService.atualizaProduto(id, produtoDTO));
     }
-    @PutMapping("/atualizar/categoria/{id}")
+
+    @PutMapping("/categoria/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<CategoriaDTO> atualizaCategoria(@PathVariable Long id,
                                                           @RequestBody CategoriaDTO categoriaDTO
     ){
         return ResponseEntity.ok(produtoService.atualizaCategoria(id, categoriaDTO));
     }
+
+
 }

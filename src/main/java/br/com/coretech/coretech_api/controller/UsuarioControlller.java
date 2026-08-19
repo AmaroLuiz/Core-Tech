@@ -27,17 +27,17 @@ public class UsuarioControlller {
     private final AuthService authService;
 
 
-    @PostMapping("/criar")
+    @PostMapping("/signup")
     public ResponseEntity<LoginDTO> salvaUsuario(@Valid @RequestBody LoginDTO loginDTO) {
         return ResponseEntity.ok(usuarioService.salvaUsuario(loginDTO));
     }
 
-    @PostMapping("/criar/telefone")
+    @PostMapping("/me/telefone")
     public ResponseEntity<TelefoneDTO> salvaTelefone(@Valid @RequestBody TelefoneDTO telefoneDTO) {
         return ResponseEntity.ok(usuarioService.salvaTelefone(telefoneDTO));
     }
 
-    @PostMapping("/criar/endereco")
+    @PostMapping("/me/endereco")
     public ResponseEntity<EnderecoDTO> salvaEndereco(@Valid @RequestBody EnderecoDTO enderecoDTO) {
         return ResponseEntity.ok(usuarioService.salvaEndereco(enderecoDTO));
     }
@@ -54,7 +54,7 @@ public class UsuarioControlller {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login( @Valid @RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<String> login(@Valid @RequestBody LoginDTO loginDTO) {
         String token = authService.login(loginDTO);
         return ResponseEntity.ok(token);
     }

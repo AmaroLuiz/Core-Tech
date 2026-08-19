@@ -16,6 +16,10 @@ public class EnderecoDTO {
     private Long id;
 
     @NotBlank(message = "Estado é obrigatório")
+    @Pattern(
+            regexp = "[A-Za-z]{2}",
+            message = "Estado deve conter apenas 2 characters"
+    )
     private String estado;
 
     @NotBlank(message = "Cidade é obrigatória")
